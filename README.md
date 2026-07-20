@@ -1,4 +1,4 @@
-# khaemenesacademy
+# khaemenesacademy.org
 
 # 🎓 Khaemenes Academy
 
