@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khaemenes Academy Homeschool Compass Portal v2</title>
+  <style>
+    :root{
+      --ink:#111;
+      --paper:#fbfbf8;
+      --soft:#f0eee8;
+      --line:#222;
+      --muted:#6b6b66;
+      --mist:#e7e4dc;
+      --cream:#fffdf7;
+      --success:#193b23;
+      --warn:#60420b;
+      --shadow: 0 14px 40px rgba(0,0,0,.08);
+      --radius: 22px;
+      --max: 1220px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Georgia, 'Times New Roman', serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,.04), transparent 33rem),
+        linear-gradient(180deg, #fff, var(--paper));
+      line-height:1.5;
+    }
+    button, input, select, textarea{font:inherit}
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px}
+    .hero{
+      max-width:var(--max);
+      margin:24px auto 12px;
+      padding:44px 34px;
+      border:1px solid var(--line);
+      outline: 1px solid var(--line);
+      outline-offset:-8px;
+      background:rgba(255,255,255,.74);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before,.hero:after{
+      content:"";
+      position:absolute;
+      width:180px;height:180px;border:1px solid rgba(0,0,0,.08);border-radius:50%;
+      pointer-events:none;
+    }
+    .hero:before{right:-70px;top:-70px}
+    .hero:after{left:-90px;bottom:-90px}
+    .crest{
+      width:74px;height:74px;border:1px solid #111;border-radius:50%;
+      display:grid;place-items:center;margin:0 auto 16px;background:#fff;
+      font-size:42px;line-height:1;font-weight:bold;
+      box-shadow: inset 0 0 0 5px #fff, inset 0 0 0 6px #111;
+    }
+    h1,h2,h3{line-height:1.08;margin:0 0 12px}
+    h1{text-align:center;font-size:clamp(2.1rem,5vw,4.9rem);letter-spacing:.08em;text-transform:uppercase}
+    .subtitle{text-align:center;max-width:860px;margin:0 auto;font-size:1.1rem;color:var(--muted)}
+    .kicker{text-align:center;text-transform:uppercase;letter-spacing:.24em;font-size:.78rem;color:#444;margin:10px 0 0}
+    .notice{
+      border:1px solid var(--line);
+      border-left:8px solid var(--line);
+      background:#fff;
+      padding:16px 18px;
+      margin:20px 0;
+      border-radius:14px;
+      font-size:.97rem;
+    }
+    .nav{
+      position:sticky;top:0;z-index:20;background:rgba(251,251,248,.92);backdrop-filter:blur(9px);
+      border-bottom:1px solid var(--mist);
+    }
+    .nav .wrap{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;padding:12px 20px}
+    .pill,.btn{
+      border:1px solid var(--line);background:#fff;color:#111;border-radius:999px;padding:10px 14px;text-decoration:none;cursor:pointer;
+      transition:.18s ease;display:inline-flex;gap:8px;align-items:center;justify-content:center;
+    }
+    .pill:hover,.btn:hover{background:#111;color:#fff;transform:translateY(-1px)}
+    .btn.primary{background:#111;color:#fff}.btn.primary:hover{background:#333}
+    .btn.ghost{background:transparent}.btn.small{padding:7px 10px;font-size:.9rem}
+    .grid{display:grid;gap:18px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.05);
+    }
+    .card.soft{border-color:var(--mist);background:rgba(255,255,255,.65)}
+    .section{margin:34px 0}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px}
+    .section-title h2{text-transform:uppercase;letter-spacing:.08em;font-size:clamp(1.35rem,3vw,2.3rem)}
+    label{display:block;font-weight:bold;font-size:.94rem;margin:0 0 7px}
+    input,select,textarea{
+      width:100%;border:1px solid #111;border-radius:12px;background:#fff;padding:10px 12px;min-height:43px;
+    }
+    textarea{min-height:92px;resize:vertical}.field{margin-bottom:14px}.hint{font-size:.88rem;color:var(--muted);margin-top:5px}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .student-card{position:relative}.student-card .remove{position:absolute;right:16px;top:16px}
+    .badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #111;border-radius:999px;padding:5px 10px;background:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+    .badge.warn{border-color:#6c4a09;color:#4b3102;background:#fff8e8}.badge.ok{border-color:#1d4c2a;color:#16351e;background:#effaf2}.badge.high{background:#111;color:#fff}
+    .legal-card{display:grid;gap:12px}.legal-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}.legal-list li{border-bottom:1px dashed var(--mist);padding-bottom:8px}.legal-list b{display:inline-block;min-width:160px}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+    th,td{border:1px solid var(--mist);padding:10px;vertical-align:top;text-align:left}th{background:#111;color:#fff;font-weight:normal;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem}td.time{white-space:nowrap;font-weight:bold;background:#faf9f4}
+    .schedule-wrap{overflow:auto;border-radius:15px}.result-student{margin:20px 0 28px}.result-header{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#f7f5ef;border:1px solid var(--mist);border-radius:999px;padding:6px 10px;font-size:.86rem;color:#333}
+    .score{font-size:.86rem;color:var(--muted)}
+    .smalltext{font-size:.92rem;color:var(--muted)}
+    .checklist{columns:2;column-gap:28px;margin:8px 0 0;padding-left:20px}.checklist li{break-inside:avoid;margin:0 0 7px}
+    .state-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.state-mini{border:1px solid var(--mist);border-radius:14px;padding:12px;background:#fff;cursor:pointer;transition:.15s ease}.state-mini:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.06);border-color:#111}.state-mini b{display:block}.state-mini small{color:var(--muted)}
+    .deadline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}.deadline-box{border:1px solid var(--mist);border-radius:14px;padding:12px;background:#fff}.deadline-box span{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px}.deadline-box b{font-size:.94rem}.source-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.source-links a{display:inline-flex;align-items:center;border:1px solid #111;border-radius:999px;padding:6px 10px;background:#fff;text-decoration:none;color:#111;font-size:.85rem}.source-links a:hover{background:#111;color:#fff}.legal-list li span{color:#333}
+    .timeline{display:grid;gap:10px}.timeline .step{border-left:3px solid #111;background:#fff;padding:12px 14px;border-radius:0 12px 12px 0}
+    .footer{padding:40px 20px;text-align:center;color:var(--muted)}
+
+    .portal-overview{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+    .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .feature-card{border:1px solid var(--mist);border-radius:18px;background:#fff;padding:16px;min-height:120px}
+    .feature-card .num{width:32px;height:32px;border:1px solid #111;border-radius:50%;display:grid;place-items:center;margin-bottom:10px;font-weight:bold}
+    .metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+    .metric{border:1px solid #111;border-radius:18px;padding:14px;background:#fff;text-align:center}
+    .metric b{display:block;font-size:clamp(1.2rem,3vw,2.1rem)}
+    .metric span{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+    .packet-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}
+    .packet-section{border-top:1px solid var(--mist);padding-top:18px;margin-top:18px}
+    details.alt-schedules{border:1px solid var(--mist);border-radius:16px;padding:12px 14px;background:#fff;margin-top:14px}
+    details.alt-schedules summary{cursor:pointer;font-weight:bold}
+    .mini-table{font-size:.92rem}.mini-table th{font-size:.74rem}.mini-table td{background:#fff}
+    .roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+    .roadmap .year{border:1px solid var(--mist);border-radius:16px;background:#fff;padding:14px}
+    .callout{border:1px solid var(--line);border-left:8px solid var(--line);border-radius:16px;padding:14px 16px;background:#fff}
+
+    .hidden{display:none!important}
+    .print-note{display:none}
+    @media(max-width:800px){.two,.three,.portal-overview,.feature-grid,.metric-grid{grid-template-columns:1fr}.hero{margin:8px 10px;padding:34px 22px}.wrap{padding:16px}.section-title{display:block}.checklist{columns:1}th,td{min-width:160px}.nav{position:relative}}
+    @media print{
+      body{background:#fff}.nav,.hero .btn,.no-print,#questionnaire,#stateLibrary{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;break-inside:avoid}.hero{box-shadow:none;border:none;outline:none;margin:0;padding:10px}.section{page-break-inside:avoid}.print-note{display:block}.btn{display:none!important}a{text-decoration:none}.notice{border-left:1px solid #111}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="crest">K</div>
+    <p class="kicker">Khaemenes Academy</p>
+    <h1>Homeschool Compass</h1>
+    <p class="subtitle">Portal v2 · An offline-friendly 50-state planning studio that asks parents a comprehensive questionnaire and generates customized K–12 weekly learning schedules, portfolio packets, high-school tracking notes, and printable family plans.</p>
+    <div class="row" style="justify-content:center;margin-top:22px">
+      <a class="btn primary" href="#questionnaire">Begin Questionnaire</a>
+      <a class="btn" href="#stateLibrary">View 50-State Library</a>
+      <button class="btn ghost" id="loadSavedBtn" type="button">Load Saved Plan</button>
+    </div>
+  </header>
+
+  <nav class="nav no-print">
+    <div class="wrap">
+      <a class="pill" href="#portalOverview">Portal Overview</a>
+      <a class="pill" href="#questionnaire">Questionnaire</a>
+      <a class="pill" href="#results">Generated Plan</a>
+      <a class="pill" href="#stateLibrary">50-State Rules</a>
+      <a class="pill" href="#sources">Sources</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div class="notice">
+      <b>Important:</b> This app is an educational planning tool, not legal advice. Homeschool laws change. Families should verify current requirements with their state education department, local district, or qualified legal resource before acting.
+    </div>
+
+
+
+    <section id="portalOverview" class="section">
+      <div class="section-title">
+        <h2>Academy Portal Overview</h2>
+        <span class="badge">Portal v2</span>
+      </div>
+      <div class="portal-overview">
+        <div class="card">
+          <h3>Khaemenes Academy Homeschool Compass</h3>
+          <p>This version turns the planner into a parent-facing portal page: families can choose a state, build student profiles, generate schedules, print a family packet, and keep yearly documentation organized from Kindergarten through 12th grade.</p>
+          <div class="feature-grid">
+            <div class="feature-card"><div class="num">1</div><b>State Card</b><p class="smalltext">Shows notice, records, assessment, parent qualification, graduation notes, and verification links.</p></div>
+            <div class="feature-card"><div class="num">2</div><b>Family Questionnaire</b><p class="smalltext">Captures grade, rhythm, learning style, support needs, electives, and high-school pathway.</p></div>
+            <div class="feature-card"><div class="num">3</div><b> Engine</b><p class="smalltext">Generates many schedule options and scores them for fit, balance, and documentation needs.</p></div>
+            <div class="feature-card"><div class="num">4</div><b>Printable Packet</b><p class="smalltext">Produces schedules, portfolio checklists, compliance rhythm, course notes, and registrar guidance.</p></div>
+          </div>
+        </div>
+        <div class="card soft">
+          <h3>Parent Packet Includes</h3>
+          <ul class="checklist">
+            <li>Family cover sheet</li>
+            <li>State compliance planning card</li>
+            <li>Weekly schedule by student</li>
+            <li>Alternative schedule options</li>
+            <li>Portfolio checklist</li>
+            <li>High-school registrar notes</li>
+            <li>K–12 course pathway notes</li>
+            <li>Annual compliance rhythm</li>
+          </ul>
+          <p class="hint">Use Print / Save PDF after generating a plan to create a parent binder page.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="questionnaire" class="section">
+      <div class="section-title">
+        <h2>Parent Questionnaire</h2>
+        <span class="badge">Planner</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>1. Family + State</h3>
+          <div class="field">
+            <label for="familyName">Family / Academy Name</label>
+            <input id="familyName" placeholder="Family Learning Space" value="Khaemenes Academy Learning Space" />
+          </div>
+          <div class="grid two">
+            <div class="field">
+              <label for="stateSelect">Homeschooling State</label>
+              <select id="stateSelect"></select>
+            </div>
+            <div class="field">
+              <label for="yearLabel">School Year</label>
+              <input id="yearLabel" value="2026–2027" />
+            </div>
+          </div>
+          <div id="selectedStateCard" class="card soft legal-card"></div>
+        </div>
+
+        <div class="card">
+          <h3>2. Family Rhythm</h3>
+          <div class="grid two">
+            <div class="field"><label for="daysPerWeek">Formal Lesson Days</label><select id="daysPerWeek"><option value="5">5 days</option><option value="4">4 days</option><option value="3">3 days + projects</option></select></div>
+            <div class="field"><label for="scheduleStyle">Preferred Style</label><select id="scheduleStyle"><option>Balanced</option><option>Classical</option><option>Charlotte Mason</option><option>Project-Based</option><option>Montessori-Inspired</option><option>Traditional</option><option>Loop Schedule</option><option>Unschooling-Friendly</option></select></div>
+            <div class="field"><label for="startTime">Start Time</label><input id="startTime" type="time" value="09:00" /></div>
+            <div class="field"><label for="blockMinutes">Average Lesson Block</label><select id="blockMinutes"><option value="25">25 minutes</option><option value="35">35 minutes</option><option value="45" selected>45 minutes</option><option value="60">60 minutes</option></select></div>
+            <div class="field"><label for="fieldDay">Field / Flexible Day</label><select id="fieldDay"><option>Friday</option><option>Monday</option><option>Wednesday</option><option>None</option></select></div>
+            <div class="field"><label for="faithMode">Content Preference</label><select id="faithMode"><option>Neutral / Flexible</option><option>Secular</option><option>Faith-integrated</option><option>Parent chooses by subject</option></select></div>
+          </div>
+          <div class="field"><label for="familyNeeds">Special family needs, work blocks, health needs, transportation limits, co-op days, or therapy appointments</label><textarea id="familyNeeds" placeholder="Example: Parent works 1–3 pm. Fridays are for field trips. Student needs movement breaks."></textarea></div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:28px">
+        <h2>Student Profiles</h2>
+        <button class="btn small" id="addStudentBtn" type="button">+ Add Student</button>
+      </div>
+      <div id="studentsArea" class="grid"></div>
+
+      <div class="card" style="margin-top:18px">
+        <h3>3. Generation Settings</h3>
+        <div class="grid three">
+          <div class="field"><label for="iterations"> Attempts</label><select id="iterations"><option value="150">150 quick</option><option value="300" selected>300 balanced</option><option value="700">700 deeper</option></select></div>
+          <div class="field"><label for="screenLimit">Screen-Time Preference</label><select id="screenLimit"><option>Balanced online/offline</option><option>Mostly offline</option><option>Online courses allowed</option><option>Parent decides daily</option></select></div>
+          <div class="field"><label for="portfolioDepth">Portfolio Depth</label><select id="portfolioDepth"><option>Light weekly samples</option><option selected>Balanced weekly + monthly</option><option>Detailed compliance binder</option><option>High-school registrar mode</option></select></div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn primary" id="generateBtn" type="button">Generate Custom Plan</button>
+          <button class="btn" id="saveBtn" type="button">Save in Browser</button>
+          <button class="btn" id="exportBtn" type="button">Export JSON</button>
+          <button class="btn" id="printBtn" type="button">Print / Save PDF</button>
+          <button class="btn" id="markdownBtn" type="button">Export Parent Packet</button>
+          <button class="btn" id="csvBtn" type="button">Export Schedule CSV</button>
+          <button class="btn" id="copyBtn" type="button">Copy Summary</button>
+          <button class="btn ghost" id="demoBtn" type="button">Load Demo</button>
+          <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <div class="section-title">
+        <h2>Generated Plan</h2>
+        <span id="runMeta" class="smalltext">No plan generated yet.</span>
+      </div>
+      <div id="resultsArea" class="card">
+        <p>Complete the questionnaire and select <b>Generate Custom Plan</b>. The app will create many possible weekly schedules, score them, and present the best fit for each student.</p>
+      </div>
+    </section>
+
+    <section id="stateLibrary" class="section">
+      <div class="section-title">
+        <h2>50-State Rules Library</h2>
+        <input id="stateSearch" placeholder="Search a state or rule level..." style="max-width:330px" />
+      </div>
+      <div id="stateGrid" class="state-grid"></div>
+    </section>
+
+    <section id="sources" class="section">
+      <div class="section-title"><h2>Source Notes</h2></div>
+      <div class="card">
+        <p>This expanded prototype uses a cautious official-source model: each state card includes practical planning summaries, filing/evaluation timing, record reminders, high-school notes, and direct links to state education department pages or state statutes where available. It intentionally does not claim to replace official state instructions, district procedures, umbrella-school rules, association requirements, or legal counsel.</p>
+        <ul>
+          <li><b>Official state links:</b> each state card includes direct verification links for that state.</li>
+          <li><b>U.S. Department of Education:</b> state regulation index for private and home school legal references.</li>
+          <li><b>HSLDA / national category check:</b> broad no-notice, low, moderate, and high regulation reference categories.</li>
+          <li><b>State-by-state caution:</b> local-approval states, umbrella-school states, and option-based states may have district, association, or school-specific deadlines.</li>
+        </ul>
+        <p class="smalltext">Data stamp inside this file: June 26, 2026. Verify before use.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Created for Khaemenes Academy Learning Space · No external libraries · No login · No server</p>
+  </footer>
+
+<script>
+const TIER_TEXT = {
+  "No notice": {
+    defaultBadge:"Low paperwork",
+    defaultPlanner:"Use a flexible family schedule; preserve proof of instruction and learning progress."
+  },
+  "Low regulation": {
+    defaultBadge:"Simple filing",
+    defaultPlanner:"Build a clean portfolio even when not required; it protects transfers, scholarships, and high-school records."
+  },
+  "Moderate regulation": {
+    defaultBadge:"Notice + records",
+    defaultPlanner:"Schedule compliance checkpoints each quarter and reserve a monthly portfolio review day."
+  },
+  "High regulation": {
+    defaultBadge:"Detailed compliance",
+    defaultPlanner:"Use registrar mode: objectives, weekly logs, samples by subject, assessment deadlines, and year-end reports."
+  }
+};
+
+const STATE_DETAILS = [
+  {
+    "code": "AL",
+    "name": "Alabama",
+    "tier": "Low regulation",
+    "badge": "Alabama: local notice / private or church-school pathway",
+    "filingDeadline": "Initial notice to the local public-school superintendent when using a home-school/private/church-school pathway; no recurring state registration deadline identified for independent home education.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation filing deadline.",
+    "notice": "Alabama does not use one standalone homeschool statute. Families generally educate through a private school, church school, or private tutor route. The Alabama State Superintendent has interpreted that home-school students are not required to register with the state, but parents initially notify the local superintendent.",
+    "records": "Keep enrollment/withdrawal proof, attendance/activity records, immunization/exemption records if required by the chosen school route, course list, reading list, and work samples.",
+    "assessment": "No state-mandated homeschool assessment under the common home education/church/private school routes; chosen cover schools may set their own rules.",
+    "subjects": "No state-mandated homeschool subject list for the common parent-directed route; teach a complete K\u201312 course of study.",
+    "attendance": "Chosen private/church school arrangements may set calendars. Keep an attendance calendar even when not submitted.",
+    "parentQualification": "No teaching certificate required for the common private/church school route; private tutor route has different qualification rules.",
+    "graduation": "Parent/cover-school issued records; maintain transcript, course descriptions, and diploma documentation.",
+    "planner": "Select the legal pathway first, then keep a clean withdrawal/enrollment file and yearly academic portfolio.",
+    "sourceLinks": [
+      {
+        "label": "Alabama State Department of Education \u2014 Homeschool",
+        "url": "https://www.alabamaachieves.org/homeschool/"
+      },
+      {
+        "label": "U.S. ED \u2014 Alabama State Regulations",
+        "url": "https://www.ed.gov/birth-grade-12-education/education-choice/state-regulation-of-private-and-home-schools/alabama-state-regulations-of-private-and-home-schools"
+      }
+    ]
+  },
+  {
+    "code": "AK",
+    "name": "Alaska",
+    "tier": "No notice",
+    "badge": "Alaska: no-notice independent homeschool option",
+    "filingDeadline": "No notice, registration, approval, or filing deadline for the independent homeschool exemption.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline for the independent homeschool exemption.",
+    "notice": "Independent homeschooling is exempt from compulsory school attendance reporting; families may begin without state or district approval.",
+    "records": "Even though not required for the independent option, keep attendance/activity logs, reading lists, work samples, and high-school transcript records.",
+    "assessment": "No state-mandated testing for independent homeschoolers. District correspondence programs have their own public-program requirements.",
+    "subjects": "No state-prescribed homeschool curriculum under the independent option.",
+    "attendance": "No independent-homeschool day/hour requirement; correspondence/public programs differ.",
+    "parentQualification": "No teacher qualification for independent homeschool option.",
+    "graduation": "Parent-issued completion records; correspondence/public programs may issue public records.",
+    "planner": "Use the schedule generator for learning structure, not compliance filing. Distinguish independent homeschool from district correspondence school.",
+    "sourceLinks": [
+      {
+        "label": "Alaska DEED \u2014 Alternative Schooling Options",
+        "url": "https://education.alaska.gov/alaskan_schools/schooloptions"
+      },
+      {
+        "label": "U.S. ED \u2014 Alaska State Regulations",
+        "url": "https://www.ed.gov/birth-grade-12-education/education-choice/state-regulation-of-private-and-home-schools/alaska-state-regulation-of-private-and-home-schools"
+      }
+    ]
+  },
+  {
+    "code": "AZ",
+    "name": "Arizona",
+    "tier": "Low regulation",
+    "badge": "Arizona: county affidavit within 30 days",
+    "filingDeadline": "File a notarized Affidavit of Intent with the county school superintendent within 30 days of beginning homeschool, withdrawing from school, or the child turning 6 if previously educated at home.",
+    "evaluationDeadline": "No annual evaluation/testing deadline.",
+    "notice": "Arizona requires a one-time county Affidavit of Intent for children of compulsory attendance age. Proof of birth is typically submitted with the affidavit. Notify the county within 30 days if homeschool instruction terminates.",
+    "records": "Keep affidavit copy, proof of birth submission, withdrawal confirmation, reading list, attendance/activity log, samples, and transcript records.",
+    "assessment": "No annual state homeschool testing/evaluation requirement.",
+    "subjects": "Required instruction areas include reading, grammar, mathematics, social studies, and science.",
+    "attendance": "No state homeschool hours/days submission; keep your own calendar.",
+    "parentQualification": "No state teacher certification requirement.",
+    "graduation": "Parent-issued transcript/diploma; maintain records for college or transfer.",
+    "planner": "Set a 30-day filing reminder when starting and a one-time legal folder for the affidavit and birth-proof copy.",
+    "sourceLinks": [
+      {
+        "label": "Arizona County School Superintendents \u2014 Homeschool",
+        "url": "https://schoolsup.org/homeschool"
+      },
+      {
+        "label": "Arizona Revised Statutes \u00a715-802",
+        "url": "https://www.azleg.gov/ars/15/00802.htm"
+      }
+    ]
+  },
+  {
+    "code": "AR",
+    "name": "Arkansas",
+    "tier": "Low regulation",
+    "badge": "Arkansas: annual notice of intent",
+    "filingDeadline": "Annual Notice of Intent is generally due by August 15 for the school year, or before/soon after withdrawal when beginning midyear; verify current timing with Arkansas DESE portal.",
+    "evaluationDeadline": "No statewide annual homeschool testing/evaluation deadline.",
+    "notice": "Parents file a Notice of Intent through the Arkansas Department of Education system. Midyear starts and transfers have separate timing rules.",
+    "records": "Keep filed NOI confirmation, withdrawal records, attendance/activity log, subjects/course list, work samples, and high-school transcript.",
+    "assessment": "No routine state-mandated homeschool testing/evaluation filing requirement.",
+    "subjects": "No state curriculum approval; parent directs curriculum.",
+    "attendance": "Keep an attendance plan even if not submitted.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued diploma/transcript or private/umbrella records as applicable.",
+    "planner": "Add an annual August notice reminder and a midyear-withdrawal checklist.",
+    "sourceLinks": [
+      {
+        "label": "Arkansas DESE \u2014 Home Schools",
+        "url": "https://dese.ade.arkansas.gov/Offices/learning-services/home-schools/"
+      },
+      {
+        "label": "Arkansas Home School Portal",
+        "url": "https://hss.ade.arkansas.gov/"
+      }
+    ]
+  },
+  {
+    "code": "CA",
+    "name": "California",
+    "tier": "Low regulation",
+    "badge": "California: private-school affidavit model",
+    "filingDeadline": "Private School Affidavit filing window is generally October 1\u201315 annually for the home-based private school option; new private schools opening after the window should follow CDE instructions.",
+    "evaluationDeadline": "No state homeschool testing/evaluation filing deadline for the private-school affidavit path.",
+    "notice": "California does not have a single homeschool registration form. Many families establish a private school and file the annual Private School Affidavit, or use a private school satellite/charter/credentialed tutor path.",
+    "records": "Private schools keep attendance, courses of study, faculty addresses/qualifications, immunization/exemption records where applicable, and student records.",
+    "assessment": "No statewide annual assessment for private-school-affidavit homeschoolers.",
+    "subjects": "Private schools provide instruction in required branches of study comparable to California private school requirements.",
+    "attendance": "Private school records should show regular instruction; no homeschool-specific state day/hour report.",
+    "parentQualification": "No teaching credential required for the private-school affidavit path, but records should list instructors.",
+    "graduation": "Private-school/parent-issued transcript and diploma; charters issue public-school records.",
+    "planner": "Choose the path first: PSA private school, PSP, public charter, or credentialed tutor. Add October affidavit reminders.",
+    "sourceLinks": [
+      {
+        "label": "California Department of Education \u2014 Private School Affidavit",
+        "url": "https://www.cde.ca.gov/sp/ps/psafiling.asp"
+      },
+      {
+        "label": "CDE \u2014 Schooling at Home",
+        "url": "https://www.cde.ca.gov/sp/ps/homeschool.asp"
+      }
+    ]
+  },
+  {
+    "code": "CO",
+    "name": "Colorado",
+    "tier": "Moderate regulation",
+    "badge": "Colorado: 14-day notice + grade-level evaluations",
+    "filingDeadline": "Submit written notice of intent at least 14 days before establishing the home-based education program and annually thereafter.",
+    "evaluationDeadline": "Academic progress must be evaluated in grades 3, 5, 7, 9, and 11; submit or place results as Colorado law permits. Confirm exact local submission timing with the district/independent school receiving records.",
+    "notice": "Notice may be filed with any Colorado school district and must include required student and attendance information.",
+    "records": "Keep attendance, test/evaluation results, immunization records, course list, reading list, work samples, and transcript records.",
+    "assessment": "Nationally standardized test or qualified evaluation in grades 3, 5, 7, 9, and 11.",
+    "subjects": "Colorado lists communication skills, reading, writing, speaking, mathematics, history, civics, literature, science, and U.S. Constitution among required areas.",
+    "attendance": "172 days, averaging 4 instructional hours per day, under the home-based education statute.",
+    "parentQualification": "No parent teaching certificate required under the homeschool statute.",
+    "graduation": "Parent-issued records; umbrella/independent school options may issue records.",
+    "planner": "Schedule an annual NOI 3 weeks before start and assessment-grade reminders for grades 3, 5, 7, 9, and 11.",
+    "sourceLinks": [
+      {
+        "label": "Colorado Department of Education \u2014 Homeschool",
+        "url": "https://ed.cde.state.co.us/choice/homeschool"
+      },
+      {
+        "label": "CDE \u2014 Homeschool FAQ",
+        "url": "https://ed.cde.state.co.us/choice/homeschool-faq"
+      }
+    ]
+  },
+  {
+    "code": "CT",
+    "name": "Connecticut",
+    "tier": "No notice",
+    "badge": "Connecticut: suggested notice, parent responsibility",
+    "filingDeadline": "No mandatory statewide homeschool filing deadline; the state has historically provided suggested procedures such as optional annual notice.",
+    "evaluationDeadline": "No mandatory statewide annual testing/evaluation deadline; local portfolio-review practices may vary.",
+    "notice": "Parents are responsible for equivalent instruction. Connecticut guidance has included suggested notice/portfolio procedures, but compulsory instruction responsibility remains with the parent.",
+    "records": "Keep a subject checklist, attendance/activity log, reading list, work samples, and any district correspondence.",
+    "assessment": "No routine state-mandated homeschool testing requirement; verify local practice before withdrawing.",
+    "subjects": "Instruction should cover required compulsory subjects such as reading, writing, spelling, English grammar, geography, arithmetic, U.S. history, citizenship, and related areas.",
+    "attendance": "No homeschool-specific statewide hours filing; maintain your own calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; keep strong records for transfer/college.",
+    "planner": "Use the app\u2019s subject tracker to document required instruction even if no filing is required.",
+    "sourceLinks": [
+      {
+        "label": "Connecticut State Department of Education \u2014 Homeschooling",
+        "url": "https://portal.ct.gov/sde/homeschooling/homeschooling-in-connecticut"
+      },
+      {
+        "label": "Connecticut General Statutes \u2014 Compulsory Instruction",
+        "url": "https://www.cga.ct.gov/current/pub/chap_168.htm#sec_10-184"
+      }
+    ]
+  },
+  {
+    "code": "DE",
+    "name": "Delaware",
+    "tier": "Low regulation",
+    "badge": "Delaware: DOE nonpublic registration + annual reports",
+    "filingDeadline": "Register/open the homeschool/nonpublic school through Delaware DOE; annual enrollment statement is generally due no later than September 30.",
+    "evaluationDeadline": "Annual attendance reporting is due on or before July 31; no standardized-test deadline.",
+    "notice": "Homeschools operate as nonpublic schools in Delaware. Families register and keep the school active through annual enrollment and attendance reporting.",
+    "records": "Maintain attendance records and student academic records; file enrollment and attendance through the DOE nonpublic school system.",
+    "assessment": "No state-mandated homeschool standardized testing/evaluation.",
+    "subjects": "Regular and thorough instruction; no detailed state homeschool curriculum approval.",
+    "attendance": "Delaware nonpublic schools report annual attendance; public-school 180-day norms are often used for planning.",
+    "parentQualification": "No homeschool teacher credential requirement.",
+    "graduation": "Parent/nonpublic-school issued transcript and diploma.",
+    "planner": "Add September enrollment and July attendance reminders to the family calendar.",
+    "sourceLinks": [
+      {
+        "label": "Delaware DOE \u2014 Homeschools and Private Schools",
+        "url": "https://education.delaware.gov/families/k12/homeschools-and-private-schools/"
+      },
+      {
+        "label": "Delaware DOE \u2014 Annual Reporting",
+        "url": "https://education.delaware.gov/families/k12/homeschools-and-private-schools/annual-reporting/"
+      }
+    ]
+  },
+  {
+    "code": "FL",
+    "name": "Florida",
+    "tier": "Moderate regulation",
+    "badge": "Florida: notice + portfolio + annual evaluation",
+    "filingDeadline": "File a letter of intent with the district school superintendent within 30 days of establishing the home education program.",
+    "evaluationDeadline": "Annual evaluation is due each year on/around the anniversary of the letter of intent; file termination within 30 days of completion, moving counties, or ending the program.",
+    "notice": "Florida home education is parent-directed. The notice includes the child\u2019s full legal name, address, and birthdate and is filed with the district superintendent.",
+    "records": "Portfolio must include a contemporaneous activity log with reading-material titles and samples of writings, worksheets, workbooks, or creative materials. Preserve for 2 years and make available with 15 days\u2019 written notice.",
+    "assessment": "Annual educational evaluation required. Parent chooses from statutory options such as Florida-certified teacher portfolio review, nationally normed test, state assessment, licensed psychologist evaluation, or mutually agreed tool.",
+    "subjects": "No state-prescribed homeschool curriculum for traditional home education; parent directs sequential instruction.",
+    "attendance": "Home education is excluded from public school-day requirements; keep a calendar for your own proof and planning.",
+    "parentQualification": "No Florida teaching certificate required for parent-directed home education.",
+    "graduation": "Parent-issued transcript/diploma plus notarized completion affidavit; maintain transcript and evaluation records for college/Bright Futures pathways.",
+    "planner": "Build a monthly portfolio review and annual evaluation reminder. For high school, run registrar mode from grade 9 onward.",
+    "sourceLinks": [
+      {
+        "label": "Florida DOE \u2014 Home Education Parent Resources",
+        "url": "https://www.fldoe.org/schools/school-choice/home-edu/parent-resources.stml"
+      },
+      {
+        "label": "Florida Statute \u00a71002.41",
+        "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=1000-1099/1002/Sections/1002.41.html"
+      }
+    ]
+  },
+  {
+    "code": "GA",
+    "name": "Georgia",
+    "tier": "Low regulation",
+    "badge": "Georgia: DOI by Sept. 1 + testing cycle",
+    "filingDeadline": "File Declaration of Intent within 30 days of beginning homeschool and annually by September 1 thereafter.",
+    "evaluationDeadline": "Nationally standardized testing is required at least every 3 years beginning after completion of grade 3; test results are retained by the parent. Annual progress report should be written and retained.",
+    "notice": "Declaration of Intent is filed with the Georgia Department of Education, not the local district.",
+    "records": "Keep DOI confirmation, attendance records, annual progress reports, testing records, work samples, and transcript.",
+    "assessment": "Test every 3 years starting after grade 3; results are not routinely submitted to the state but should be retained.",
+    "subjects": "Reading, language arts, mathematics, social studies, and science.",
+    "attendance": "180 days per year, 4.5 hours per day unless the child is physically unable.",
+    "parentQualification": "Teaching parent/guardian must have at least a high school diploma or GED.",
+    "graduation": "Parent-issued transcript/diploma; maintain course credits and testing records.",
+    "planner": "Add DOI by September 1, annual progress report, and 3-year testing-cycle reminders.",
+    "sourceLinks": [
+      {
+        "label": "Georgia DOE \u2014 Home Schools",
+        "url": "https://www.gadoe.org/Curriculum-Instruction-and-Assessment/Pages/Home-Schools.aspx"
+      },
+      {
+        "label": "Georgia DOE \u2014 Declaration of Intent Portal",
+        "url": "https://apps.gadoe.org/Pages/Home-Study-DOI.aspx"
+      }
+    ]
+  },
+  {
+    "code": "HI",
+    "name": "Hawaii",
+    "tier": "Moderate regulation",
+    "badge": "Hawaii: notice + annual progress report",
+    "filingDeadline": "Submit Form 4140/notice of intent before beginning homeschool; no annual notice if continuing unless circumstances change.",
+    "evaluationDeadline": "Submit annual progress report at the end of each school year. Standardized testing or alternative evaluation is required at grades 3, 5, 8, and 10.",
+    "notice": "Parents notify the principal of the local public school. Homeschool remains parent-directed.",
+    "records": "Keep curriculum plan, samples, reading list, annual progress reports, and test/evaluation results.",
+    "assessment": "Annual progress report; standardized testing/alternative evaluation at grades 3, 5, 8, and 10.",
+    "subjects": "Parent-selected curriculum should be structured and based on educational objectives; local school may request plan information.",
+    "attendance": "No separate homeschool hour filing; plan a regular school year.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued records; DOE does not issue homeschool diplomas for independent homeschool.",
+    "planner": "Add annual progress report and benchmark-grade testing reminders.",
+    "sourceLinks": [
+      {
+        "label": "Hawaii DOE \u2014 Homeschooling",
+        "url": "https://www.hawaiipublicschools.org/ParentsAndStudents/EnrollingInSchool/ChoosingaSchool/Pages/Homeschooling.aspx"
+      },
+      {
+        "label": "Hawaii Administrative Rules \u00a78-12-13",
+        "url": "https://boe.hawaii.gov/policies/AdminRules/Pages/AdminRule12.aspx"
+      }
+    ]
+  },
+  {
+    "code": "ID",
+    "name": "Idaho",
+    "tier": "No notice",
+    "badge": "Idaho: no notice/testing, required instruction",
+    "filingDeadline": "No state homeschool notice or registration deadline.",
+    "evaluationDeadline": "No statewide homeschool assessment deadline.",
+    "notice": "Parents may homeschool without state registration or district approval.",
+    "records": "Keep attendance/activity log, reading list, course list, samples, and transcript records.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Instruction should be in subjects commonly and usually taught in Idaho public schools.",
+    "attendance": "No homeschool hours/day filing.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued records; keep transcript for college/transfer.",
+    "planner": "Use a simple annual portfolio and transcript tracker even without filings.",
+    "sourceLinks": [
+      {
+        "label": "Idaho Department of Education \u2014 Homeschool",
+        "url": "https://www.sde.idaho.gov/school-choice/home-school/"
+      },
+      {
+        "label": "Idaho Statutes \u2014 Compulsory Attendance",
+        "url": "https://legislature.idaho.gov/statutesrules/idstat/title33/t33ch2/sect33-202/"
+      }
+    ]
+  },
+  {
+    "code": "IL",
+    "name": "Illinois",
+    "tier": "No notice",
+    "badge": "Illinois: private-school equivalency model",
+    "filingDeadline": "No mandatory state homeschool registration or annual notice deadline.",
+    "evaluationDeadline": "No statewide homeschool evaluation/testing deadline.",
+    "notice": "Homeschools are treated as private schools for compulsory attendance purposes when they provide instruction in required branches in English.",
+    "records": "Keep attendance/activity log, curriculum/course list, reading list, work samples, and transcript.",
+    "assessment": "No state-mandated homeschool standardized testing.",
+    "subjects": "Language arts, mathematics, biological and physical sciences, social sciences, fine arts, physical development and health; instruction in English.",
+    "attendance": "No homeschool-specific state hour report; keep a calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; maintain detailed high-school records.",
+    "planner": "Build a subject coverage checklist and private-school-style transcript.",
+    "sourceLinks": [
+      {
+        "label": "Illinois State Board of Education \u2014 Homeschooling",
+        "url": "https://www.isbe.net/Pages/Homeschool.aspx"
+      },
+      {
+        "label": "Illinois School Code \u2014 Compulsory Attendance",
+        "url": "https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=1005&ChapterID=17"
+      }
+    ]
+  },
+  {
+    "code": "IN",
+    "name": "Indiana",
+    "tier": "No notice",
+    "badge": "Indiana: nonaccredited nonpublic school model",
+    "filingDeadline": "No required homeschool registration/notice deadline, though families withdrawing from public school should follow withdrawal procedures.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Indiana homeschools are nonpublic, nonaccredited schools. DOE enrollment reporting is generally not required unless requested.",
+    "records": "Maintain attendance records, course list, work samples, reading list, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Equivalent instruction in English; parent selects curriculum.",
+    "attendance": "180 instructional days are expected for nonpublic schools.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued diploma/transcript; Indiana DOE does not accredit homeschools.",
+    "planner": "Keep attendance for 180 days and high-school transcript records.",
+    "sourceLinks": [
+      {
+        "label": "Indiana DOE \u2014 Homeschool Information",
+        "url": "https://www.in.gov/doe/students/indiana-academic-standards/homeschool-information/"
+      },
+      {
+        "label": "Indiana Code \u2014 Compulsory Attendance",
+        "url": "https://iga.in.gov/laws/2024/ic/titles/20#20-33-2"
+      }
+    ]
+  },
+  {
+    "code": "IA",
+    "name": "Iowa",
+    "tier": "No notice",
+    "badge": "Iowa: multiple private-instruction options",
+    "filingDeadline": "Independent Private Instruction can be no-reporting. For CPI options requiring reporting/dual enrollment, Form A is due September 1, or within 14 calendar days after moving/removing from accredited school; HSAP participation has a September 15 deadline.",
+    "evaluationDeadline": "For CPI Option 2 with dual enrollment/optional reporting, annual evaluation must be conducted by May 31 and submitted by August 1. Other options may have no evaluation filing.",
+    "notice": "Iowa has several private instruction options: IPI, CPI with licensed supervision, CPI without licensed supervision, dual enrollment, and HSAP. Requirements depend heavily on the option selected.",
+    "records": "Keep chosen-option documents, Form A if used, attendance days, course outline, evaluation results if required, work samples, and transcript.",
+    "assessment": "Some CPI pathways require annual evaluation; IPI and CPI private-instruction exemption pathways may not.",
+    "subjects": "CPI/option-specific; course of study is documented when Form A is required. Instruction minimum applies under CPI.",
+    "attendance": "CPI requires at least 148 days of instruction during the school year.",
+    "parentQualification": "Depends on option; licensed practitioner involvement changes requirements.",
+    "graduation": "District diploma is discretionary; parent-issued records are common unless arranged with district/private school.",
+    "planner": "First choose IPI/CPI/dual-enrollment/HSAP; the app should then turn on the correct September, May, and August deadlines.",
+    "sourceLinks": [
+      {
+        "label": "Iowa DOE \u2014 Homeschooling / Private Instruction",
+        "url": "https://educate.iowa.gov/pk-12/educational-choice/homeschooling"
+      },
+      {
+        "label": "Iowa Private Instruction Handbook",
+        "url": "https://educate.iowa.gov/media/7743/download?inline="
+      }
+    ]
+  },
+  {
+    "code": "KS",
+    "name": "Kansas",
+    "tier": "Low regulation",
+    "badge": "Kansas: nonaccredited private school registration",
+    "filingDeadline": "Register the nonaccredited private school with Kansas State Department of Education before starting; one-time registration, not annual renewal.",
+    "evaluationDeadline": "No statewide homeschool evaluation/testing deadline.",
+    "notice": "Kansas homeschools operate as nonaccredited private schools. Register the school name and address with KSDE.",
+    "records": "Keep registration confirmation, attendance/activity records, course list, samples, and transcript.",
+    "assessment": "No state homeschool testing requirement.",
+    "subjects": "Instruction should be planned and substantially equivalent to public instruction; parent chooses materials.",
+    "attendance": "Kansas private schools must have a substantially equivalent period of instruction; keep a school calendar.",
+    "parentQualification": "Competent instructors required; no parent teaching certificate requirement for nonaccredited private school registration.",
+    "graduation": "Parent/private-school issued diploma/transcript.",
+    "planner": "Create the school identity, register once, and maintain private-school records annually.",
+    "sourceLinks": [
+      {
+        "label": "KSDE \u2014 Nonaccredited Private Schools Registration",
+        "url": "https://apps.ksde.gov/naps_form/default.aspx"
+      },
+      {
+        "label": "KSDE \u2014 Nonaccredited Private Schools Information",
+        "url": "https://www.ksde.org/Agency/Division-of-Learning-Services/Teacher-Licensure-TL/Non-Accredited-Private-Schools"
+      }
+    ]
+  },
+  {
+    "code": "KY",
+    "name": "Kentucky",
+    "tier": "Low regulation",
+    "badge": "Kentucky: annual local notice + attendance/scholarship records",
+    "filingDeadline": "Notify the local superintendent by letter within the first two weeks of the public school year, or within 10 days of beginning homeschool midyear.",
+    "evaluationDeadline": "No statewide annual standardized-test/evaluation deadline.",
+    "notice": "Kentucky homeschools are private schools. Families submit an annual letter identifying students and keep required records.",
+    "records": "Keep attendance and scholarship reports, course list, work samples, and transcript records.",
+    "assessment": "No state-mandated homeschool testing/evaluation filing.",
+    "subjects": "Basic academic instruction comparable to private-school expectations; parent controls curriculum.",
+    "attendance": "Kentucky private-school compulsory attendance generally uses a 1,062 instructional-hour minimum; keep attendance records.",
+    "parentQualification": "No teacher certification required for parents.",
+    "graduation": "Parent/private-school issued transcript and diploma.",
+    "planner": "Add notice deadline near district start date and keep monthly attendance/scholarship summaries.",
+    "sourceLinks": [
+      {
+        "label": "Kentucky DOE \u2014 Home School",
+        "url": "https://education.ky.gov/federal/fed/Pages/Home-School.aspx"
+      },
+      {
+        "label": "Kentucky Home School Information Packet",
+        "url": "https://education.ky.gov/federal/fed/Documents/Kentucky%20Home%20School%20Information%20Packet.pdf"
+      }
+    ]
+  },
+  {
+    "code": "LA",
+    "name": "Louisiana",
+    "tier": "Moderate regulation",
+    "badge": "Louisiana: BESE home study or nonpublic-not-seeking-approval",
+    "filingDeadline": "BESE Approved Home Study: apply within 15 days of beginning and renew annually by October 1 or 12 months after initial approval, whichever is later. Nonpublic not seeking approval: submit annual attendance/enrollment information as LDOE requires, commonly by October 15.",
+    "evaluationDeadline": "BESE renewal requires evidence of a sustained curriculum of quality at least equal to public schools; no state assessment required for home study students.",
+    "notice": "Families generally choose either BESE-approved Home Study or Nonpublic School Not Seeking State Approval. Requirements differ.",
+    "records": "Keep approval letters, attendance/enrollment confirmation, curriculum evidence, samples, tests/evaluations if used, and transcript.",
+    "assessment": "No required state assessment for BESE Home Study; renewal evidence may include standardized test, curriculum packet, teacher statement, or other accepted documentation.",
+    "subjects": "Parent selects curriculum; BESE home study certifies sustained curriculum of quality.",
+    "attendance": "Nonpublic not seeking approval reports attendance/enrollment; BESE home study focuses on annual approval/renewal.",
+    "parentQualification": "No teaching certificate required for parent-directed options.",
+    "graduation": "Home study diplomas are issued by the home study program/parent, not BESE/LDOE; maintain transcript and TOPS/college documentation if relevant.",
+    "planner": "Ask family which Louisiana option they choose, then turn on the 15-day initial, October/12-month renewal, or nonpublic reporting reminders.",
+    "sourceLinks": [
+      {
+        "label": "Louisiana DOE \u2014 BESE Approved Home Study",
+        "url": "https://doe.louisiana.gov/topic-pages/louisiana-school-choice/home-study"
+      },
+      {
+        "label": "Louisiana DOE \u2014 Nonpublic Not Seeking Approval",
+        "url": "https://doe.louisiana.gov/topic-pages/louisiana-school-choice/nonpublic-schools-not-seeking-state-approval"
+      }
+    ]
+  },
+  {
+    "code": "ME",
+    "name": "Maine",
+    "tier": "Moderate regulation",
+    "badge": "Maine: annual notice + prior-year assessment",
+    "filingDeadline": "First year: file Notice of Intent within 10 days of withdrawal/start, or by September 1 if beginning in the fall. Continuing years: file annual Notice of Intent with prior-year assessment by September 1.",
+    "evaluationDeadline": "Annual assessment results are due with the subsequent year\u2019s notice by September 1 after the first year.",
+    "notice": "One submission notifies both Maine DOE and resident superintendent when using the portal; paper submissions go to resident superintendent.",
+    "records": "Keep notice confirmations, assessment results, 175-day instruction record, subject list, work samples, and transcript.",
+    "assessment": "Annual assessment required after the first year; accepted methods include standardized test, portfolio review by certified teacher, superintendent review, or other statutory options.",
+    "subjects": "At least 175 days annually in English/language arts, math, science, social studies, physical education, health, library skills, fine arts, Maine studies in one grade 6\u201312, and computer proficiency in one grade 7\u201312.",
+    "attendance": "At least 175 days annually.",
+    "parentQualification": "No parent teaching certificate required.",
+    "graduation": "Parent-issued completion records; keep high-school transcript and assessment records.",
+    "planner": "Add September 1 notice + assessment package reminder and schedule assessment completion before summer.",
+    "sourceLinks": [
+      {
+        "label": "Maine DOE \u2014 Home Instruction Requirements",
+        "url": "https://www.maine.gov/doe/schools/schoolops/homeinstruction/requirements"
+      },
+      {
+        "label": "Maine DOE \u2014 Home Instruction FAQ",
+        "url": "https://www.maine.gov/doe/schools/schoolops/homeinstruction/faq"
+      }
+    ]
+  },
+  {
+    "code": "MD",
+    "name": "Maryland",
+    "tier": "Moderate regulation",
+    "badge": "Maryland: 15-day notice + portfolio supervision",
+    "filingDeadline": "Submit Home Instruction Notification form to the local superintendent/designee at least 15 calendar days before beginning. Annual verification to continue is required before the next school year.",
+    "evaluationDeadline": "No single statewide annual evaluation date; if using local-system supervision, portfolio reviews may occur up to three times per year at times set by the local system. Umbrella/supervising institutions set their own reporting.",
+    "notice": "Parents choose local school system review or supervision by a nonpublic school/institution.",
+    "records": "Maintain a portfolio showing regular, thorough instruction, including instructional materials, reading materials, writings, worksheets, workbooks, creative materials, and tests.",
+    "assessment": "Portfolio review/supervision rather than a statewide standardized test mandate.",
+    "subjects": "Regular, thorough instruction in studies usually taught in public schools to children of the same age, including English, math, science, social studies, art, music, health, and PE.",
+    "attendance": "Regular instruction during the school year; no separate hours filing stated in the card.",
+    "parentQualification": "No parent teacher certification required.",
+    "graduation": "Parent/umbrella-issued records; public-school diploma not issued for independent home instruction.",
+    "planner": "Add 15-day pre-start notice, annual verification, and 2\u20133 portfolio review windows if using local review.",
+    "sourceLinks": [
+      {
+        "label": "Maryland State Department of Education \u2014 Home Instruction",
+        "url": "https://marylandpublicschools.org/about/pages/dee/npsa/home-instruction.aspx"
+      },
+      {
+        "label": "Maryland COMAR Home Instruction Regulation",
+        "url": "https://dsd.maryland.gov/regulations/Pages/13A.10.01.01.aspx"
+      }
+    ]
+  },
+  {
+    "code": "MA",
+    "name": "Massachusetts",
+    "tier": "High regulation",
+    "badge": "Massachusetts: local approval before starting",
+    "filingDeadline": "Obtain approval from the local superintendent/school committee before beginning home education; deadlines and forms are local.",
+    "evaluationDeadline": "Progress/evaluation reports are set by the approved local plan; no single statewide date.",
+    "notice": "Massachusetts homeschool approval is local and based on case law and district procedures. Families submit a proposed education plan for approval before withdrawing/starting.",
+    "records": "Keep approval letter, proposed plan, attendance/calendar, reading list, work samples, progress reports, and transcript.",
+    "assessment": "Assessment/progress method is negotiated with/approved by the local district; may include standardized tests, portfolio, progress reports, or work samples.",
+    "subjects": "Plan should cover thorough and efficient instruction in major subjects appropriate to age/grade.",
+    "attendance": "Comparable instruction plan; local districts may ask for schedule/time information.",
+    "parentQualification": "Parent qualifications may be considered only as allowed under Massachusetts case law; no blanket certification requirement.",
+    "graduation": "Parent-issued records unless enrolled in a public/private program issuing credits/diploma.",
+    "planner": "Use registrar mode: submit plan early, document local approval, and match reporting to the district\u2019s approved conditions.",
+    "sourceLinks": [
+      {
+        "label": "Massachusetts DESE \u2014 Home Schooling",
+        "url": "https://www.doe.mass.edu/sfs/homeschool/"
+      },
+      {
+        "label": "Massachusetts DESE \u2014 Education Laws / Advisories",
+        "url": "https://www.doe.mass.edu/lawsregs/advisory/"
+      }
+    ]
+  },
+  {
+    "code": "MI",
+    "name": "Michigan",
+    "tier": "No notice",
+    "badge": "Michigan: no-reporting home school option",
+    "filingDeadline": "No state notice/registration deadline for the nonpublic-school homeschool exemption.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Parents may homeschool without reporting to the state when operating under the homeschool/nonpublic exemption; special education service access may involve registration.",
+    "records": "Keep attendance/activity logs, required-subject checklist, reading list, work samples, and transcript.",
+    "assessment": "No state-mandated testing.",
+    "subjects": "Reading, spelling, mathematics, science, history, civics, literature, writing, and English grammar are commonly listed required areas.",
+    "attendance": "No homeschool hours filing; compulsory education still applies.",
+    "parentQualification": "No teacher certification required for parents teaching their own children under the common exemption.",
+    "graduation": "Parent-issued transcript/diploma; maintain records for college/transfer.",
+    "planner": "Use a required-subject checklist and high-school transcript tracker.",
+    "sourceLinks": [
+      {
+        "label": "Michigan DOE \u2014 Home School",
+        "url": "https://www.michigan.gov/mde/services/flexible-learning/options/home-school"
+      },
+      {
+        "label": "Michigan Compiled Laws \u2014 Compulsory Attendance",
+        "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-380-1561"
+      }
+    ]
+  },
+  {
+    "code": "MN",
+    "name": "Minnesota",
+    "tier": "Moderate regulation",
+    "badge": "Minnesota: October 1 reporting + annual test",
+    "filingDeadline": "First full report generally due to the resident district superintendent by October 1; file within 15 days if starting/moving after that. Subsequent annual letter/reporting is due by October 1.",
+    "evaluationDeadline": "Annual nationally normed achievement test required for most non-accredited homeschool students ages 7\u201317; testing timeline should allow results/records for the school year and any district-requested follow-up.",
+    "notice": "Minnesota homeschools are nonpublic schools in the home. Reporting includes instructor/student info, immunization status, subjects, and testing plan depending on status.",
+    "records": "Keep annual reports, immunization/exemption records, achievement test results, course list, reading list, work samples, and transcript.",
+    "assessment": "Annual nationally normed achievement test unless an exemption applies, such as recognized accreditation.",
+    "subjects": "Broad required subjects include reading, writing, literature, fine arts, math, science, history, geography, economics, government/citizenship, health, PE, and more.",
+    "attendance": "Instruction is required for compulsory-age children; maintain calendar.",
+    "parentQualification": "Parents can teach; instructors must meet statutory nonpublic instruction requirements depending on circumstances.",
+    "graduation": "Parent-issued records; keep transcript and testing documentation.",
+    "planner": "Add October 1 reporting and spring testing windows.",
+    "sourceLinks": [
+      {
+        "label": "Minnesota DOE \u2014 Home School Education",
+        "url": "https://education.mn.gov/MDE/fam/nphs/home/"
+      },
+      {
+        "label": "Minnesota Statutes \u00a7120A.22",
+        "url": "https://www.revisor.mn.gov/statutes/cite/120A.22"
+      }
+    ]
+  },
+  {
+    "code": "MS",
+    "name": "Mississippi",
+    "tier": "Low regulation",
+    "badge": "Mississippi: certificate by Sept. 15",
+    "filingDeadline": "File Certificate of Enrollment with the county school attendance officer by September 15 annually, or when beginning after that date.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Parents file a simple annual Certificate of Enrollment for compulsory-age children.",
+    "records": "Keep certificate confirmation, attendance/activity log, course list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "No state curriculum approval; parent directs curriculum.",
+    "attendance": "No day/hour report beyond enrollment filing; keep your own calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued records; maintain transcript.",
+    "planner": "Set September 15 certificate reminder and retain confirmation.",
+    "sourceLinks": [
+      {
+        "label": "Mississippi DOE \u2014 Home School",
+        "url": "https://www.mdek12.org/home-school"
+      },
+      {
+        "label": "Mississippi Compulsory School Attendance Law",
+        "url": "https://law.justia.com/codes/mississippi/title-37/chapter-13/article-5/section-37-13-91/"
+      }
+    ]
+  },
+  {
+    "code": "MO",
+    "name": "Missouri",
+    "tier": "No notice",
+    "badge": "Missouri: hours + records, no notice",
+    "filingDeadline": "No homeschool notice/registration deadline.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Missouri does not require registration for homeschools, but the statute sets instruction and record expectations.",
+    "records": "Maintain plan book/diary/log, portfolio of samples, and record of academic evaluations. Keep attendance hours.",
+    "assessment": "No required state testing; keep evaluations/records as evidence.",
+    "subjects": "At least 600 of 1,000 hours in reading, language arts, mathematics, social studies, and science.",
+    "attendance": "1,000 hours during the school term; at least 600 in core subjects and at least 400 of those core hours at the regular homeschool location.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; keep detailed high-school records.",
+    "planner": "Enable an hour tracker: 1,000 total, 600 core, 400 core-at-home.",
+    "sourceLinks": [
+      {
+        "label": "Missouri DESE \u2014 Home Schooling",
+        "url": "https://dese.mo.gov/quality-schools/attendance/home-schooling"
+      },
+      {
+        "label": "Missouri Statute \u00a7167.031",
+        "url": "https://revisor.mo.gov/main/OneSection.aspx?section=167.031"
+      }
+    ]
+  },
+  {
+    "code": "MT",
+    "name": "Montana",
+    "tier": "Low regulation",
+    "badge": "Montana: annual county notice + hours",
+    "filingDeadline": "Notify the county superintendent annually of the student\u2019s attendance at a homeschool; timing is generally at the beginning of each school year.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Parents notify the county superintendent and comply with attendance, records, immunization, and instruction requirements.",
+    "records": "Maintain attendance records and immunization/exemption records; keep course list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Instruction in subjects required of public schools as basic instructional program.",
+    "attendance": "Minimum aggregate hours: 720 hours for grades 1\u20133 and 1,080 hours for grades 4\u201312.",
+    "parentQualification": "No teaching certificate required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Add annual county notice and hour-tracking by grade band.",
+    "sourceLinks": [
+      {
+        "label": "Montana OPI \u2014 Home School",
+        "url": "https://opi.mt.gov/Families-Students/Family-Student-Support/Home-School"
+      },
+      {
+        "label": "Montana Code Annotated \u00a720-5-109",
+        "url": "https://leg.mt.gov/bills/mca/title_0200/chapter_0050/part_0010/section_0090/0200-0050-0010-0090.html"
+      }
+    ]
+  },
+  {
+    "code": "NE",
+    "name": "Nebraska",
+    "tier": "Low regulation",
+    "badge": "Nebraska: annual exempt-school filing",
+    "filingDeadline": "Returning exempt schools generally file annually by July 15; new/startup filings should be submitted before beginning, commonly at least 30 days before operation or as NDE instructs.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Nebraska homeschools operate as exempt schools. Parents file required forms with the Nebraska Department of Education each year.",
+    "records": "Keep exempt-school confirmation, parent representative forms, calendar, attendance, information summary, immunization/exemption as applicable, work samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Program must include required basic skills and instructional areas as represented in the filing.",
+    "attendance": "Nebraska exempt schools plan minimum instructional hours: generally 1,032 elementary and 1,080 secondary hours.",
+    "parentQualification": "No teacher certification required for exempt schools.",
+    "graduation": "Parent/exempt-school issued records.",
+    "planner": "Add July 15 annual exempt-school filing and hour tracker.",
+    "sourceLinks": [
+      {
+        "label": "Nebraska DOE \u2014 Exempt Schools",
+        "url": "https://www.education.ne.gov/fos/exempt-schools/"
+      },
+      {
+        "label": "Nebraska Rule 13 \u2014 Exempt Schools",
+        "url": "https://www.education.ne.gov/wp-content/uploads/2023/08/Rule13_2023.pdf"
+      }
+    ]
+  },
+  {
+    "code": "NV",
+    "name": "Nevada",
+    "tier": "Low regulation",
+    "badge": "Nevada: one-time NOI + education plan",
+    "filingDeadline": "File Notice of Intent with the superintendent of schools before beginning homeschool or within 10 days after withdrawal from public school; new notice is required after certain changes such as moving districts or re-entering homeschool.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Notice includes basic student information and an educational plan of instruction.",
+    "records": "Keep NOI receipt, educational plan, course list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Education plan covers English, mathematics, science, and social studies, including history, geography, economics, and government.",
+    "attendance": "No homeschool day/hour filing.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; Nevada has parent-issued homeschool diplomas recognized for many purposes.",
+    "planner": "Create one-time NOI folder and update if district/address/status changes.",
+    "sourceLinks": [
+      {
+        "label": "Nevada DOE \u2014 Home Schooling",
+        "url": "https://doe.nv.gov/Home_Schooling/"
+      },
+      {
+        "label": "Nevada Revised Statutes \u00a7388D",
+        "url": "https://www.leg.state.nv.us/NRS/NRS-388D.html"
+      }
+    ]
+  },
+  {
+    "code": "NH",
+    "name": "New Hampshire",
+    "tier": "Moderate regulation",
+    "badge": "New Hampshire: initial notice + annual evaluation retained",
+    "filingDeadline": "Send written notice to a participating agency within 5 business days of beginning home education; no annual re-notice unless changing participating agency or ending program.",
+    "evaluationDeadline": "Annual evaluation is completed by July 1 and kept by the parent; it is not routinely submitted unless legally required/requested.",
+    "notice": "Participating agency can be the resident district superintendent, a nonpublic school principal, or the Commissioner of Education.",
+    "records": "Maintain portfolio for at least two years, including reading list and work samples, plus annual evaluation results.",
+    "assessment": "Annual evaluation via standardized test, teacher evaluation, or other agreed method.",
+    "subjects": "Required subjects include science, math, language, government, history, health, reading, writing, spelling, history of U.S./NH constitutions, and exposure to art/music.",
+    "attendance": "No statewide day/hour filing; maintain calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued records; keep high-school transcript.",
+    "planner": "Add initial 5-business-day notice and annual July 1 evaluation reminder.",
+    "sourceLinks": [
+      {
+        "label": "New Hampshire DOE \u2014 Home Education",
+        "url": "https://www.education.nh.gov/who-we-are/division-of-learner-support/bureau-of-instructional-support/home-education"
+      },
+      {
+        "label": "New Hampshire RSA 193-A",
+        "url": "https://www.gencourt.state.nh.us/rsa/html/XV/193-A/193-A-mrg.htm"
+      }
+    ]
+  },
+  {
+    "code": "NJ",
+    "name": "New Jersey",
+    "tier": "No notice",
+    "badge": "New Jersey: equivalent instruction, no routine filing",
+    "filingDeadline": "No statewide homeschool notice/registration deadline.",
+    "evaluationDeadline": "No statewide homeschool evaluation/testing deadline.",
+    "notice": "Parents may educate at home if the child receives instruction academically equivalent to that provided in public schools.",
+    "records": "Keep attendance/activity log, course list, reading list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Equivalent instruction; parent selects curriculum.",
+    "attendance": "No homeschool-specific hour filing.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; public-school diploma requires public-school enrollment/credit acceptance.",
+    "planner": "Keep strong records because re-entry placement is district-determined.",
+    "sourceLinks": [
+      {
+        "label": "New Jersey DOE \u2014 Homeschooling FAQ",
+        "url": "https://www.nj.gov/education/safety/nontraditional/home/"
+      },
+      {
+        "label": "New Jersey Statute \u00a718A:38-25",
+        "url": "https://www.nj.gov/education/code/current/title18a/chap38.pdf"
+      }
+    ]
+  },
+  {
+    "code": "NM",
+    "name": "New Mexico",
+    "tier": "Low regulation",
+    "badge": "New Mexico: annual online notification by Aug. 1",
+    "filingDeadline": "Notify the New Mexico Public Education Department annually by August 1, or within 30 days of establishing homeschool.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Parents use the state home school system/notification process each year.",
+    "records": "Keep notification confirmation, immunization/exemption records, attendance calendar, course list, samples, and transcript.",
+    "assessment": "No state-mandated annual testing.",
+    "subjects": "Reading, language arts, mathematics, social studies, and science.",
+    "attendance": "Instruction must occur for at least the length of the public school year, commonly 180 days.",
+    "parentQualification": "Parent/legal guardian must have at least a high school diploma or equivalent.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Add annual August 1 notification and 180-day calendar tracker.",
+    "sourceLinks": [
+      {
+        "label": "New Mexico PED \u2014 Home Schools",
+        "url": "https://webnew.ped.state.nm.us/bureaus/options-parents-families/home-schools/"
+      },
+      {
+        "label": "New Mexico Home School System",
+        "url": "https://homeschool.ped.state.nm.us/"
+      }
+    ]
+  },
+  {
+    "code": "NY",
+    "name": "New York",
+    "tier": "High regulation",
+    "badge": "New York: LOI + IHIP + quarterlies + annual assessment",
+    "filingDeadline": "Annual Letter of Intent due July 1, or within 14 days of beginning home instruction midyear. IHIP due by August 15 or within 4 weeks of receiving district materials, whichever is later.",
+    "evaluationDeadline": "Quarterly reports are due on dates set in the IHIP; annual assessment is submitted with the fourth quarterly report, typically by June 30. Standardized testing is required in specified grades/intervals.",
+    "notice": "Parents notify the district superintendent and submit an Individualized Home Instruction Plan covering required subjects and materials.",
+    "records": "Keep LOI, district response, IHIP, quarterly reports, attendance hours, annual assessment, tests/narratives, work samples, and transcript.",
+    "assessment": "Annual assessment required. Testing is required in grades 4, 6, 8, and every year grades 9\u201312; narrative evaluations may be used in other years, subject to regulation.",
+    "subjects": "Detailed required subjects vary by grade band under Part 100.10.",
+    "attendance": "Substantial equivalent hours: generally 900 hours grades 1\u20136 and 990 hours grades 7\u201312.",
+    "parentQualification": "No teaching certificate required for parents, but paperwork and instruction plan must comply.",
+    "graduation": "New York does not award a state high school diploma for homeschool completion; use parent transcript and college-readiness records. GED/TASC pathways may be separate.",
+    "planner": "Use quarterly registrar mode with July 1, August 15, quarterly, and June 30 assessment checkpoints.",
+    "sourceLinks": [
+      {
+        "label": "NYSED \u2014 Home Instruction",
+        "url": "https://www.nysed.gov/nonpublic-schools/home-instruction"
+      },
+      {
+        "label": "NYCRR Part 100.10 Home Instruction",
+        "url": "https://www.nysed.gov/curriculum-instruction/10010-home-instruction"
+      }
+    ]
+  },
+  {
+    "code": "NC",
+    "name": "North Carolina",
+    "tier": "Moderate regulation",
+    "badge": "North Carolina: one-time NOI + annual test",
+    "filingDeadline": "Submit Notice of Intent to DNPE before beginning homeschool; no annual NOI renewal, but update/close as needed.",
+    "evaluationDeadline": "Administer a nationally standardized achievement test each academic year to each enrolled student; first test within the academic year of start and then annually thereafter.",
+    "notice": "DNPE registers homeschools and requires a school name and chief administrator. Homeschool should operate on a regular schedule for at least nine calendar months.",
+    "records": "Maintain attendance, immunization records, annual standardized test results for at least one year, course list, samples, and transcript.",
+    "assessment": "Annual nationally standardized achievement test covering English grammar, reading, spelling, and mathematics.",
+    "subjects": "State does not dictate full curriculum scope/sequence beyond testing areas; parent controls instruction.",
+    "attendance": "Operate on a regular schedule for at least nine calendar months each year, excluding reasonable holidays/vacations.",
+    "parentQualification": "Chief administrator/teachers must hold at least a high school diploma or equivalent.",
+    "graduation": "Parent-issued diploma/transcript; DNPE does not validate diplomas.",
+    "planner": "Add annual test window and retain results in the state folder.",
+    "sourceLinks": [
+      {
+        "label": "NC DNPE \u2014 Home School Requirements",
+        "url": "https://www.doa.nc.gov/divisions/non-public-education/home-schools/requirements-recommendations"
+      },
+      {
+        "label": "NC DNPE \u2014 Testing FAQ",
+        "url": "https://www.doa.nc.gov/divisions/non-public-education/home-schools/faqs/testing"
+      }
+    ]
+  },
+  {
+    "code": "ND",
+    "name": "North Dakota",
+    "tier": "Moderate regulation",
+    "badge": "North Dakota: annual intent + grade testing",
+    "filingDeadline": "File annual Statement of Intent with the local superintendent at least 14 days before beginning home education, or within 14 days of moving into a district.",
+    "evaluationDeadline": "Standardized achievement tests are required in grades 4, 6, 8, and 10; submit/retain results as state law requires and verify local timing.",
+    "notice": "Parents file annually and include required student/parent information. Monitoring may apply if the parent does not meet qualification requirements.",
+    "records": "Keep statement of intent, immunization/exemption, test results, course list, work samples, and transcript.",
+    "assessment": "Standardized testing in grades 4, 6, 8, and 10, with exceptions/alternatives for some students.",
+    "subjects": "Instruction in subjects required by law, including core academic areas.",
+    "attendance": "At least four hours per day for 175 days or equivalent under compulsory attendance expectations.",
+    "parentQualification": "Parent must generally have a high school diploma/GED or be monitored by a certified teacher until requirements are met.",
+    "graduation": "Parent-issued records; state may recognize home-education completion under statutory conditions.",
+    "planner": "Add annual 14-day pre-start notice and test-grade reminders.",
+    "sourceLinks": [
+      {
+        "label": "North Dakota DPI \u2014 Home Education",
+        "url": "https://www.nd.gov/dpi/education-programs/home-education"
+      },
+      {
+        "label": "North Dakota Century Code Chapter 15.1-23",
+        "url": "https://ndlegis.gov/cencode/t15-1c23.html"
+      }
+    ]
+  },
+  {
+    "code": "OH",
+    "name": "Ohio",
+    "tier": "Low regulation",
+    "badge": "Ohio: annual notice by Aug. 30 / 5 days after start",
+    "filingDeadline": "Notify the resident district superintendent within 5 calendar days after commencing home education, moving districts, or withdrawing from public/nonpublic school, and by August 30 each year thereafter.",
+    "evaluationDeadline": "No statewide annual assessment submission under current Ohio home education law.",
+    "notice": "Notification includes parent and child information and assurance of instruction in required subject areas.",
+    "records": "Keep notification confirmation, subject plan, attendance/activity records, samples, and transcript.",
+    "assessment": "Ohio\u2019s current home education framework does not require annual testing/evaluation submission.",
+    "subjects": "English language arts, mathematics, science, history, government, and social studies.",
+    "attendance": "The current notice form centers on assurance of education in required subjects rather than the prior detailed assessment process; keep a school calendar.",
+    "parentQualification": "Current simplified law does not require teacher certification; verify any district form does not ask for extra unauthorized information.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Add 5-day start/withdrawal reminder and annual August 30 notice reminder.",
+    "sourceLinks": [
+      {
+        "label": "Ohio Department of Education & Workforce \u2014 Home Schooling",
+        "url": "https://education.ohio.gov/Topics/Ohio-Education-Options/Home-Schooling"
+      },
+      {
+        "label": "Ohio Home Education Notification Form",
+        "url": "https://education.ohio.gov/getattachment/Topics/Ohio-Education-Options/Home-Schooling/Home-Education-Notification-Form.pdf.aspx?lang=en-US"
+      }
+    ]
+  },
+  {
+    "code": "OK",
+    "name": "Oklahoma",
+    "tier": "No notice",
+    "badge": "Oklahoma: constitutional homeschool protection",
+    "filingDeadline": "No state homeschool notice/registration deadline.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Oklahoma recognizes parent-directed home instruction and does not require registration/approval for homeschool.",
+    "records": "Keep attendance/activity log, course list, reading list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "No detailed state homeschool subject list; provide good-faith education.",
+    "attendance": "Oklahoma public-school term is often used as a planning benchmark, but no homeschool filing is required.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Use strong records because compliance paperwork is minimal.",
+    "sourceLinks": [
+      {
+        "label": "Oklahoma State Department of Education \u2014 Home School",
+        "url": "https://sde.ok.gov/home-school"
+      },
+      {
+        "label": "Oklahoma Constitution, Article 13 \u00a74",
+        "url": "https://oksenate.gov/sites/default/files/2019-12/os13.pdf"
+      }
+    ]
+  },
+  {
+    "code": "OR",
+    "name": "Oregon",
+    "tier": "Moderate regulation",
+    "badge": "Oregon: ESD notice + grade testing by Aug. 15",
+    "filingDeadline": "Notify the local Education Service District within 10 days of beginning homeschool or withdrawing from school.",
+    "evaluationDeadline": "Testing is required at the end of grades 3, 5, 8, and 10 and must be completed by August 15; 18-month grace period may apply after starting homeschool.",
+    "notice": "Notice goes to the local ESD, not the state DOE, and is generally one-time unless circumstances change.",
+    "records": "Keep ESD confirmation, test results, course list, samples, and transcript.",
+    "assessment": "Standardized achievement testing at grades 3, 5, 8, and 10, with exceptions for students in interscholastic activities or special education plans.",
+    "subjects": "No state curriculum approval; parent controls curriculum.",
+    "attendance": "No homeschool day/hour filing.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma; public school may determine credits upon re-entry.",
+    "planner": "Add 10-day ESD notice and August 15 testing reminders for grades 3, 5, 8, and 10.",
+    "sourceLinks": [
+      {
+        "label": "Oregon DOE \u2014 Homeschool",
+        "url": "https://www.oregon.gov/ode/learning-options/homeschool/pages/default.aspx"
+      },
+      {
+        "label": "Oregon DOE \u2014 Homeschool Testing",
+        "url": "https://www.oregon.gov/ode/learning-options/homeschool/pages/infoabouttesting.aspx"
+      }
+    ]
+  },
+  {
+    "code": "PA",
+    "name": "Pennsylvania",
+    "tier": "High regulation",
+    "badge": "Pennsylvania: affidavit by Aug. 1 + evaluation by June 30",
+    "filingDeadline": "File notarized affidavit or unsworn declaration before beginning and annually thereafter by August 1.",
+    "evaluationDeadline": "Annual written evaluation by a qualified evaluator is due to the superintendent by June 30. Standardized testing required in grades 3, 5, and 8.",
+    "notice": "Supervisor files affidavit/unsworn declaration with objectives, required assurances, and health/immunization information as required.",
+    "records": "Maintain portfolio with log, reading materials, samples, standardized test results for test years, and evaluator report.",
+    "assessment": "Annual evaluator report plus standardized testing in grades 3, 5, and 8.",
+    "subjects": "Detailed elementary and secondary subject lists apply; high school has required courses for graduation under home education law.",
+    "attendance": "Instruction must occur for 180 days or 900/990 hours depending on level.",
+    "parentQualification": "Supervisor must have a high school diploma or equivalent and meet statutory conditions.",
+    "graduation": "Parent/supervisor may issue diploma if statutory high-school requirements are met; diploma organizations and parent-issued options exist.",
+    "planner": "Use high-regulation registrar mode with August 1 affidavit, quarterly portfolio, test-grade, and June 30 evaluator checkpoints.",
+    "sourceLinks": [
+      {
+        "label": "Pennsylvania DOE \u2014 Home Education Program",
+        "url": "https://www.pa.gov/agencies/education/resources/policies-acts-and-laws/basic-education-circulars-becs/purdons-statutes/home-education-program"
+      },
+      {
+        "label": "Pennsylvania School Code \u00a713-1327.1",
+        "url": "https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/1949/0/0014..HTM"
+      }
+    ]
+  },
+  {
+    "code": "RI",
+    "name": "Rhode Island",
+    "tier": "High regulation",
+    "badge": "Rhode Island: local school committee approval",
+    "filingDeadline": "Obtain approval from the local school committee before beginning/withdrawing; deadlines and annual renewal dates are local.",
+    "evaluationDeadline": "Evaluation/progress reporting is set locally by the approving district/school committee; no single statewide date.",
+    "notice": "Rhode Island approval is local. Families submit a plan to the local school committee and comply with district procedures.",
+    "records": "Keep approval letter, curriculum plan, attendance, reading list, work samples, and any locally required reports.",
+    "assessment": "No single statewide homeschool test date; assessments/reviews may be required locally.",
+    "subjects": "Instruction must be thorough and efficient in required subjects including reading, writing, geography, arithmetic, U.S./Rhode Island history and government, health/PE as applicable.",
+    "attendance": "Attendance should be substantially equal to public-school requirements unless local approval specifies otherwise.",
+    "parentQualification": "No statewide parent teaching certificate requirement, but local approval process may review qualifications/resources.",
+    "graduation": "Parent-issued records unless enrolled in a diploma-granting program.",
+    "planner": "Add a district-specific compliance profile after approval, because Rhode Island deadlines vary locally.",
+    "sourceLinks": [
+      {
+        "label": "Rhode Island DOE \u2014 Homeschooling",
+        "url": "https://ride.ri.gov/students-families/ri-schools/homeschooling"
+      },
+      {
+        "label": "Rhode Island General Laws \u00a716-19-2",
+        "url": "http://webserver.rilin.state.ri.us/Statutes/TITLE16/16-19/16-19-2.HTM"
+      }
+    ]
+  },
+  {
+    "code": "SC",
+    "name": "South Carolina",
+    "tier": "Moderate regulation",
+    "badge": "South Carolina: three legal options, 180 days",
+    "filingDeadline": "Deadline depends on option: district approval or association membership should be in place before the school year/withdrawal. Associations set enrollment deadlines.",
+    "evaluationDeadline": "Option 1 has district oversight/testing requirements; Options 2 and 3 rely on association records/reports. No single statewide evaluation date for all homeschoolers.",
+    "notice": "Families choose among Option 1 district approval, Option 2 SCAIHS, or Option 3 accountability association with at least 50 member families.",
+    "records": "Maintain plan book/diary or record of subjects and activities, portfolio samples, semiannual progress report, attendance, and transcript.",
+    "assessment": "Option-dependent. District option has more oversight; association options generally use records/progress reports rather than state testing.",
+    "subjects": "Reading, writing, math, science, social studies; grades 7\u201312 also include composition and literature.",
+    "attendance": "At least 180 days. District option also specifies 4.5 hours/day excluding lunch/recess.",
+    "parentQualification": "Parent must have at least a high school diploma or GED under statutory options.",
+    "graduation": "Parent/association-issued transcript/diploma depending on option.",
+    "planner": "Ask which option/association the family uses, then add association/district deadlines and 180-day tracker.",
+    "sourceLinks": [
+      {
+        "label": "South Carolina DOE \u2014 Home Schooling",
+        "url": "https://ed.sc.gov/districts-schools/state-accountability/home-schooling/"
+      },
+      {
+        "label": "South Carolina Code \u00a7\u00a759-65-40 to 59-65-47",
+        "url": "https://www.scstatehouse.gov/code/t59c065.php"
+      }
+    ]
+  },
+  {
+    "code": "SD",
+    "name": "South Dakota",
+    "tier": "Low regulation",
+    "badge": "South Dakota: alternative instruction notification",
+    "filingDeadline": "File alternative instruction notification when beginning; current law generally does not require annual re-filing unless information changes or the student re-enrolls/withdraws again.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline under current alternative instruction law.",
+    "notice": "Alternative instruction notification is submitted as required by state law, but oversight is light.",
+    "records": "Keep notification confirmation, course list, activity log, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Language arts and mathematics are specifically required; families may add full core curriculum.",
+    "attendance": "No homeschool hours filing in the state card; maintain calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "File start notification and keep a language arts/math evidence folder.",
+    "sourceLinks": [
+      {
+        "label": "South Dakota DOE \u2014 Alternative Instruction / Homeschooling",
+        "url": "https://doe.sd.gov/oatq/homeschooling.aspx"
+      },
+      {
+        "label": "South Dakota Codified Law 13-27-3",
+        "url": "https://sdlegislature.gov/Statutes/13-27-3"
+      }
+    ]
+  },
+  {
+    "code": "TN",
+    "name": "Tennessee",
+    "tier": "Moderate regulation",
+    "badge": "Tennessee: option-dependent, independent homeschool has notice/testing",
+    "filingDeadline": "Independent home school: submit annual Intent to Home School to local director of schools before each school year or when beginning. Church-related/umbrella and accredited online options have different enrollment deadlines.",
+    "evaluationDeadline": "Independent home school students test in grades 5, 7, and 9; attendance is reported to the district at the end of the year, with local timing/forms to verify.",
+    "notice": "Three common paths: independent home school, church-related school, or accredited online school. Requirements differ greatly by path.",
+    "records": "Keep intent form, proof of parent diploma/GED, immunization/exemption if required, attendance records, test results, course list, samples, and transcript.",
+    "assessment": "Independent home school testing in grades 5, 7, and 9. Other paths follow their school/umbrella rules.",
+    "subjects": "Independent homeschool law gives parent curricular control; other enrolled-school paths may have school curriculum requirements.",
+    "attendance": "Independent home school: 180 days, at least 4 hours per day.",
+    "parentQualification": "Independent parent-teacher must have high school diploma or GED/equivalent.",
+    "graduation": "Diploma/transcript depends on independent vs church-related/accredited school route.",
+    "planner": "Ask which Tennessee path applies before generating deadlines. For independent, add annual intent, 180-day attendance, and test-grade reminders.",
+    "sourceLinks": [
+      {
+        "label": "Tennessee DOE \u2014 Home School",
+        "url": "https://www.tn.gov/education/families/school-options/home-schooling-in-tn.html"
+      },
+      {
+        "label": "Tennessee Code \u00a749-6-3050",
+        "url": "https://law.justia.com/codes/tennessee/title-49/chapter-6/part-30/section-49-6-3050/"
+      }
+    ]
+  },
+  {
+    "code": "TX",
+    "name": "Texas",
+    "tier": "No notice",
+    "badge": "Texas: bona fide private homeschool, no registration",
+    "filingDeadline": "No state homeschool registration or annual notice deadline. If withdrawing from public school, districts may request a letter of assurance.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Texas does not regulate, monitor, approve, register, or accredit homeschools. Curriculum must be bona fide and visual in form.",
+    "records": "Keep withdrawal/assurance letter if used, course list, reading list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Reading, spelling, grammar, mathematics, and good citizenship.",
+    "attendance": "No homeschool day/hour filing.",
+    "parentQualification": "No teaching certificate required.",
+    "graduation": "Parent-issued diploma/transcript; Texas higher-ed admissions generally treat homeschool completion as equivalent to public graduation when documented.",
+    "planner": "Use minimal compliance mode plus strong transcript records for high school.",
+    "sourceLinks": [
+      {
+        "label": "Texas Education Agency \u2014 Home Schooling",
+        "url": "https://tea.texas.gov/families-and-students/finding-school-your-child/home-schooling"
+      },
+      {
+        "label": "Texas Supreme Court \u2014 Leeper Decision Info via TEA",
+        "url": "https://tea.texas.gov/texas-schools/general-information/finding-a-school-for-your-child/home-schooling"
+      }
+    ]
+  },
+  {
+    "code": "UT",
+    "name": "Utah",
+    "tier": "Low regulation",
+    "badge": "Utah: affidavit, no annual renewal",
+    "filingDeadline": "Submit signed/notarized homeschool affidavit to the local school district before beginning. District issues certificate; annual re-filing generally not required unless circumstances change.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Affidavit excuses the student from attendance at the local public school and confirms parent responsibility.",
+    "records": "Keep affidavit/certificate, course list, samples, attendance/activity log, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "No state-mandated curriculum or required subjects for affidavit homeschoolers; parent assumes responsibility.",
+    "attendance": "No state day/hour requirement for affidavit homeschoolers.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Create one-time affidavit folder and high-school transcript tracker.",
+    "sourceLinks": [
+      {
+        "label": "Utah State Board of Education \u2014 Home School",
+        "url": "https://schools.utah.gov/curr/homeschool"
+      },
+      {
+        "label": "Utah Code \u00a753G-6-204",
+        "url": "https://le.utah.gov/xcode/Title53G/Chapter6/53G-6-S204.html"
+      }
+    ]
+  },
+  {
+    "code": "VT",
+    "name": "Vermont",
+    "tier": "Moderate regulation",
+    "badge": "Vermont: annual home study enrollment",
+    "filingDeadline": "Submit annual Home Study enrollment notice to the Agency of Education at least 10 business days before beginning home study for the year; use the current AOE enrollment system/forms.",
+    "evaluationDeadline": "Current law requires evidence/assessment of progress to be maintained or provided as AOE rules require; verify current annual assessment submission/retention rules before the school year because Vermont changed the process in recent years.",
+    "notice": "Vermont home study is overseen by the Agency of Education Home Study Team. Annual enrollment is required.",
+    "records": "Keep enrollment acknowledgment, minimum course of study, attendance/day count, assessment/progress records, samples, and transcript.",
+    "assessment": "Annual assessment/progress documentation may be required/retained depending on current rule; accepted forms can include standardized test, teacher assessment, portfolio, or grades from approved programs.",
+    "subjects": "Minimum course of study should cover basic communication, citizenship/history/government, literature, math, science, and health/physical education/art as appropriate.",
+    "attendance": "175 days of instruction is a common Vermont home study benchmark.",
+    "parentQualification": "No teaching certificate required for parents.",
+    "graduation": "Parent-issued records; high-school planning should include transcript and course descriptions.",
+    "planner": "Add annual enrollment 10 business days before start and a spring progress-assessment checkpoint; verify current AOE rules each year.",
+    "sourceLinks": [
+      {
+        "label": "Vermont Agency of Education \u2014 Home Study",
+        "url": "https://education.vermont.gov/vermont-schools/school-operations/home-study"
+      },
+      {
+        "label": "Vermont Statutes \u2014 Home Study Program",
+        "url": "https://legislature.vermont.gov/statutes/section/16/003/00166b"
+      }
+    ]
+  },
+  {
+    "code": "VA",
+    "name": "Virginia",
+    "tier": "Moderate regulation",
+    "badge": "Virginia: NOI by Aug. 15 + progress by Aug. 1",
+    "filingDeadline": "Annual Notice of Intent due to the local school division by August 15. If moving/beginning after the school year starts, notify as soon as practicable and comply within 30 days.",
+    "evaluationDeadline": "Evidence of academic progress due by August 1 following the school year.",
+    "notice": "Notice includes evidence that the parent meets one of Virginia\u2019s criteria and a list of subjects to be studied.",
+    "records": "Keep NOI, qualification evidence, subject list, test/evaluation/report card evidence, work samples, and transcript.",
+    "assessment": "Evidence of progress may be standardized test score at or above the fourth stanine/equivalent or an acceptable evaluation/assessment.",
+    "subjects": "Parent submits a list of subjects; curriculum is parent-selected.",
+    "attendance": "No homeschool-specific day/hour filing in NOI; keep calendar.",
+    "parentQualification": "Parent must meet one of four criteria: high school diploma/higher credential, teacher qualifications, correspondence/curriculum/program of study, or evidence of ability to provide adequate education.",
+    "graduation": "Parent-issued records; public school credit on re-entry is district-determined.",
+    "planner": "Add August 1 progress and August 15 NOI reminders, ideally submitted together each summer.",
+    "sourceLinks": [
+      {
+        "label": "Virginia DOE \u2014 Home Instruction",
+        "url": "https://www.doe.virginia.gov/parents-students/for-parents/home-instruction"
+      },
+      {
+        "label": "Virginia Code \u00a722.1-254.1",
+        "url": "https://law.lis.virginia.gov/vacode/title22.1/chapter14/section22.1-254.1/"
+      }
+    ]
+  },
+  {
+    "code": "WA",
+    "name": "Washington",
+    "tier": "Moderate regulation",
+    "badge": "Washington: annual declaration by Sept. 15 + annual assessment",
+    "filingDeadline": "File annual Declaration of Intent by September 15, or within two weeks of the beginning of any public school quarter, trimester, or semester.",
+    "evaluationDeadline": "Annual standardized achievement test or written academic progress assessment required; results are kept as part of the student\u2019s permanent records and forwarded on transfer.",
+    "notice": "Declaration is filed with the superintendent of the resident district or a transfer-accepting nonresident district. Applies beginning when compulsory attendance/home-based instruction requirements apply.",
+    "records": "Keep declaration, annual test/assessment results, immunization records, course list, work samples, and transcript.",
+    "assessment": "Annual standardized test by qualified person or annual written assessment by a certificated person currently working in education.",
+    "subjects": "Eleven subjects include occupational education, science, math, language, social studies, history, health, reading, writing, spelling, art/music appreciation.",
+    "attendance": "Instruction must be equivalent to 180 days or 1,000 hours annually, with flexible distribution by parent.",
+    "parentQualification": "Parent must meet one of the statutory qualifications, such as supervised by certificated person, college credits, parent qualifying course, or superintendent determination.",
+    "graduation": "Parent-issued transcript/diploma; records should transfer if student enrolls elsewhere.",
+    "planner": "Add September 15 declaration and annual assessment reminders; track 11 subjects.",
+    "sourceLinks": [
+      {
+        "label": "Washington OSPI \u2014 Home-Based Instruction",
+        "url": "https://ospi.k12.wa.us/student-success/learning-alternatives/home-based-instruction"
+      },
+      {
+        "label": "Washington OSPI \u2014 Home-Based Instruction Law Book",
+        "url": "https://ospi.k12.wa.us/sites/default/files/2023-08/pinkbook.pdf"
+      }
+    ]
+  },
+  {
+    "code": "WV",
+    "name": "West Virginia",
+    "tier": "Moderate regulation",
+    "badge": "West Virginia: notice + assessment grades 3/5/8/11",
+    "filingDeadline": "File notice of intent with the county superintendent before beginning home instruction; generally one-time unless changing counties or information changes.",
+    "evaluationDeadline": "Assessment results for grades 3, 5, 8, and 11 are submitted to the county superintendent by June 30 of the assessment year.",
+    "notice": "Notice includes assurance of instruction in reading, language, math, science, and social studies and evidence of parent high school diploma/equivalent.",
+    "records": "Keep notice confirmation, parent diploma evidence, assessment results, portfolio/work samples, course list, and transcript.",
+    "assessment": "Assessment at grades 3, 5, 8, and 11 via standardized test, public-school test, certified teacher portfolio review, or agreed alternative.",
+    "subjects": "Reading, language, mathematics, science, and social studies.",
+    "attendance": "No homeschool day/hour filing in the state card; maintain calendar.",
+    "parentQualification": "Parent must have high school diploma or equivalent.",
+    "graduation": "Parent-issued diploma/transcript; scholarship pathways may require GPA/core documentation.",
+    "planner": "Add June 30 assessment submission for grades 3, 5, 8, and 11 and keep three-year records.",
+    "sourceLinks": [
+      {
+        "label": "West Virginia DOE \u2014 Homeschool State Code",
+        "url": "https://wvde.us/academics/school-choice/homeschool-state-code"
+      },
+      {
+        "label": "West Virginia Code \u00a718-8-1",
+        "url": "https://code.wvlegislature.gov/18-8-1/"
+      }
+    ]
+  },
+  {
+    "code": "WI",
+    "name": "Wisconsin",
+    "tier": "Low regulation",
+    "badge": "Wisconsin: PI-1206 by Oct. 15 + 875 hours",
+    "filingDeadline": "File the PI-1206 Home-Based Private Educational Program report annually by October 15.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Parents file PI-1206 with Wisconsin DPI each year and certify statutory requirements.",
+    "records": "Keep PI-1206 confirmation, 875-hour calendar, course list, samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Sequentially progressive curriculum in reading, language arts, mathematics, social studies, science, and health.",
+    "attendance": "At least 875 hours of instruction each school year.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Add October 15 PI-1206 and 875-hour tracker.",
+    "sourceLinks": [
+      {
+        "label": "Wisconsin DPI \u2014 Home-Based Private Education Program",
+        "url": "https://dpi.wi.gov/parental-education-options/home-based-private-education-program"
+      },
+      {
+        "label": "Wisconsin Statute \u00a7118.165",
+        "url": "https://docs.legis.wisconsin.gov/statutes/statutes/118/165"
+      }
+    ]
+  },
+  {
+    "code": "WY",
+    "name": "Wyoming",
+    "tier": "Low regulation",
+    "badge": "Wyoming: annual curriculum submission",
+    "filingDeadline": "Submit curriculum showing basic academic educational program to the local board of trustees each year; no single statewide date is specified, so submit before/at the start of the school year.",
+    "evaluationDeadline": "No statewide homeschool testing/evaluation deadline.",
+    "notice": "Wyoming requires families to submit curriculum to the local board annually showing the required basic academic educational program.",
+    "records": "Keep curriculum submission, board correspondence, attendance/activity calendar, work samples, and transcript.",
+    "assessment": "No state-mandated homeschool testing.",
+    "subjects": "Reading, writing, math, civics, history, literature, and science.",
+    "attendance": "No separate state hour filing; maintain calendar.",
+    "parentQualification": "No teacher certification required.",
+    "graduation": "Parent-issued transcript/diploma.",
+    "planner": "Add annual curriculum-submission reminder before the school year and keep proof of delivery.",
+    "sourceLinks": [
+      {
+        "label": "Wyoming DOE \u2014 Home Schools",
+        "url": "https://edu.wyoming.gov/for-district-leadership/home-schools/"
+      },
+      {
+        "label": "Wyoming Statute \u00a721-4-101",
+        "url": "https://wyoleg.gov/statutes/compress/title21.pdf"
+      }
+    ]
+  }
+];
+
+const STATES = STATE_DETAILS.map(s=>({
+  ...TIER_TEXT[s.tier],
+  ...s,
+  badge:s.badge || TIER_TEXT[s.tier].defaultBadge,
+  planner:s.planner || TIER_TEXT[s.tier].defaultPlanner,
+  links:(s.sourceLinks||[]).map(x=>x.label)
+}));
+
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+const SUBJECTS = {
+  k2:{label:"Kindergarten–2nd", slots:5, subjects:["Morning Circle","Phonics / Reading","Math Play","Read Aloud","Nature / Science","Art / Music","Movement / PE","Handwriting","Story Project"], core:["Phonics / Reading","Math Play","Read Aloud"]},
+  elem:{label:"3rd–5th", slots:6, subjects:["Language Arts","Math","Science","History / Geography","Writing","Independent Reading","Art / Music","PE / Health","Project Lab","Nature Study"], core:["Language Arts","Math","Writing","Independent Reading"]},
+  middle:{label:"6th–8th", slots:6, subjects:["Literature / ELA","Math","Science Lab","World History / Civics","Writing / Research","World Language / Tech","PE / Health","Elective Project","Study Skills","Reading Seminar"], core:["Literature / ELA","Math","Science Lab","Writing / Research"]},
+  high:{label:"9th–12th", slots:6, subjects:["English / Literature","Math Credit","Science Credit / Lab","Social Studies Credit","World Language","Elective / CTE","PE / Health","Portfolio / Transcript","Service / Work Hours","Test Prep / Dual Enrollment","Independent Reading"], core:["English / Literature","Math Credit","Science Credit / Lab","Social Studies Credit"]}
+};
+
+let studentId = 0;
+let lastPlan = null;
+function $(id){return document.getElementById(id)}
+function escapeHTML(str){return String(str||"").replace(/[&<>'"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]))}
+function stateByCode(code){return STATES.find(s=>s.code===code)||STATES[0]}
+function bandForGrade(grade){
+  if(["K","1","2"].includes(grade)) return "k2";
+  if(["3","4","5"].includes(grade)) return "elem";
+  if(["6","7","8"].includes(grade)) return "middle";
+  return "high";
+}
+function parseTime(t){const [h,m]=t.split(':').map(Number);return h*60+m}
+function fmtTime(min){let h=Math.floor(min/60),m=min%60,amp=h>=12?'PM':'AM';let hh=h%12||12;return `${hh}:${String(m).padStart(2,'0')} ${amp}`}
+function timeSlots(start, block, slots){
+  let cur=parseTime(start), arr=[];
+  for(let i=0;i<slots;i++){
+    if(i===3){arr.push({label:"Lunch / Reset", minutes:35, lunch:true});cur+=35;}
+    arr.push({label:`${fmtTime(cur)}–${fmtTime(cur+Number(block))}`, minutes:Number(block)});cur+=Number(block)+10;
+  }
+  return arr.filter(x=>!x.lunch).slice(0,slots);
+}
+function weightedChoice(items, weights){
+  let total=weights.reduce((a,b)=>a+b,0), r=Math.random()*total;
+  for(let i=0;i<items.length;i++){r-=weights[i]; if(r<=0)return items[i];}
+  return items[items.length-1];
+}
+function scoreSubject(subject, slotIndex, dayIndex, counts, student, family, band){
+  let score=1;
+  const core=SUBJECTS[band].core.includes(subject);
+  if(core) score+=3;
+  if(slotIndex<2 && (student.energy==="Morning"||student.energy==="Flexible")) score += core?4:1;
+  if(slotIndex>=2 && student.energy==="Afternoon") score += core?3:1;
+  if(counts[subject]>1) score -= counts[subject]*.6;
+  if(student.interests && subject.toLowerCase().includes(student.interests.toLowerCase())) score+=2;
+  if(family.style.includes("Project") && subject.includes("Project")) score+=5;
+  if(family.style.includes("Classical") && (subject.includes("History")||subject.includes("Literature")||subject.includes("Reading"))) score+=3;
+  if(family.style.includes("Charlotte") && (subject.includes("Nature")||subject.includes("Read")||subject.includes("Art"))) score+=3;
+  return Math.max(.1, score);
+}
+function generateCandidate(student, family, state){
+  const band=bandForGrade(student.grade), cfg=SUBJECTS[band];
+  const dayCount=Number(family.daysPerWeek); const days=DAYS.slice(0,dayCount);
+  const slots=timeSlots(family.startTime, family.blockMinutes, cfg.slots);
+  const counts={}; cfg.subjects.forEach(s=>counts[s]=0);
+  const schedule={}; let score=0;
+  for(const day of days){
+    schedule[day]=[];
+    const field = family.fieldDay===day;
+    for(let si=0; si<slots.length; si++){
+      let subj;
+      if(field && si>=2){
+        const pool=band==="high"?["Field Study / Lab","Portfolio / Transcript","Service / Work Hours","Independent Reading"]:["Field Study","Nature / Museum / Library","Portfolio Sample","Creative Project"];
+        subj=pool[(si+day.length)%pool.length];
+        score+=2;
+      } else {
+        const weights=cfg.subjects.map(s=>scoreSubject(s,si,days.indexOf(day),counts,student,family,band));
+        subj=weightedChoice(cfg.subjects, weights);
+      }
+      counts[subj]=(counts[subj]||0)+1;
+      schedule[day].push({time:slots[si].label, subject:subj, note:noteFor(subj, student, band, si)});
+    }
+  }
+  for(const core of cfg.core){score += (counts[core]||0)>=dayCount-1 ? 20 : (counts[core]||0)*4;}
+  if(state.tier==="High regulation") score+=10;
+  if(state.tier==="Moderate regulation") score+=6;
+  score += Math.random()*8;
+  return {schedule, counts, score:Math.round(score), bandLabel:cfg.label};
+}
+function noteFor(subject, student, band, slotIndex){
+  if(subject.includes("Portfolio")) return "Save one sample, photo, reflection, or grade note.";
+  if(subject.includes("Lab")) return "Document materials, procedure, observation, and conclusion.";
+  if(subject.includes("Reading")) return "Log title, pages/minutes, and one sentence response.";
+  if(subject.includes("Math")) return slotIndex<2?"Best placed during peak focus time.":"Use practice + correction loop.";
+  if(subject.includes("Service")) return "Track date, hours, supervisor, and activity.";
+  if(student.supports && student.supports.length>2) return "Include support: "+student.supports;
+  return "Short lesson, practice, and closing reflection.";
+}
+function bestSchedule(student, family, state, iterations){
+  let best=null; const alternates=[];
+  for(let i=0;i<iterations;i++){
+    const cand=generateCandidate(student,family,state);
+    if(!best || cand.score>best.score){ if(best) alternates.push(best); best=cand; }
+  }
+  return {best, alternates:alternates.sort((a,b)=>b.score-a.score).slice(0,2)};
+}
+function tierClass(s){
+  return s.tier==="High regulation" ? "badge high" : s.tier==="Moderate regulation" ? "badge warn" : "badge ok";
+}
+function sourceLinksHTML(s){
+  const links=(s.sourceLinks||[]).map(x=>`<a href="${escapeHTML(x.url)}" target="_blank" rel="noopener">${escapeHTML(x.label)}</a>`).join('');
+  return links || '<span class="smalltext">No official link stored for this state yet. Verify with the state education department.</span>';
+}
+function renderStateCard(code){
+  const s=stateByCode(code);
+  const cls=tierClass(s);
+  $('selectedStateCard').innerHTML = `
+    <div class="row" style="justify-content:space-between"><h3>${escapeHTML(s.name)}</h3><span class="${cls}">${escapeHTML(s.tier)}</span></div>
+    <p><b>${escapeHTML(s.badge)}</b></p>
+    <div class="deadline-grid">
+      <div class="deadline-box"><span>Filing / notice deadline</span><b>${escapeHTML(s.filingDeadline||'Verify locally')}</b></div>
+      <div class="deadline-box"><span>Evaluation / assessment deadline</span><b>${escapeHTML(s.evaluationDeadline||'Verify locally')}</b></div>
+    </div>
+    <ul class="legal-list">
+      <li><b>Notice:</b> <span>${escapeHTML(s.notice)}</span></li>
+      <li><b>Records:</b> <span>${escapeHTML(s.records)}</span></li>
+      <li><b>Assessment:</b> <span>${escapeHTML(s.assessment)}</span></li>
+      <li><b>Subjects:</b> <span>${escapeHTML(s.subjects||'Verify state guidance.')}</span></li>
+      <li><b>Attendance:</b> <span>${escapeHTML(s.attendance||'Verify state guidance.')}</span></li>
+      <li><b>Parent qualification:</b> <span>${escapeHTML(s.parentQualification||'Verify state guidance.')}</span></li>
+      <li><b>High school / graduation:</b> <span>${escapeHTML(s.graduation||'Maintain transcript and completion records.')}</span></li>
+      <li><b>Planner mode:</b> <span>${escapeHTML(s.planner)}</span></li>
+    </ul>
+    <h4>Official verification links</h4>
+    <div class="source-links">${sourceLinksHTML(s)}</div>
+    <p class="hint">Verify with official state/district guidance before filing, reporting, testing, or choosing a homeschool option.</p>`;
+}
+function buildStudentCard(data={}){
+  studentId++;
+  const id=studentId;
+  const div=document.createElement('div'); div.className='card student-card'; div.dataset.id=id;
+  div.innerHTML=`
+    <button class="btn small remove" type="button" aria-label="Remove student">Remove</button>
+    <h3>Student ${id}</h3>
+    <div class="grid three">
+      <div class="field"><label>Name / Nickname</label><input class="s-name" value="${escapeHTML(data.name||'')}" placeholder="Student name" /></div>
+      <div class="field"><label>Grade</label><select class="s-grade">${["K","1","2","3","4","5","6","7","8","9","10","11","12"].map(g=>`<option ${data.grade==g?'selected':''}>${g}</option>`).join('')}</select></div>
+      <div class="field"><label>Best Energy Time</label><select class="s-energy"><option ${data.energy==='Morning'?'selected':''}>Morning</option><option ${data.energy==='Afternoon'?'selected':''}>Afternoon</option><option ${data.energy==='Flexible'?'selected':''}>Flexible</option></select></div>
+      <div class="field"><label>Learning Style</label><select class="s-style"><option>Visual</option><option>Auditory</option><option>Hands-on / Kinesthetic</option><option>Reader / Writer</option><option>Mixed</option></select></div>
+      <div class="field"><label>Pathway</label><select class="s-path"><option>Foundational Skills</option><option>College Prep</option><option>Trade / Career</option><option>Arts Portfolio</option><option>Entrepreneurship</option><option>Dual Enrollment</option><option>Life Skills</option><option>Exploratory</option></select></div>
+      <div class="field"><label>Weekly Intensity</label><select class="s-intensity"><option>Gentle</option><option selected>Balanced</option><option>Rigorous</option><option>Recovery / Remediation</option></select></div>
+    </div>
+    <div class="grid two">
+      <div class="field"><label>Interests / Electives</label><input class="s-interests" value="${escapeHTML(data.interests||'')}" placeholder="Art, coding, nature, music, cooking, civics..." /></div>
+      <div class="field"><label>Supports Needed</label><input class="s-supports" value="${escapeHTML(data.supports||'')}" placeholder="Movement breaks, reading support, quiet space..." /></div>
+    </div>`;
+  div.querySelector('.remove').addEventListener('click',()=>{div.remove(); renumberStudents();});
+  $('studentsArea').appendChild(div);
+}
+function renumberStudents(){document.querySelectorAll('.student-card h3').forEach((h,i)=>h.textContent=`Student ${i+1}`)}
+function gather(){
+  const state=stateByCode($('stateSelect').value);
+  const family={
+    name:$('familyName').value.trim(), year:$('yearLabel').value.trim(), state:state.code,
+    daysPerWeek:$('daysPerWeek').value, style:$('scheduleStyle').value, startTime:$('startTime').value,
+    blockMinutes:$('blockMinutes').value, fieldDay:$('fieldDay').value, faithMode:$('faithMode').value,
+    needs:$('familyNeeds').value.trim(), screenLimit:$('screenLimit').value, portfolioDepth:$('portfolioDepth').value
+  };
+  const students=[...document.querySelectorAll('.student-card')].map((el,i)=>({
+    name:el.querySelector('.s-name').value.trim()||`Student ${i+1}`,
+    grade:el.querySelector('.s-grade').value,
+    energy:el.querySelector('.s-energy').value,
+    learningStyle:el.querySelector('.s-style').value,
+    pathway:el.querySelector('.s-path').value,
+    intensity:el.querySelector('.s-intensity').value,
+    interests:el.querySelector('.s-interests').value.trim(),
+    supports:el.querySelector('.s-supports').value.trim()
+  }));
+  return {family, state, students, iterations:Number($('iterations').value), created:new Date().toISOString()};
+}
+function renderPlan(plan){
+  const {family,state,students}=plan;
+  const completion=readinessScore(plan);
+  const stateCard = `
+    <div class="notice print-note"><b>Generated by Khaemenes Academy Homeschool Compass.</b> Verify legal requirements with official sources before use.</div>
+    <div class="packet-actions no-print">
+      <button class="btn small" type="button" onclick="window.print()">Print packet</button>
+      <button class="btn small" type="button" onclick="exportMarkdown()">Export parent packet</button>
+      <button class="btn small" type="button" onclick="exportSchedulesCSV()">Export schedule CSV</button>
+      <button class="btn small" type="button" onclick="copyPlanSummary()">Copy summary</button>
+    </div>
+    <div class="metric-grid">
+      <div class="metric"><b>${students.length}</b><span>Student profile(s)</span></div>
+      <div class="metric"><b>${completion}%</b><span>Planning readiness</span></div>
+      <div class="metric"><b>${plan.iterations}</b><span>Attempts per student</span></div>
+    </div>
+    <div class="grid two">
+      <div class="card soft"><h3>${escapeHTML(family.name||'Homeschool Plan')}</h3><p><b>School Year:</b> ${escapeHTML(family.year)}<br><b>State:</b> ${state.name} · ${state.tier}<br><b>Style:</b> ${escapeHTML(family.style)} · ${escapeHTML(family.faithMode)}<br><b>Screen preference:</b> ${escapeHTML(family.screenLimit)}<br><b>Family notes:</b> ${escapeHTML(family.needs||'No special notes entered.')}</p></div>
+      <div class="card soft"><h3>Compliance Planning Card</h3><p><b>${escapeHTML(state.badge)}</b></p><div class="deadline-grid"><div class="deadline-box"><span>Filing / notice</span><b>${escapeHTML(state.filingDeadline||'Verify locally')}</b></div><div class="deadline-box"><span>Evaluation / assessment</span><b>${escapeHTML(state.evaluationDeadline||'Verify locally')}</b></div></div><p>${escapeHTML(state.planner)}</p><p class="smalltext"><b>Notice:</b> ${escapeHTML(state.notice)}<br><b>Assessment:</b> ${escapeHTML(state.assessment)}<br><b>Records:</b> ${escapeHTML(state.records)}</p><div class="source-links">${sourceLinksHTML(state)}</div></div>
+    </div>`;
+  let html=stateCard;
+  plan.generated.forEach((g,idx)=>{
+    const s=students[idx];
+    html += `<div class="result-student packet-section"><div class="result-header"><div><h3>${escapeHTML(s.name)} · Grade ${s.grade}</h3><div class="chips"><span class="chip">${g.best.bandLabel}</span><span class="chip">${escapeHTML(s.learningStyle)}</span><span class="chip">${escapeHTML(s.pathway)}</span><span class="chip">${escapeHTML(s.energy)} energy</span><span class="chip">${escapeHTML(s.intensity)} intensity</span></div></div><div class="score">Fit score: ${g.best.score}</div></div>`;
+    html += scheduleTable(g.best.schedule);
+    html += alternatesHTML(g);
+    html += `<div class="grid two" style="margin-top:14px"><div class="card soft"><h4>Portfolio + Record Suggestions</h4>${portfolioList(s,state,family)}</div><div class="card soft"><h4>Pathway Notes</h4>${pathwayNotes(s,state)}</div></div>`;
+    html += courseMapHTML(s);
+    html += `</div>`;
+  });
+  html += `<div class="card packet-section"><h3>Family Compliance Rhythm</h3><div class="timeline">${complianceTimeline(state,family)}</div></div>`;
+  html += `<div class="card packet-section"><h3>Parent Binder Index</h3>${binderIndexHTML(students,state,family)}</div>`;
+  html += `<div class="card packet-section"><h3>High School Registrar Notes</h3><p>For grades 9–12, maintain a transcript, course descriptions, reading list, lab summaries, service/work log, extracurricular record, and samples of major writing/projects. Public-school credit rules are not automatically the homeschool rule in every state, but college, scholarships, and transfers often expect clear course records.</p>${highSchoolTrackerHTML(students)}</div>`;
+  $('resultsArea').innerHTML=html;
+  $('runMeta').textContent=`Generated ${new Date().toLocaleString()} · ${students.length} student(s) · ${plan.iterations} attempts each`;
+}
+function readinessScore(plan){
+  let score=30;
+  if(plan.family.name) score+=8;
+  if(plan.family.needs) score+=8;
+  if(plan.family.portfolioDepth) score+=8;
+  if(plan.students.length) score+=12;
+  plan.students.forEach(s=>{ if(s.interests) score+=4; if(s.supports) score+=3; if(s.pathway && s.pathway!=='Foundational Skills') score+=4; });
+  if(plan.state.sourceLinks && plan.state.sourceLinks.length) score+=10;
+  if(plan.state.filingDeadline) score+=5;
+  if(plan.state.evaluationDeadline) score+=5;
+  return Math.min(100, score);
+}
+function alternatesHTML(g){
+  if(!g.alternates || !g.alternates.length) return '';
+  return `<details class="alt-schedules"><summary>View ${g.alternates.length} alternative schedule option(s)</summary>${g.alternates.map((a,i)=>`<h4>Alternative ${i+1} · Fit score ${a.score}</h4>${scheduleTable(a.schedule)}`).join('')}</details>`;
+}
+function courseMapHTML(s){
+  const band=bandForGrade(s.grade);
+  let cards=[];
+  if(band==='k2') cards=[['Core Skills','Phonics, read-aloud, number sense, handwriting, oral narration.'],['Discovery','Nature walks, art, music, movement, story projects.'],['Evidence','Drawings, photos, early writing, reading log, math play notes.']];
+  if(band==='elem') cards=[['Core Skills','Reading fluency, composition, spelling/grammar, math facts, science exploration.'],['Projects','History stories, geography, nature study, maker projects, arts.'],['Evidence','Weekly writing, math samples, project photos, book responses.']];
+  if(band==='middle') cards=[['Core Skills','Pre-algebra/algebra readiness, essays, research, lab habits, civics.'],['Pathway Exploration','Coding, agriculture, debate, arts, entrepreneurship, service, career exploration.'],['Evidence','Research notes, lab summaries, reading log, project rubrics.']];
+  if(band==='high') cards=[['English / Language Arts','Literature, composition, research writing, speech/debate or media literacy.'],['Math + Science','Algebra/Geometry progression, lab science, data skills, documentation.'],['Social Studies + Electives','History/civics/economics, world language, arts/CTE, PE/health, pathway work.']];
+  return `<div class="card soft" style="margin-top:14px"><h4>K–12 Course Map Notes</h4><div class="roadmap">${cards.map(([t,d])=>`<div class="year"><b>${t}</b><p class="smalltext">${d}</p></div>`).join('')}</div></div>`;
+}
+function binderIndexHTML(students,state,family){
+  const items=['Letter of intent / registration proof if required','Withdrawal or transfer documentation','State card printout with official links','Weekly logs and reading list','Student work samples by subject','Assessment/evaluation folder','Attendance or learning-day calendar','Year-end summary'];
+  if(students.some(s=>bandForGrade(s.grade)==='high')) items.push('Transcript, course descriptions, GPA scale, credit tracker, service/work hours, test scores');
+  if(state.tier==='High regulation') items.push('Quarterly report folder, objectives, evaluator packet, district correspondence log');
+  if(family.portfolioDepth.includes('Detailed') || family.portfolioDepth.includes('registrar')) items.push('Binder table of contents, rubrics, major project archive, parent reflection notes');
+  return `<ul class="checklist">${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+}
+function highSchoolTrackerHTML(students){
+  if(!students.some(s=>bandForGrade(s.grade)==='high')) return '<p class="smalltext">No high-school student entered yet. This section will become more important in grades 9–12.</p>';
+  const rows=[['English','4.0','Literature, composition, research writing'],['Mathematics','3–4','Algebra, geometry, advanced math as pathway requires'],['Science','3–4','Include lab documentation where possible'],['Social Studies','3–4','History, civics/government, economics, geography'],['World Language','2 recommended','Often useful for college admissions and scholarships'],['Fine/Practical Arts / CTE','1+','Arts, media, coding, business, design, agriculture, trade skills'],['PE / Health','1','Fitness, wellness, nutrition, health literacy'],['Electives / Pathway','Flexible','Dual enrollment, internships, service, entrepreneurship, certifications']];
+  return `<div class="schedule-wrap"><table class="mini-table"><thead><tr><th>Area</th><th>Suggested Credits</th><th>Notes</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function planToMarkdown(plan){
+  const lines=[];
+  lines.push(`# ${plan.family.name || 'Khaemenes Academy Homeschool Plan'}`);
+  lines.push(`School Year: ${plan.family.year}`);
+  lines.push(`State: ${plan.state.name} (${plan.state.tier})`);
+  lines.push(`Generated: ${new Date().toLocaleString()}`);
+  lines.push('');
+  lines.push('## Compliance Planning Card');
+  lines.push(`- Filing / notice: ${plan.state.filingDeadline || 'Verify locally'}`);
+  lines.push(`- Evaluation / assessment: ${plan.state.evaluationDeadline || 'Verify locally'}`);
+  lines.push(`- Notice: ${plan.state.notice}`);
+  lines.push(`- Records: ${plan.state.records}`);
+  lines.push(`- Assessment: ${plan.state.assessment}`);
+  plan.students.forEach((s,idx)=>{
+    const g=plan.generated && plan.generated[idx];
+    lines.push(''); lines.push(`## ${s.name} · Grade ${s.grade}`);
+    lines.push(`Learning style: ${s.learningStyle}; pathway: ${s.pathway}; energy: ${s.energy}; intensity: ${s.intensity}`);
+    if(g){
+      for(const [day,blocks] of Object.entries(g.best.schedule)){
+        lines.push(`### ${day}`);
+        blocks.forEach(b=>lines.push(`- ${b.time}: ${b.subject} — ${b.note}`));
+      }
+    }
+  });
+  lines.push(''); lines.push('## Parent Binder Index');
+  lines.push('- Weekly activity logs'); lines.push('- Reading lists'); lines.push('- Work samples'); lines.push('- Assessment/evaluation records'); lines.push('- Transcript/course records for high school');
+  lines.push(''); lines.push('Legal note: This is an educational planning tool, not legal advice. Verify current requirements with official state/district sources.');
+  return lines.join('\n');
+}
+function downloadText(filename, text, type='text/plain'){
+  const blob=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); URL.revokeObjectURL(a.href);
+}
+function exportMarkdown(){
+  const data=lastPlan || gather();
+  if(!data.generated) data.generated=data.students.map(s=>bestSchedule(s,data.family,data.state,data.iterations));
+  downloadText('khaemenes-parent-packet.md', planToMarkdown(data), 'text/markdown');
+}
+function scheduleCSV(plan){
+  const rows=[['Student','Grade','Day','Time','Subject','Note']];
+  (plan.generated||[]).forEach((g,idx)=>{
+    const s=plan.students[idx];
+    for(const [day,blocks] of Object.entries(g.best.schedule)) blocks.forEach(b=>rows.push([s.name,s.grade,day,b.time,b.subject,b.note]));
+  });
+  return rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+}
+function exportSchedulesCSV(){
+  const data=lastPlan || gather();
+  if(!data.generated) data.generated=data.students.map(s=>bestSchedule(s,data.family,data.state,data.iterations));
+  downloadText('khaemenes-weekly-schedules.csv', scheduleCSV(data), 'text/csv');
+}
+async function copyPlanSummary(){
+  const data=lastPlan || gather();
+  if(!data.generated) data.generated=data.students.map(s=>bestSchedule(s,data.family,data.state,data.iterations));
+  const summary=planToMarkdown(data).split('\n').slice(0,80).join('\n');
+  try{await navigator.clipboard.writeText(summary); alert('Plan summary copied.');}
+  catch(e){downloadText('khaemenes-plan-summary.txt', summary); alert('Clipboard was blocked, so a text file was downloaded instead.');}
+}
+function loadDemo(){
+  $('familyName').value='Khaemenes Academy Learning Space'; $('yearLabel').value='2026–2027'; $('stateSelect').value='FL';
+  $('daysPerWeek').value='5'; $('scheduleStyle').value='Project-Based'; $('startTime').value='09:00'; $('blockMinutes').value='45'; $('fieldDay').value='Friday'; $('faithMode').value='Parent chooses by subject';
+  $('familyNeeds').value='Fridays are reserved for field study, portfolio review, and community learning. Student benefits from movement breaks and visual project examples.';
+  $('screenLimit').value='Balanced online/offline'; $('portfolioDepth').value='High-school registrar mode'; $('iterations').value='300';
+  $('studentsArea').innerHTML=''; studentId=0;
+  buildStudentCard({name:'Student One',grade:'9',energy:'Morning',interests:'art, civics, environmental science',supports:'movement breaks, quiet writing space'});
+  const card=document.querySelector('.student-card');
+  card.querySelector('.s-style').value='Hands-on / Kinesthetic'; card.querySelector('.s-path').value='College Prep'; card.querySelector('.s-intensity').value='Balanced';
+  renderStateCard('FL');
+}
+function scheduleTable(schedule){
+  const days=Object.keys(schedule); if(!days.length)return '';
+  const rows=Math.max(...days.map(d=>schedule[d].length));
+  let html='<div class="schedule-wrap"><table><thead><tr><th>Block</th>'+days.map(d=>`<th>${d}</th>`).join('')+'</tr></thead><tbody>';
+  for(let r=0;r<rows;r++){
+    const first=days[0]&&schedule[days[0]][r];
+    html+=`<tr><td class="time">${first?first.time:'Block '+(r+1)}</td>`;
+    for(const d of days){const cell=schedule[d][r]; html+=`<td>${cell?`<b>${cell.subject}</b><br><span class="smalltext">${cell.note}</span>`:''}</td>`;}
+    html+='</tr>';
+  }
+  return html+'</tbody></table></div>';
+}
+function portfolioList(s,state,family){
+  const band=bandForGrade(s.grade);
+  const items=["Weekly activity log","Reading titles + minutes","One math sample per week","One writing sample per week","Photo of hands-on project or lab","Monthly parent reflection","Attendance or learning-day calendar","Assessment/evaluation folder"];
+  if(band==='high') items.push("Transcript credit tracker","Course descriptions","Service/work hours log","Test prep / college notes","Lab reports and research papers");
+  if(state.tier==='High regulation') items.push("Quarterly reporting packet","Objectives by subject","Evaluator-ready portfolio index");
+  if(family.portfolioDepth.includes("Detailed")||family.portfolioDepth.includes("registrar")) items.push("Table of contents","Grading scale","Major project rubrics","End-of-year summary");
+  return '<ul class="checklist">'+items.map(i=>`<li>${i}</li>`).join('')+'</ul>';
+}
+function pathwayNotes(s,state){
+  const band=bandForGrade(s.grade); let p=[];
+  if(band==='k2') p=["Keep lessons short and joyful.","Use read-aloud, phonics, math play, movement, art, and nature.","Save drawings, early writing, photos, and reading logs."];
+  if(band==='elem') p=["Build reading fluency, math confidence, writing stamina, and curiosity projects.","Use field trips as science/history documentation.","Add age-appropriate chores, cooking, money practice, and nature study."];
+  if(band==='middle') p=["Begin research skills, note-taking, lab habits, civics, and independent reading.","Use electives to explore career, arts, coding, agriculture, debate, or entrepreneurship.","Practice weekly planning and reflection."];
+  if(band==='high') p=["Track credits from day one.","Create course descriptions for English, math, science, social studies, electives, and PE/health.","Maintain GPA, transcript, service/work hours, test scores, and portfolio evidence.","Consider dual enrollment, world language, career certifications, or arts portfolio development when appropriate."];
+  if(state.tier==='High regulation') p.push("Because this state is high-regulation in the starter model, keep every subject clearly documented.");
+  return '<ul>'+p.map(x=>`<li>${x}</li>`).join('')+'</ul>';
+}
+function complianceTimeline(state,family){
+  const steps=[
+    ["Before starting", `Verify current state rules and choose the correct legal pathway. Filing/notice timing stored for this state: ${escapeHTML(state.filingDeadline||'verify locally')}.`],
+    ["Weekly", "Log activities, reading titles, samples, and attendance/learning days if relevant to your state or family records."],
+    ["Monthly", "Save portfolio samples, update transcript/credit tracker for grades 9–12, and review the state card checklist."],
+    ["Quarterly", "Review progress, adjust schedule, check high-school credits, and prepare any reports if your state/option requires them."],
+    ["Year-end", `Complete annual assessment/evaluation if required. Stored timing: ${escapeHTML(state.evaluationDeadline||'verify locally')}. Archive records and create a year summary.`]
+  ];
+  if(state.tier==='High regulation') steps.splice(3,0,["High-regulation checkpoint", "Prepare subject summaries, samples, quarterly progress notes, and evaluator-ready documentation according to your state/district process."]);
+  if(state.code==='FL') steps.push(["Florida note", "Submit the annual evaluation near the anniversary of the letter of intent and keep the portfolio for two years."]);
+  if(state.code==='PA') steps.push(["Pennsylvania note", "Annual affidavits/objectives and year-end evaluator reports are major calendar anchors; keep the portfolio organized from the first week."]);
+  if(state.code==='NY') steps.push(["New York note", "Plan for letter of intent, IHIP, quarterly reports, and required annual assessment according to district timing."]);
+  return steps.map(([t,d])=>`<div class="step"><b>${t}</b><br>${d}</div>`).join('');
+}
+function generate(){
+  const data=gather();
+  if(!data.students.length){alert('Add at least one student.');return;}
+  data.generated=data.students.map(s=>bestSchedule(s,data.family,data.state,data.iterations));
+  lastPlan=data;
+  renderPlan(data);
+  location.hash='#results';
+}
+function save(){
+  const data=lastPlan || gather();
+  localStorage.setItem('khaemenesCompassPlan', JSON.stringify(data));
+  alert('Plan saved in this browser.');
+}
+function load(){
+  const raw=localStorage.getItem('khaemenesCompassPlan');
+  if(!raw){alert('No saved plan found in this browser.');return;}
+  const data=JSON.parse(raw);
+  $('familyName').value=data.family?.name||''; $('yearLabel').value=data.family?.year||''; $('stateSelect').value=data.family?.state||'FL';
+  $('daysPerWeek').value=data.family?.daysPerWeek||'5'; $('scheduleStyle').value=data.family?.style||'Balanced'; $('startTime').value=data.family?.startTime||'09:00'; $('blockMinutes').value=data.family?.blockMinutes||'45'; $('fieldDay').value=data.family?.fieldDay||'Friday'; $('faithMode').value=data.family?.faithMode||'Neutral / Flexible'; $('familyNeeds').value=data.family?.needs||''; $('screenLimit').value=data.family?.screenLimit||'Balanced online/offline'; $('portfolioDepth').value=data.family?.portfolioDepth||'Balanced weekly + monthly';
+  $('studentsArea').innerHTML=''; studentId=0; (data.students||[]).forEach(buildStudentCard); if(!(data.students||[]).length) buildStudentCard();
+  renderStateCard($('stateSelect').value);
+  if(data.generated){lastPlan=data; renderPlan(data)}
+}
+function exportJSON(){
+  const data=lastPlan || gather();
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='khaemenes-homeschool-compass-plan.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+function buildStateLibrary(filter=''){
+  const f=filter.toLowerCase();
+  const list=STATES.filter(s=>{
+    const hay=[s.name,s.code,s.tier,s.badge,s.notice,s.assessment,s.records,s.filingDeadline,s.evaluationDeadline,s.subjects,s.attendance].join(' ').toLowerCase();
+    return !f || hay.includes(f);
+  });
+  $('stateGrid').innerHTML=list.map(s=>`<div class="state-mini" data-code="${s.code}" title="Open ${escapeHTML(s.name)} card"><b>${escapeHTML(s.name)} (${s.code})</b><small>${escapeHTML(s.tier)}</small><p class="smalltext">${escapeHTML(s.badge)}</p><p class="smalltext"><b>File:</b> ${escapeHTML(s.filingDeadline||'Verify')}<br><b>Evaluate:</b> ${escapeHTML(s.evaluationDeadline||'Verify')}</p></div>`).join('');
+  document.querySelectorAll('.state-mini').forEach(card=>card.addEventListener('click',()=>{
+    $('stateSelect').value=card.dataset.code;
+    renderStateCard(card.dataset.code);
+    location.hash='#questionnaire';
+  }));
+}
+function init(){
+  $('stateSelect').innerHTML=STATES.map(s=>`<option value="${s.code}" ${s.code==='FL'?'selected':''}>${s.name}</option>`).join('');
+  renderStateCard('FL'); buildStateLibrary(); buildStudentCard({name:'',grade:'9',energy:'Morning'});
+  $('stateSelect').addEventListener('change',e=>renderStateCard(e.target.value));
+  $('addStudentBtn').addEventListener('click',()=>buildStudentCard());
+  $('generateBtn').addEventListener('click',generate); $('saveBtn').addEventListener('click',save); $('loadSavedBtn').addEventListener('click',load); $('exportBtn').addEventListener('click',exportJSON); $('printBtn').addEventListener('click',()=>window.print()); $('markdownBtn').addEventListener('click',exportMarkdown); $('csvBtn').addEventListener('click',exportSchedulesCSV); $('copyBtn').addEventListener('click',copyPlanSummary); $('demoBtn').addEventListener('click',loadDemo);
+  $('resetBtn').addEventListener('click',()=>{if(confirm('Reset the questionnaire?')){localStorage.removeItem('khaemenesCompassPlan'); location.reload();}});
+  $('stateSearch').addEventListener('input',e=>buildStateLibrary(e.target.value));
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
