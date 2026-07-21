@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sagaen™ Studio v1.6.1 — Manual Master Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Brandon+Grotesque:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0d0a08;
+  --panel:#1b1611;
+  --gold:#d9b878;
+  --gold-deep:#b58b25;
+  --muted:#a89572;
+  --ink:#fdfaf3;
+  --radius:12px;
+  --shadow:0 14px 40px rgba(0,0,0,.7);
+}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -20%, #3d2b10 0%, var(--night) 90%),
+    var(--night);
+  font-family:"Brandon Grotesque",sans-serif;
+  color:var(--ink);
+  display:flex;flex-direction:column;height:100vh;
+}
+header{
+  padding:10px 20px;
+  border-bottom:1px solid rgba(217,184,120,0.25);
+  background:var(--panel);
+  color:var(--ink);
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:var(--shadow);
+}
+header h1{font-family:Cinzel,serif;font-size:1.5rem;margin:0;color:var(--gold);}
+header small{color:var(--gold);}
+.wrap{flex:1;display:flex;flex-wrap:wrap;}
+main{flex:1;display:flex;flex-direction:column;align-items:center;padding:11px;}
+.sidebar{
+  width:320px;background:var(--panel);
+  border-left:1px solid rgba(217,184,120,0.25);
+  box-shadow:-4px 0 24px rgba(0,0,0,.6);
+  padding:14px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:11px;
+}
+@media(max-width:888px){
+  .sidebar{width:100%;border-left:none;border-top:1px solid rgba(217,184,120,0.25);
+  flex-direction:row;overflow-x:auto;}
+}
+canvas{
+  background:#fff;border:2px solid rgba(217,184,120,0.3);
+  border-radius:var(--radius);
+  box-shadow:0 9px 24px rgba(0,0,0,.6);
+  cursor:crosshair;max-width:95%;height:auto;
+}
+button,select,input[type=range]{
+  font-family:inherit;font-size:.9rem;
+}
+button{
+  background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+  color:#1a1409;border:none;
+  padding:6px 10px;border-radius:var(--radius);
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.5);
+  transition:transform .2s,box-shadow .2s;
+}
+button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.6);}
+button.ghost{
+  background:transparent;border:1px solid rgba(217,184,120,0.4);color:var(--gold);
+}
+label{font-size:.85rem;color:var(--gold);}
+.section{
+  display:flex;flex-direction:column;gap:6px;
+  background:rgba(255,255,255,0.03);
+  border-radius:var(--radius);
+  padding:8px;
+}
+.rangeRow{display:flex;align-items:center;gap:6px;}
+.rangeRow input[type=range]{flex:1;}
+select,input[type=color],input[type=range]{
+  background:#111;border:1px solid rgba(217,184,120,0.25);
+  color:var(--gold);border-radius:var(--radius);padding:3px 6px;
+}
+input[type=text]{
+  background:#1e1912;border:1px solid rgba(217,184,120,0.3);
+  color:var(--gold);border-radius:var(--radius);
+}
+footer{
+  text-align:center;padding:6px 0;font-size:.8rem;
+  color:var(--gold);
+  border-top:1px solid rgba(217,184,120,0.25);
+  background:var(--panel);
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Sagaen™ Studio</h1>
+    <small>Manual Master Edition v1.6.1</small>
+  </div>
+  <div class="dropdown">
+    <select id="exportType">
+      <option value="png">Export as PNG</option>
+      <option value="jpeg">Export as JPG</option>
+      <option value="webp">Export as WEBP</option>
+    </select>
+    <button onclick="exportImage()">💾 Export</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <main>
+    <div style="width:95%;max-width:900px;text-align:center;">
+      <label for="artTitle">Title your artwork:</label>
+      <input id="artTitle" type="text" placeholder="Untitled Piece" style="width:60%;padding:6px;margin:6px;border-radius:6px;border:1px solid #ccc;">
+    </div>
+    <canvas id="canvas" width="900" height="600"></canvas>
+    <div style="margin-top:10px;">
+      <input id="imgInput" type="file" accept="image/*">
+      <button onclick="resetCanvas()">Reset</button>
+      <button onclick="undo()">↶ Undo</button>
+      <button onclick="redo()">↷ Redo</button>
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="section">
+      <h3 style="font-family:Cinzel,serif;margin:0;">Brush & Eraser</h3>
+      <label>Mode</label>
+      <select id="modeSelect">
+        <option value="brush">Brush</option>
+        <option value="eraser">Eraser</option>
+      </select>
+      <label>Color</label>
+      <input type="color" id="brushColor" value="#000000">
+      <label>Size</label>
+      <div class="rangeRow"><input type="range" id="brushSize" min="1" max="50" value="5"><span id="brushSizeVal">5</span></div>
+      <label>Opacity</label>
+      <div class="rangeRow"><input type="range" id="brushOpacity" min="0.1" max="1" step="0.05" value="1"><span id="brushOpacityVal">1.0</span></div>
+    </div>
+
+    <div class="section">
+      <h3 style="font-family:Cinzel,serif;margin:0;">Image Adjustments</h3>
+      <label>Brightness</label><input type="range" id="brightness" min="-100" max="100" value="0">
+      <label>Contrast</label><input type="range" id="contrast" min="-100" max="100" value="0">
+      <label>Hue</label><input type="range" id="hue" min="-180" max="180" value="0">
+      <label>Saturation</label><input type="range" id="saturation" min="-100" max="200" value="0">
+      <label>Blur</label><input type="range" id="blur" min="0" max="10" value="0">
+      <label>Image Opacity</label><input type="range" id="imageOpacity" min="0" max="1" step="0.05" value="1">
+    </div>
+
+    <div class="section">
+      <h3 style="font-family:Cinzel,serif;margin:0;">View</h3>
+      <label>Zoom</label>
+      <div class="rangeRow">
+        <button onclick="changeZoom(-0.1)">−</button>
+        <input type="range" id="zoom" min="0.5" max="3" step="0.1" value="1">
+        <button onclick="changeZoom(0.1)">＋</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>Sagaen™ — © 2025 My Art Gallery & Khaemenes Academy. All Rights Reserved.</footer>
+
+<script>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let painting=false,undoStack=[],redoStack=[],img=null;
+let zoomLevel=1,imgOpacity=1,mode="brush";
+
+function saveState(){
+  undoStack.push(canvas.toDataURL());
+  redoStack=[];
+}
+function undo(){
+  if(undoStack.length>0){
+    redoStack.push(canvas.toDataURL());
+    const dataURL=undoStack.pop();
+    const img=new Image();
+    img.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);};
+    img.src=dataURL;
+  }
+}
+function redo(){
+  if(redoStack.length>0){
+    undoStack.push(canvas.toDataURL());
+    const dataURL=redoStack.pop();
+    const img=new Image();
+    img.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);};
+    img.src=dataURL;
+  }
+}
+
+function startDraw(e){painting=true;saveState();draw(e);}
+function endDraw(){painting=false;ctx.beginPath();}
+function draw(e){
+  if(!painting)return;
+  const rect=canvas.getBoundingClientRect();
+  const x=(e.clientX-rect.left);
+  const y=(e.clientY-rect.top);
+  ctx.globalAlpha=document.getElementById('brushOpacity').value;
+  ctx.lineWidth=document.getElementById('brushSize').value;
+  ctx.lineCap='round';
+  if(mode==="eraser"){ctx.strokeStyle="#fff";ctx.globalAlpha=1.0;}
+  else ctx.strokeStyle=document.getElementById('brushColor').value;
+  ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);
+}
+
+canvas.addEventListener('mousedown',startDraw);
+canvas.addEventListener('mouseup',endDraw);
+canvas.addEventListener('mousemove',draw);
+canvas.addEventListener('touchstart',e=>startDraw(e.touches[0]));
+canvas.addEventListener('touchend',endDraw);
+canvas.addEventListener('touchmove',e=>{e.preventDefault();draw(e.touches[0]);});
+
+document.getElementById('modeSelect').onchange=e=>mode=e.target.value;
+document.getElementById('brushSize').oninput=e=>document.getElementById('brushSizeVal').innerText=e.target.value;
+document.getElementById('brushOpacity').oninput=e=>document.getElementById('brushOpacityVal').innerText=e.target.value;
+
+document.getElementById('imgInput').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const url=URL.createObjectURL(f);
+  img=new Image();
+  img.onload=()=>{drawImage();URL.revokeObjectURL(url);};
+  img.src=url;
+};
+function drawImage(){
+  if(!img)return;
+  const ratio=img.width/img.height;
+  let w=canvas.width,h=w/ratio;
+  if(h>canvas.height){h=canvas.height;w=h*ratio;}
+  ctx.globalAlpha=imgOpacity;
+  ctx.drawImage(img,(canvas.width-w)/2,(canvas.height-h)/2,w,h);
+  ctx.globalAlpha=1.0;
+}
+
+['brightness','contrast','hue','saturation','blur','imageOpacity'].forEach(id=>{
+  document.getElementById(id).oninput=()=>updateFilters();
+});
+function updateFilters(){
+  if(!img)return;
+  const bright=Number(brightness.value),cont=Number(contrast.value),sat=Number(saturation.value),huev=Number(hue.value),bl=Number(blur.value);
+  imgOpacity=Number(imageOpacity.value);
+  ctx.filter=`brightness(${100+bright}%) contrast(${100+cont}%) saturate(${100+sat}%) hue-rotate(${huev}deg) blur(${bl}px)`;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawImage();
+}
+
+function resetCanvas(){
+  ctx.filter='none';
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(img)drawImage();
+}
+
+function changeZoom(delta){
+  const slider=document.getElementById('zoom');
+  let newVal=parseFloat(slider.value)+delta;
+  if(newVal<0.5)newVal=0.5;if(newVal>3)newVal=3;
+  slider.value=newVal;
+  applyZoom();
+}
+document.getElementById('zoom').oninput=applyZoom;
+function applyZoom(){
+  zoomLevel=parseFloat(document.getElementById('zoom').value);
+  canvas.style.transform=`scale(${zoomLevel})`;
+  canvas.style.transformOrigin='center center';
+}
+
+function exportImage(){
+  const type=document.getElementById('exportType').value;
+  const title=document.getElementById('artTitle').value.trim()||'Untitled';
+  const link=document.createElement('a');
+  link.download=`Sagaen_${title.replace(/\s+/g,'_')}.${type}`;
+  link.href=canvas.toDataURL('image/'+type,0.92);
+  link.click();
+}
+</script>
+</body>
+</html>
