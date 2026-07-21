@@ -1,0 +1,1766 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Health is Wealth — 6-Week Intro to Personal Wellness</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b1324;
+      --bg2:#0a1a2e;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.08);
+      --ink:#f3f4f6;
+      --muted: rgba(243,244,246,0.72);
+      --accent:#7dd3fc;
+      --accent2:#34d399;
+      --danger:#fb7185;
+      --line: rgba(255,255,255,0.12);
+      --radius: 21px;
+      --radius2: 11px;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --max: 1180px;
+      --fz: 22px; /* user preference: readable */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(125,211,252,0.18), transparent 55%),
+        radial-gradient(1200px 800px at 80% 0%, rgba(52,211,153,0.12), transparent 60%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      letter-spacing: 0.2px;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 14px 40px}
+    .posture{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,26,46,0.92), rgba(10,26,46,0.70));
+      border:1px solid var(--line);
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      padding:14px 14px;
+      margin-bottom:14px;
+    }
+    .posture .row{display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
+    .posture h1{
+      margin:0;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing: .4px;
+    }
+    .posture .subtitle{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size: 18px;
+      line-height:1.35;
+      max-width: 860px;
+    }
+    .posture .statement{
+      margin:10px 0 0;
+      font-size: 18px;
+      color: rgba(243,244,246,0.88);
+      line-height:1.5;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+    }
+    .chips{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .chip{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      padding:7px 10px;
+      font-size: 14px;
+      color: rgba(243,244,246,0.88);
+      white-space: nowrap;
+    }
+    .chip strong{color:var(--ink)}
+    .chip.ok{border-color: rgba(52,211,153,.35)}
+    .chip.info{border-color: rgba(125,211,252,.35)}
+    .chip.warn{border-color: rgba(251,113,133,.35)}
+    .topBtns{display:flex; gap:8px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--ink);
+      font-size: 15px;
+      padding:10px 12px;
+      cursor:pointer;
+      transition: transform .05s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(255,255,255,0.09); border-color: rgba(125,211,252,.35)}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      border-color: rgba(125,211,252,.42);
+      background: linear-gradient(180deg, rgba(125,211,252,.22), rgba(125,211,252,.10));
+    }
+    .btn.good{
+      border-color: rgba(52,211,153,.42);
+      background: linear-gradient(180deg, rgba(52,211,153,.20), rgba(52,211,153,.08));
+    }
+    .btn.danger{
+      border-color: rgba(251,113,133,.45);
+      background: linear-gradient(180deg, rgba(251,113,133,.18), rgba(251,113,133,.07));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 14px;
+      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .card .hd h2{margin:0; font-size: 18px; letter-spacing:.3px}
+    .card .bd{padding:14px 14px}
+
+    .weekList{display:flex; flex-direction:column; gap:10px}
+    .weekBtn{
+      width:100%;
+      text-align:left;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      color: var(--ink);
+      padding:12px 12px;
+      cursor:pointer;
+      transition: background .2s ease, border-color .2s ease, transform .05s ease;
+      font-size: 16px;
+      line-height:1.25;
+    }
+    .weekBtn:hover{background: rgba(255,255,255,0.08); border-color: rgba(125,211,252,.35)}
+    .weekBtn:active{transform: translateY(1px)}
+    .weekBtn.active{
+      border-color: rgba(52,211,153,.45);
+      background: linear-gradient(180deg, rgba(52,211,153,.14), rgba(255,255,255,0.04));
+    }
+    .weekMeta{color: var(--muted); font-size: 14px; margin-top:6px}
+    .pill{
+      display:inline-block;
+      font-size: 12px;
+      padding:4px 9px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.18);
+      color: rgba(243,244,246,0.85);
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: var(--ink);
+      border-radius: 999px;
+      padding:10px 12px;
+      font-size: 15px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab.active{
+      border-color: rgba(125,211,252,.45);
+      background: linear-gradient(180deg, rgba(125,211,252,.18), rgba(255,255,255,0.05));
+    }
+
+    .content h3{
+      margin: 16px 0 8px;
+      font-size: 20px;
+      letter-spacing:.2px;
+    }
+    .content p, .content li{
+      font-size: var(--fz);
+      line-height: 1.45;
+      color: rgba(243,244,246,0.92);
+    }
+    .content ul{margin:8px 0 0 22px}
+    .content .muted{color: var(--muted)}
+    .content .box{
+      background: rgba(255,255,255,0.05);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      padding:12px;
+      margin-top:10px;
+    }
+    .kicker{
+      font-size: 14px;
+      color: rgba(243,244,246,0.70);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .flowGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 900px){
+      .flowGrid{grid-template-columns:1fr}
+    }
+    .step{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius2);
+      padding:12px;
+    }
+    .step .t{
+      font-size: 18px;
+      margin:0 0 6px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
+    }
+    .step .mins{
+      font-size: 14px;
+      color: rgba(243,244,246,0.75);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:4px 10px;
+      background: rgba(0,0,0,0.18);
+      white-space:nowrap;
+    }
+
+    .checkRow{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
+    input[type="checkbox"]{transform: scale(1.25); margin-top:6px}
+
+    .formRow{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin: 10px 0;
+    }
+    .field{
+      display:flex; flex-direction:column; gap:6px;
+      min-width: 180px;
+      flex: 1;
+    }
+    .field label{
+      font-size: 14px;
+      color: rgba(243,244,246,0.75);
+    }
+    .field input, .field select, .field textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.20);
+      color: var(--ink);
+      outline:none;
+      font-size: 16px;
+    }
+    .field textarea{min-height: 110px; resize: vertical; font-size: 16px}
+
+    .hr{height:1px; background: var(--line); margin: 14px 0}
+    .small{font-size: 16px !important; color: rgba(243,244,246,0.82) !important}
+    .hint{font-size: 14px; color: rgba(243,244,246,0.70)}
+    .note{font-size: 18px; color: rgba(243,244,246,0.86); line-height:1.45}
+
+    .mealCard{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius2);
+      padding:12px;
+      margin-top:10px;
+    }
+    .mealCard h4{margin:0 0 10px; font-size: 18px}
+    .mealItems{display:flex; flex-direction:column; gap:8px}
+    .itemRow{
+      display:grid;
+      grid-template-columns: 1.3fr .6fr .6fr auto;
+      gap:8px;
+      align-items:center;
+    }
+    @media (max-width: 900px){
+      .itemRow{grid-template-columns: 1fr 1fr 1fr auto}
+    }
+    .itemRow input{padding:10px 10px; border-radius: 12px; border:1px solid var(--line); background: rgba(0,0,0,0.20); color:var(--ink); font-size: 16px}
+    .itemRow .x{white-space:nowrap}
+
+    .scoreBox{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.20);
+      border-radius: var(--radius2);
+      padding:12px;
+      margin-top:10px;
+    }
+
+    details{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      border-radius: var(--radius2);
+      padding:10px 12px;
+      margin-top:10px;
+    }
+    summary{
+      cursor:pointer;
+      font-size: 18px;
+      color: rgba(243,244,246,0.92);
+    }
+
+    .footer{
+      margin-top: 16px;
+      color: rgba(243,244,246,0.60);
+      font-size: 14px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="posture" aria-label="Course Posture Statement">
+      <div class="row">
+        <div>
+          <h1>Health is Wealth</h1>
+          <div class="subtitle">A 6-week, self-paced introduction to personal wellness — movement, sleep, nourishment, stress skills, and sustainable habits.</div>
+          <div class="statement">
+            <strong>Course Posture Statement:</strong>
+            This course is for education and encouragement — not medical advice. We focus on gentle, realistic habits you can sustain.
+            If you have medical conditions, are pregnant, are recovering from an eating disorder, or you’re unsure what’s safe for you, please consult a licensed clinician.
+            <em>No shame, no extremes, no moralizing food.</em> Small changes matter.
+          </div>
+        </div>
+
+        <div class="chips" style="justify-content:flex-end">
+          <div class="chip info"><strong id="progressPct">0%</strong> course progress</div>
+          <div class="chip ok"><strong id="weekChip">Week 1</strong> selected</div>
+          <div class="topBtns">
+            <button class="btn primary" id="exportBtn">Export Data</button>
+            <button class="btn" id="importBtn">Import Data</button>
+            <input type="file" id="importFile" accept="application/json" style="display:none" />
+            <button class="btn" id="printBtn">Print</button>
+            <button class="btn danger" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Left: Weeks -->
+      <section class="card" aria-label="Weeks navigation">
+        <div class="hd">
+          <h2>Weeks</h2>
+          <span class="chip">Self-paced</span>
+        </div>
+        <div class="bd">
+          <div class="weekList" id="weekList"></div>
+
+          <div class="hr"></div>
+          <div class="kicker">Quick Start</div>
+          <p class="small" style="margin:8px 0 0">
+            Pick a week → choose a tab → everything saves automatically.
+          </p>
+          <div class="box">
+            <p class="small" style="margin:0">
+              Tip: Use the <strong>Planner</strong> daily, and the <strong>Calorie Counter</strong> only if it helps you — not if it stresses you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Main -->
+      <section class="card" aria-label="Main content">
+        <div class="hd">
+          <h2 id="mainTitle">Week</h2>
+          <div class="tabs" id="tabs"></div>
+        </div>
+        <div class="bd content" id="mainBody"></div>
+      </section>
+    </div>
+
+    <div class="footer">
+     Thank You For Visiting
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  const APP_KEY = "health_is_wealth_portal_v1";
+
+  const DEFAULT_FOODS = [
+    {name:"Egg (1 large)", cals:72},
+    {name:"Oatmeal (1 cup cooked)", cals:154},
+    {name:"Greek yogurt (plain, 3/4 cup)", cals:100},
+    {name:"Banana (1 medium)", cals:105},
+    {name:"Apple (1 medium)", cals:95},
+    {name:"Chicken breast (3 oz cooked)", cals:128},
+    {name:"Salmon (3 oz cooked)", cals:175},
+    {name:"Brown rice (1 cup cooked)", cals:216},
+    {name:"Quinoa (1 cup cooked)", cals:222},
+    {name:"Black beans (1/2 cup)", cals:114},
+    {name:"Mixed greens salad (2 cups)", cals:20},
+    {name:"Olive oil (1 tbsp)", cals:119},
+    {name:"Peanut butter (1 tbsp)", cals:94},
+    {name:"Whole wheat bread (1 slice)", cals:110},
+    {name:"Avocado (1/2)", cals:120},
+    {name:"Almonds (1 oz)", cals:164},
+    {name:"Cheddar cheese (1 oz)", cals:113},
+    {name:"Milk (1 cup)", cals:103},
+    {name:"Soda (12 oz)", cals:140},
+    {name:"Chocolate (1 oz)", cals:150}
+  ];
+
+  const DIET_LIBRARY = [
+    {
+      id:"balanced",
+      name:"Balanced / Plate Method (MyPlate-style)",
+      premise:"A flexible pattern emphasizing variety: fruits/veg, whole grains, lean proteins, and healthy fats.",
+      goodFor:["People who want simplicity","Families","Long-term sustainability"],
+      watch:["Portion drift over time","Ultra-processed foods crowding out basics"],
+      tryThis:["Build plates: 1/2 non-starchy veg + 1/4 protein + 1/4 whole grains/starchy veg + healthy fat"]
+    },
+    {
+      id:"med",
+      name:"Mediterranean-style",
+      premise:"Plants-forward pattern: vegetables, legumes, fruit, whole grains, olive oil, nuts; fish often; red meat less often.",
+      goodFor:["Heart health focus","People who enjoy variety and cooking","Sustainable lifestyle approach"],
+      watch:["Portion size of oils/nuts","Assuming 'Mediterranean' means 'anything with olive oil'"],
+      tryThis:["Aim for: veggies daily, legumes 2–4x/week, fish 1–2x/week, olive oil as main added fat"]
+    },
+    {
+      id:"dash",
+      name:"DASH",
+      premise:"A balanced plan designed around fruits, vegetables, whole grains, low-fat dairy, and sodium awareness.",
+      goodFor:["Blood pressure / heart-health priorities (with clinician guidance)","People who like structure"],
+      watch:["Very low sodium targets may not suit everyone","Label-reading fatigue"],
+      tryThis:["Start with: more fruits/veg + whole grains + reduce sugary drinks; gradually reduce sodium"]
+    },
+    {
+      id:"plant",
+      name:"Vegetarian / Plant-forward (including Vegan)",
+      premise:"Meals primarily from plants; may include eggs/dairy (vegetarian) or exclude all animal foods (vegan).",
+      goodFor:["People who enjoy plant foods","Those prioritizing fiber and volume eating","Ethical/environmental reasons"],
+      watch:["Protein planning","B12 (especially vegan), iron, omega-3s—consider clinician/RDN guidance"],
+      tryThis:["Build protein anchors: beans/lentils, tofu/tempeh, Greek yogurt/eggs (if included), edamame"]
+    },
+    {
+      id:"lowcarb",
+      name:"Lower-carb",
+      premise:"Reduces refined carbs and sometimes total carbs; can vary widely (moderate to strict).",
+      goodFor:["People who feel better with fewer refined carbs","Those who prefer protein/veg-heavy meals"],
+      watch:["Fiber drop if grains/fruit vanish","Saturated fat overload","Hard to sustain if too strict"],
+      tryThis:["Keep carbs but upgrade: swap refined grains for whole; prioritize legumes and vegetables"]
+    },
+    {
+      id:"keto",
+      name:"Ketogenic (very low carb)",
+      premise:"Very low carbohydrate intake to shift toward ketone use; usually high fat and moderate protein.",
+      goodFor:["Specific medical contexts under supervision","Some people short-term prefer strict rules"],
+      watch:["Restrictive; constipation/nutrient gaps; not ideal for many long-term; discuss with clinician if unsure"],
+      tryThis:["If trying: prioritize unsaturated fats + non-starchy vegetables; plan fiber; monitor how you feel"]
+    },
+    {
+      id:"paleo",
+      name:"Paleo-style",
+      premise:"Often emphasizes meats/fish/eggs, vegetables, fruit, nuts; excludes grains/legumes/dairy (varies).",
+      goodFor:["People who like whole-food simplicity","Those reducing ultra-processed foods"],
+      watch:["Fiber and calcium planning if excluding whole categories","Cost and sustainability"],
+      tryThis:["If going paleo-ish: keep lots of vegetables, nuts/seeds, and ensure calcium sources if avoiding dairy"]
+    },
+    {
+      id:"tre",
+      name:"Time-Restricted Eating (TRE)",
+      premise:"An eating schedule (not a food list): you eat within a daily time window (e.g., 10–12 hours).",
+      goodFor:["People who snack late at night","Those who prefer routine"],
+      watch:["Not appropriate for everyone (history of disordered eating, pregnancy, certain meds/conditions)"],
+      tryThis:["Start gentle: 12-hour eating window; keep food quality strong; stop if it increases stress"]
+    },
+    {
+      id:"custom",
+      name:"Custom Pattern (build-your-own)",
+      premise:"A personalized approach blending the above to fit culture, budget, schedule, and health needs.",
+      goodFor:["Almost everyone","Long-term behavior change"],
+      watch:["Overcomplication","Perfectionism"],
+      tryThis:["Pick 2–3 rules that matter most (e.g., protein at breakfast, veggies at lunch/dinner, walk daily)"]
+    }
+  ];
+
+  const RESOURCES = [
+    {label:"USDA Dietary Guidelines for Americans (2020–2025)", url:"https://www.dietaryguidelines.gov/resources/2020-2025-dietary-guidelines-online-materials"},
+    {label:"MyPlate: Eat Healthy (USDA)", url:"https://www.myplate.gov/eat-healthy/what-is-myplate"},
+    {label:"CDC: Adult Physical Activity Basics", url:"https://www.cdc.gov/physical-activity-basics/adding-adults/index.html"},
+    {label:"National Sleep Foundation: How many hours do you really need?", url:"https://www.thensf.org/how-many-hours-of-sleep-do-you-really-need/"},
+    {label:"NIH/NHLBI: DASH Eating Plan", url:"https://www.nhlbi.nih.gov/education/dash-eating-plan"},
+    {label:"WHO: Healthy diet (fact sheet)", url:"https://www.who.int/news-room/fact-sheets/detail/healthy-diet"},
+    {label:"Harvard Nutrition Source: Mediterranean Diet Review", url:"https://nutritionsource.hsph.harvard.edu/healthy-weight/diet-reviews/mediterranean-diet/"},
+    {label:"Mayo Clinic: Keto Diet (overview + cautions)", url:"https://communityhealth.mayoclinic.org/featured-stories/keto-diet"},
+    {label:"NIH Research Matters: Time-Restricted Eating (overview)", url:"https://www.nih.gov/news-events/nih-research-matters/time-restricted-eating-metabolic-syndrome"},
+    {label:"USDA FoodData Central (nutrition database)", url:"https://fdc.nal.usda.gov/"}
+  ];
+
+  const WEEKS = [
+    {
+      title:"Foundations: Your Baseline, Your Why, Your Small Wins",
+      theme:"Start simple. Track gently. Build identity-based habits.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, grant me clarity, patience, and strength.",
+          "Help me honor my body with wisdom and kindness.",
+          "Let small, steady steps become lasting fruit. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "Today is about starting — not perfecting.",
+          "Pick ONE reason you want wellness (energy, peace, strength, longevity, stewardship)."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:5, content:[
+          "Wellness is built through repeating the basics: movement, sleep, nourishment, stress skills, and community.",
+          "Small changes matter — consistency beats intensity."
+        ]},
+        {name:"Observe", mins:8, content:[
+          "What patterns do I notice? (sleep time, snacking, screen time, stress spikes)",
+          "What drains me? What restores me?",
+          "Which habit would make the biggest difference this week?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "What does my body need most right now: more rest, more movement, more real food, more calm?",
+          "What’s realistic with my schedule?"
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Choose 2 tiny commitments for 7 days (examples below).",
+          "Write your plan in the Planner tab."
+        ]}
+      ],
+      exercises:[
+        "Take a 10-minute walk (or march in place) today.",
+        "Drink one extra glass of water.",
+        "Add one fruit or vegetable to one meal.",
+        "Set a consistent bedtime window (even if short)."
+      ],
+      wellnessIdeas:[
+        "Use a 2-minute reset: inhale 4 seconds, exhale 6 seconds, repeat 6 times.",
+        "Design your environment: put water bottle where you’ll see it.",
+        "Identity statement: “I am the kind of person who keeps small promises to myself.”"
+      ],
+      dietNotes:[
+        "Start with the plate method (balanced, flexible).",
+        "Protein + fiber improve satisfaction: add eggs/Greek yogurt/beans + fruit/veg.",
+        "Avoid ‘all-or-nothing’ dieting; aim for upgrades, not bans."
+      ],
+      quiz:[
+        {type:"tf", q:"A sustainable wellness plan usually starts with small, consistent habits.", a:true},
+        {type:"mc", q:"Which is the best first-week goal?", options:["Change everything at once","Pick 1–2 small habits and repeat them","Skip planning and rely on motivation"], answerIndex:1},
+        {type:"tf", q:"If you miss a day, the week is ruined.", a:false},
+        {type:"essay", q:"Write your WHY in 3–5 sentences. How do you want to feel 6 weeks from now?", guidance:"Be honest and kind. Focus on energy, mood, mobility, confidence, faithfulness."},
+        {type:"essay", q:"Pick two tiny habits for this week and explain when/where you’ll do them.", guidance:"Example: walk after lunch; protein at breakfast; lights out by 11pm."}
+      ]
+    },
+    {
+      title:"Movement: Strength, Cardio, Mobility (Beginner-Friendly)",
+      theme:"Move your body like it matters — because it does.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, thank You for the gift of movement.",
+          "Help me build strength with humility and consistency. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "Goal: a simple weekly movement rhythm.",
+          "Movement is medicine — but we dose it wisely."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:6, content:[
+          "A common public-health baseline: ~150 minutes/week of moderate activity and 2 days/week of muscle strengthening.",
+          "Any movement is better than none. Start where you are."
+        ]},
+        {name:"Observe", mins:7, content:[
+          "What movement feels safe and enjoyable for me?",
+          "What stops me (time, pain, boredom, intimidation)?",
+          "What’s my easiest ‘anchor time’ (morning, lunch, evening)?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "A plan works when it fits my real life.",
+          "I need a minimum plan (2–3 days) AND a bonus plan (optional extra)."
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Choose your Minimum Movement Plan for 7 days:",
+          "• 3 x 10-minute walks OR • 2 strength days + 2 walks OR • 5 x 8 minutes movement snacks."
+        ]}
+      ],
+      exercises:[
+        "Beginner Strength (2 rounds): 8 chair squats • 8 wall push-ups • 20–30s plank (or wall) • 10 hip hinges",
+        "Mobility (3 minutes): neck circles • shoulder rolls • cat-cow • ankle circles",
+        "Cardio option: 10–20 min brisk walk or dance session"
+      ],
+      wellnessIdeas:[
+        "‘Two-minute rule’: put on shoes. Often you’ll keep going.",
+        "Pair movement with something pleasant (music, audiobook, sunshine).",
+        "Track with checkmarks, not guilt."
+      ],
+      dietNotes:[
+        "Support movement with hydration and protein.",
+        "Simple recovery meal: protein + carb + colorful veg/fruit."
+      ],
+      quiz:[
+        {type:"mc", q:"A good beginner movement plan is one that is…", options:["Painful to prove effort","Realistic and repeatable","Only done when motivated"], answerIndex:1},
+        {type:"tf", q:"Strength training can be done with bodyweight and still count.", a:true},
+        {type:"tf", q:"You must exercise in one long session for it to matter.", a:false},
+        {type:"essay", q:"Describe your Minimum Movement Plan for the next 7 days.", guidance:"Include days, time of day, and a backup option."},
+        {type:"essay", q:"What’s one barrier you anticipate, and what’s your workaround?", guidance:"Example: bad weather → indoor march + chair squats."}
+      ]
+    },
+    {
+      title:"Nutrition Basics: The Plate, Protein, Fiber, and Hydration",
+      theme:"Nourish for energy, mood, and steadiness.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, teach me wisdom in what I eat and drink.",
+          "Help me nourish my body without fear. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "This week is about upgrades, not restrictions.",
+          "We focus on: protein, fiber, hydration, and food quality."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:6, content:[
+          "Plate method idea: fill half with non-starchy vegetables, add a protein, add a whole-grain/starchy veg, and include healthy fat.",
+          "Food quality matters. Ultra-processed foods can crowd out nutrition."
+        ]},
+        {name:"Observe", mins:7, content:[
+          "When do I feel most hungry? Most snacky?",
+          "Which meals are missing protein or fiber?",
+          "What drinks am I consuming daily?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "Protein and fiber help you feel satisfied longer.",
+          "Hydration supports energy and digestion."
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Pick 2 upgrades:",
+          "• Protein at breakfast • Add 1 veg/day • Replace 1 sugary drink • Add a fiber food (beans/oats/berries)"
+        ]}
+      ],
+      exercises:[
+        "Build 1 plate-method meal today (take a photo if you like).",
+        "Drink water with each meal (start with a small glass if needed).",
+        "Try a fiber boost: add beans/lentils or berries or oats."
+      ],
+      wellnessIdeas:[
+        "Use a hunger scale (1–10). Aim to eat at 3–4 and stop at 6–7.",
+        "Add before you subtract: add fruit/veg/protein first."
+      ],
+      dietNotes:[
+        "Different diets exist; the best one is the one you can sustain and that fits your health needs.",
+        "If weight loss is a goal, slow and steady is generally safer than rapid changes."
+      ],
+      quiz:[
+        {type:"tf", q:"Protein and fiber often help with satiety (feeling full).", a:true},
+        {type:"mc", q:"Which is an ‘upgrade’ approach?", options:["Ban all foods","Add a vegetable to one meal daily","Skip meals to compensate"], answerIndex:1},
+        {type:"tf", q:"Hydration can impact energy and digestion.", a:true},
+        {type:"essay", q:"Describe one plate-method meal you can repeat this week.", guidance:"Include protein, fiber, and a colorful plant."},
+        {type:"essay", q:"What’s one drink choice you want to improve (if any), and how?", guidance:"Example: swap 1 soda for sparkling water or tea."}
+      ]
+    },
+    {
+      title:"Sleep & Recovery: Your Hidden Superpower",
+      theme:"Protect your sleep like it’s a sacred appointment.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, grant me rest that restores.",
+          "Help me lay down burdens and wake with strength. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "Sleep influences appetite, mood, focus, and recovery.",
+          "We aim for a realistic sleep routine, not perfection."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:6, content:[
+          "Many sleep organizations recommend about 7–9 hours for most adults (individual needs vary).",
+          "Sleep quality improves with consistent timing and a calm wind-down."
+        ]},
+        {name:"Observe", mins:7, content:[
+          "What time do I naturally get sleepy?",
+          "What steals my sleep (screens, late food, racing thoughts, stress)?",
+          "What helps me sleep (cool room, dim lights, routine)?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "A wind-down routine trains your nervous system.",
+          "Consistency (even 30 minutes) can help."
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Pick 2 sleep upgrades:",
+          "• Same wake time • Dim screens 60 minutes before bed • 5-minute journal • Cool/dark room"
+        ]}
+      ],
+      exercises:[
+        "Create a 10-minute wind-down: dim lights • stretch • slow breathing.",
+        "Write tomorrow’s top 3 tasks (to quiet the mind).",
+        "Keep phone outside the bed if possible."
+      ],
+      wellnessIdeas:[
+        "If you can’t sleep: get up briefly, low light, calm activity, return when sleepy.",
+        "Caffeine curfew: set a time after which you stop caffeine (personal tolerance varies)."
+      ],
+      dietNotes:[
+        "Late heavy meals can disrupt sleep for some people; experiment gently.",
+        "Hydration is good — but reduce liquids right before bed if it wakes you up."
+      ],
+      quiz:[
+        {type:"tf", q:"A consistent wake time can support a steadier sleep rhythm.", a:true},
+        {type:"mc", q:"Which is a good wind-down habit?", options:["Bright screens in bed","Dim lights + quiet routine","Intense workout right before sleep"], answerIndex:1},
+        {type:"tf", q:"Sleep can affect hunger and mood.", a:true},
+        {type:"essay", q:"Write your ideal wind-down routine (10–20 minutes).", guidance:"Keep it simple: dim, calm, repeatable."},
+        {type:"essay", q:"What’s one sleep barrier you’ll address this week?", guidance:"Example: doomscrolling → phone charger across room."}
+      ]
+    },
+    {
+      title:"Stress Skills: Nervous System Care, Mindset, and Community",
+      theme:"Calm is a skill. Practice it gently.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, steady my heart and mind.",
+          "Teach me peace through wise actions. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "Stress affects sleep, appetite, and motivation.",
+          "We build a small toolkit: breath, boundaries, and support."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:6, content:[
+          "Your nervous system responds to your environment and habits.",
+          "You can train safety signals: slow breathing, sunlight, movement, connection."
+        ]},
+        {name:"Observe", mins:7, content:[
+          "What triggers me most this week?",
+          "How do I cope now (scrolling, snacking, isolating, overworking)?",
+          "What coping helps (walk, prayer, journaling, talking to someone)?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "Coping is not weakness — it’s strategy.",
+          "We replace coping that harms with coping that heals."
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Pick one daily stress practice (5 minutes):",
+          "• 4-6 breathing • short walk • journal • gratitude list • prayer/meditation"
+        ]}
+      ],
+      exercises:[
+        "Practice 4-6 breathing: inhale 4, exhale 6 for 2–5 minutes.",
+        "Sunlight + movement: step outside for 5 minutes if possible.",
+        "Message a supportive person (or write a supportive note to yourself)."
+      ],
+      wellnessIdeas:[
+        "Boundary script: “I can’t do that today, but I can do ___.”",
+        "Make a ‘calm corner’: candle, journal, soft light, water."
+      ],
+      dietNotes:[
+        "Stress can increase cravings. Plan ‘good enough’ snacks: fruit + nuts, yogurt, hummus + veg.",
+        "Don’t punish yourself for stress-eating — build better buffers."
+      ],
+      quiz:[
+        {type:"tf", q:"Slow exhale breathing can help signal calm to your body.", a:true},
+        {type:"mc", q:"A helpful stress strategy is…", options:["Pretending it isn’t happening","Building a small daily coping ritual","Blaming yourself"], answerIndex:1},
+        {type:"tf", q:"Community and support can be part of wellness.", a:true},
+        {type:"essay", q:"List 3 stress triggers and 3 healthier coping responses.", guidance:"Keep them realistic. Example: conflict → walk + breathe + text friend."},
+        {type:"essay", q:"Write a boundary you will practice this week.", guidance:"Example: no emails after 9pm; 10-minute lunch break."}
+      ]
+    },
+    {
+      title:"Diet Deep Dive + Custom Plan: Choose a Pattern You Can Keep",
+      theme:"The best diet is the one you can live with — and that supports your health.",
+      sessionFlow: [
+        {name:"Opening Prayer / Intention", mins:2, content:[
+          "Creator, grant me wisdom and balance.",
+          "Let my choices be guided by truth, not fear. Amen."
+        ]},
+        {name:"Welcome", mins:5, content:[
+          "This week: learn diet options and build a custom plan.",
+          "We stay neutral, evidence-aware, and practical."
+        ]},
+        {name:"Read / Learn (Out Loud)", mins:6, content:[
+          "Diet patterns differ: Mediterranean, DASH, plant-forward, low-carb, keto, paleo, time-restricted eating, and more.",
+          "Each has benefits and cautions; food quality and consistency matter."
+        ]},
+        {name:"Observe", mins:7, content:[
+          "Which pattern fits my culture, budget, and schedule?",
+          "Which foods do I truly enjoy?",
+          "What health needs should I consider (with a clinician if needed)?"
+        ]},
+        {name:"Interpret", mins:6, content:[
+          "A pattern is sustainable if it is flexible and satisfying.",
+          "Start with a ‘base pattern’ + 2–3 personal rules."
+        ]},
+        {name:"Apply + Plan", mins:4, content:[
+          "Pick one base pattern and write 3 rules for the next 14 days.",
+          "Example: “Protein at breakfast, veggies at lunch/dinner, walk 10 minutes daily.”"
+        ]}
+      ],
+      exercises:[
+        "Choose a base diet pattern in the Diet Library tab.",
+        "Write 3 personal rules and add them to your Planner notes.",
+        "Prep 1 “default” meal you can repeat when life is busy."
+      ],
+      wellnessIdeas:[
+        "Use a ‘default grocery list’ (repeat weekly).",
+        "Design a ‘busy day menu’: 2–3 go-to meals, 2 snacks, 1 easy dinner."
+      ],
+      dietNotes:[
+        "Avoid extreme restriction if it triggers anxiety or rebound eating.",
+        "If weight loss is a goal, a modest deficit is often more sustainable than rapid loss."
+      ],
+      quiz:[
+        {type:"tf", q:"Different diet patterns can work; sustainability and food quality matter.", a:true},
+        {type:"mc", q:"A helpful way to choose a diet pattern is…", options:["Pick the most extreme option","Choose what fits your life and you can sustain","Copy someone else exactly"], answerIndex:1},
+        {type:"tf", q:"A custom plan can combine principles (e.g., Mediterranean + plate method).", a:true},
+        {type:"essay", q:"Which base pattern do you choose right now, and why?", guidance:"Mention culture, schedule, preferences, and how you’ll keep it realistic."},
+        {type:"essay", q:"Write your 3 personal rules for the next 14 days.", guidance:"Keep them measurable and kind."}
+      ]
+    }
+  ];
+
+  const TABS = [
+    {id:"lesson", label:"Lesson"},
+    {id:"planner", label:"Daily Planner"},
+    {id:"calories", label:"Calorie Counter"},
+    {id:"diets", label:"Diet Library"},
+    {id:"quiz", label:"Homework Quiz"},
+    {id:"resources", label:"Resources"},
+    {id:"progress", label:"Progress"}
+  ];
+
+  // --------- State ----------
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(APP_KEY);
+      if(!raw) throw new Error("no data");
+      const s = JSON.parse(raw);
+      return normalizeState(s);
+    }catch(e){
+      return normalizeState({
+        selectedWeek: 0,
+        selectedTab: "lesson",
+        weekDone: Array(WEEKS.length).fill(false),
+        checkmarks: {}, // {weekIndex: {exercise:[bool], flowDone:bool}}
+        planner: {}, // {dateStr: {dietStyle, meals, water, notes}}
+        quizAnswers: {}, // {weekIndex: {answers:{qid:value}}}
+        calorieTool: { sex:"female", age:35, heightIn:64, weightLb:160, activity:"moderate" },
+        timer: { running:false, remainingSec: 30*60, lastTick: 0 }
+      });
+    }
+  }
+  function normalizeState(s){
+    if(typeof s !== "object" || !s) s = {};
+    if(typeof s.selectedWeek !== "number") s.selectedWeek = 0;
+    if(!TABS.some(t => t.id === s.selectedTab)) s.selectedTab = "lesson";
+    if(!Array.isArray(s.weekDone) || s.weekDone.length !== WEEKS.length) s.weekDone = Array(WEEKS.length).fill(false);
+    if(typeof s.checkmarks !== "object" || !s.checkmarks) s.checkmarks = {};
+    if(typeof s.planner !== "object" || !s.planner) s.planner = {};
+    if(typeof s.quizAnswers !== "object" || !s.quizAnswers) s.quizAnswers = {};
+    if(typeof s.calorieTool !== "object" || !s.calorieTool) s.calorieTool = { sex:"female", age:35, heightIn:64, weightLb:160, activity:"moderate" };
+    if(typeof s.timer !== "object" || !s.timer) s.timer = { running:false, remainingSec: 30*60, lastTick: 0 };
+    return s;
+  }
+  function saveState(){ localStorage.setItem(APP_KEY, JSON.stringify(state)); updateProgressChip(); }
+
+  const state = loadState();
+
+  // --------- Utils ----------
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const el = (tag, attrs={}, children=[]) => {
+    const n = document.createElement(tag);
+    Object.entries(attrs).forEach(([k,v])=>{
+      if(k==="class") n.className=v;
+      else if(k==="html") n.innerHTML=v;
+      else if(k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v);
+    });
+    children.forEach(c => n.appendChild(typeof c==="string" ? document.createTextNode(c) : c));
+    return n;
+  };
+  function fmtTime(sec){
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec/60);
+    const s = sec % 60;
+    return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+  function todayStr(){
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  }
+  function deepCopy(x){ return JSON.parse(JSON.stringify(x)); }
+
+  // --------- Render Weeks ----------
+  function renderWeekList(){
+    const list = $("#weekList");
+    list.innerHTML = "";
+    WEEKS.forEach((w, i) => {
+      const b = el("button", {class:`weekBtn ${i===state.selectedWeek?'active':''}`, type:"button"});
+      b.appendChild(el("div",{html:`<strong>Week ${i+1}:</strong> ${escapeHtml(w.title)}`}));
+      b.appendChild(el("div",{class:"weekMeta", html: escapeHtml(w.theme)}));
+      const meta = el("div",{});
+      meta.appendChild(el("span",{class:"pill"},[`Lesson + Planner + Quiz`]));
+      meta.appendChild(el("span",{class:"pill"},[`Local saves`]));
+      if(state.weekDone[i]) meta.appendChild(el("span",{class:"pill", style:"border-color: rgba(52,211,153,.45);"},[`Completed ✓`]));
+      b.appendChild(meta);
+
+      b.addEventListener("click", () => {
+        state.selectedWeek = i;
+        state.selectedTab = "lesson";
+        ensureWeekCheckmarks(i);
+        saveState();
+        renderAll();
+      });
+      list.appendChild(b);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+
+  // --------- Tabs ----------
+  function renderTabs(){
+    const tabs = $("#tabs");
+    tabs.innerHTML = "";
+    TABS.forEach(t => {
+      const b = el("button", {class:`tab ${t.id===state.selectedTab?'active':''}`, type:"button"}, [t.label]);
+      b.addEventListener("click", () => {
+        state.selectedTab = t.id;
+        saveState();
+        renderMain();
+      });
+      tabs.appendChild(b);
+    });
+  }
+
+  // --------- Timer ----------
+  let timerInterval = null;
+  function tickTimer(){
+    if(!state.timer.running) return;
+    const now = Date.now();
+    if(!state.timer.lastTick) state.timer.lastTick = now;
+    const delta = Math.floor((now - state.timer.lastTick)/1000);
+    if(delta > 0){
+      state.timer.remainingSec = Math.max(0, state.timer.remainingSec - delta);
+      state.timer.lastTick = now;
+      saveState();
+      const t = $("#timerText");
+      if(t) t.textContent = fmtTime(state.timer.remainingSec);
+      if(state.timer.remainingSec === 0){
+        state.timer.running = false;
+        saveState();
+        if($("#timerStatus")) $("#timerStatus").textContent = "Done ✓";
+      }
+    }
+  }
+  function ensureTimerRunning(){
+    if(timerInterval) return;
+    timerInterval = setInterval(tickTimer, 500);
+  }
+
+  // --------- Week data helpers ----------
+  function ensureWeekCheckmarks(weekIndex){
+    if(!state.checkmarks[weekIndex]){
+      state.checkmarks[weekIndex] = {
+        flowDone:false,
+        exercises: Array(WEEKS[weekIndex].exercises.length).fill(false)
+      };
+    }else{
+      const cm = state.checkmarks[weekIndex];
+      if(!Array.isArray(cm.exercises) || cm.exercises.length !== WEEKS[weekIndex].exercises.length){
+        cm.exercises = Array(WEEKS[weekIndex].exercises.length).fill(false);
+      }
+      if(typeof cm.flowDone !== "boolean") cm.flowDone = false;
+    }
+  }
+
+  // --------- Main render ----------
+  function renderMain(){
+    const w = WEEKS[state.selectedWeek];
+    $("#mainTitle").textContent = `Week ${state.selectedWeek+1} • ${w.title}`;
+    $("#weekChip").textContent = `Week ${state.selectedWeek+1}`;
+
+    const body = $("#mainBody");
+    body.innerHTML = "";
+    ensureWeekCheckmarks(state.selectedWeek);
+
+    if(state.selectedTab === "lesson") body.appendChild(renderLessonTab(state.selectedWeek));
+    if(state.selectedTab === "planner") body.appendChild(renderPlannerTab());
+    if(state.selectedTab === "calories") body.appendChild(renderCaloriesTab());
+    if(state.selectedTab === "diets") body.appendChild(renderDietsTab());
+    if(state.selectedTab === "quiz") body.appendChild(renderQuizTab(state.selectedWeek));
+    if(state.selectedTab === "resources") body.appendChild(renderResourcesTab());
+    if(state.selectedTab === "progress") body.appendChild(renderProgressTab());
+  }
+
+  function renderLessonTab(weekIndex){
+    const w = WEEKS[weekIndex];
+    const cm = state.checkmarks[weekIndex];
+    const root = el("div");
+
+    // Timer
+    const timerBox = el("div", {class:"box"});
+    timerBox.appendChild(el("div",{class:"kicker", html:"30-minute session timer"}));
+    const timerRow = el("div",{class:"formRow"});
+    timerRow.appendChild(el("div",{class:"chip info", html:`Time remaining: <strong id="timerText">${fmtTime(state.timer.remainingSec)}</strong>`}));
+    timerRow.appendChild(el("div",{class:"chip", id:"timerStatus", html: state.timer.running ? "Running…" : "Paused"}));
+    const startBtn = el("button",{class:"btn good", type:"button"}, [state.timer.running ? "Pause" : "Start"]);
+    startBtn.addEventListener("click", () => {
+      state.timer.running = !state.timer.running;
+      state.timer.lastTick = Date.now();
+      saveState();
+      renderMain();
+      ensureTimerRunning();
+    });
+    const resetBtn = el("button",{class:"btn", type:"button"}, ["Reset 30:00"]);
+    resetBtn.addEventListener("click", () => {
+      state.timer.running = false;
+      state.timer.remainingSec = 30*60;
+      state.timer.lastTick = 0;
+      saveState();
+      renderMain();
+    });
+    timerRow.appendChild(startBtn);
+    timerRow.appendChild(resetBtn);
+    timerBox.appendChild(timerRow);
+    root.appendChild(timerBox);
+    ensureTimerRunning();
+
+    // Theme
+    root.appendChild(el("p",{class:"note"}, [
+      el("span",{class:"kicker"},["This week’s theme"]), " ",
+      document.createTextNode(w.theme)
+    ]));
+
+    // Flow
+    root.appendChild(el("h3",{html:"30-Minute Flow"}));
+    const flow = el("div",{class:"flowGrid"});
+    w.sessionFlow.forEach(step => {
+      const card = el("div",{class:"step"});
+      const title = el("div",{class:"t"});
+      title.appendChild(el("div",{html: escapeHtml(step.name)}));
+      title.appendChild(el("span",{class:"mins"},[`${step.mins} min`]));
+      card.appendChild(title);
+      const ul = el("ul");
+      step.content.forEach(line => ul.appendChild(el("li",{},[line])));
+      card.appendChild(ul);
+      flow.appendChild(card);
+    });
+    root.appendChild(flow);
+
+    // Mark flow complete
+    const doneRow = el("div",{class:"checkRow"});
+    const cb = el("input",{type:"checkbox", id:"flowDone"});
+    cb.checked = !!cm.flowDone;
+    cb.addEventListener("change", () => {
+      cm.flowDone = cb.checked;
+      autoComputeWeekDone();
+      saveState();
+      renderWeekList();
+      updateProgressChip();
+    });
+    doneRow.appendChild(cb);
+    doneRow.appendChild(el("label",{for:"flowDone", class:"note"},["Mark this week’s lesson flow as completed"]));
+    root.appendChild(doneRow);
+
+    // Exercises
+    root.appendChild(el("h3",{html:"Weekly Exercises"}));
+    w.exercises.forEach((ex, idx) => {
+      const row = el("div",{class:"checkRow"});
+      const c = el("input",{type:"checkbox"});
+      c.checked = !!cm.exercises[idx];
+      c.addEventListener("change", () => {
+        cm.exercises[idx] = c.checked;
+        autoComputeWeekDone();
+        saveState();
+        renderWeekList();
+        updateProgressChip();
+      });
+      row.appendChild(c);
+      row.appendChild(el("div",{class:"note"},[ex]));
+      root.appendChild(row);
+    });
+
+    // Wellness ideas & diet notes
+    root.appendChild(el("h3",{html:"Wellness Ideas"}));
+    root.appendChild(listBox(w.wellnessIdeas));
+
+    root.appendChild(el("h3",{html:"Dietary Notes"}));
+    root.appendChild(listBox(w.dietNotes));
+
+    // Quick jump buttons
+    const jump = el("div",{class:"box"});
+    jump.appendChild(el("div",{class:"kicker", html:"Next steps"}));
+    const btnRow = el("div",{class:"formRow"});
+    const goPlanner = el("button",{class:"btn primary", type:"button"},["Open Daily Planner"]);
+    goPlanner.addEventListener("click", () => { state.selectedTab="planner"; saveState(); renderAll(); });
+    const goQuiz = el("button",{class:"btn primary", type:"button"},["Open Homework Quiz"]);
+    goQuiz.addEventListener("click", () => { state.selectedTab="quiz"; saveState(); renderAll(); });
+    btnRow.appendChild(goPlanner);
+    btnRow.appendChild(goQuiz);
+    jump.appendChild(btnRow);
+    root.appendChild(jump);
+
+    return root;
+  }
+
+  function listBox(items){
+    const b = el("div",{class:"box"});
+    const ul = el("ul");
+    items.forEach(x => ul.appendChild(el("li",{},[x])));
+    b.appendChild(ul);
+    return b;
+  }
+
+  // --------- Planner ----------
+  function defaultDayPlan(){
+    return {
+      dietStyle:"balanced",
+      waterGoal: 6,
+      meals: {
+        breakfast: [],
+        lunch: [],
+        dinner: [],
+        snacks: []
+      },
+      notes:""
+    };
+  }
+  function getDayPlan(dateStr){
+    if(!state.planner[dateStr]) state.planner[dateStr] = defaultDayPlan();
+    // normalize
+    const p = state.planner[dateStr];
+    if(!p.meals) p.meals = {breakfast:[],lunch:[],dinner:[],snacks:[]};
+    ["breakfast","lunch","dinner","snacks"].forEach(k => { if(!Array.isArray(p.meals[k])) p.meals[k] = []; });
+    if(typeof p.notes !== "string") p.notes = "";
+    if(typeof p.waterGoal !== "number") p.waterGoal = 6;
+    if(!p.dietStyle) p.dietStyle = "balanced";
+    return p;
+  }
+
+  function renderPlannerTab(){
+    const root = el("div");
+    root.appendChild(el("p",{class:"note"},[
+      "Plan your meals by date. Add foods with calories to auto-sum. Everything saves locally."
+    ]));
+
+    const dateRow = el("div",{class:"formRow"});
+    const dateField = el("div",{class:"field"});
+    dateField.appendChild(el("label",{html:"Select a date"}));
+    const dateInput = el("input",{type:"date", value: todayStr()});
+    dateField.appendChild(dateInput);
+
+    const dietField = el("div",{class:"field"});
+    dietField.appendChild(el("label",{html:"Diet style (optional)"}));
+    const dietSel = el("select",{});
+    DIET_LIBRARY.forEach(d => dietSel.appendChild(el("option",{value:d.id},[d.name])));
+    dietField.appendChild(dietSel);
+
+    const waterField = el("div",{class:"field"});
+    waterField.appendChild(el("label",{html:"Water goal (glasses/day)"}));
+    const waterInput = el("input",{type:"number", min:"0", step:"1", value:"6"});
+    waterField.appendChild(waterInput);
+
+    dateRow.appendChild(dateField);
+    dateRow.appendChild(dietField);
+    dateRow.appendChild(waterField);
+    root.appendChild(dateRow);
+
+    const dietInfo = el("div",{class:"box"});
+    dietInfo.appendChild(el("div",{class:"kicker", html:"Diet guidance (selected style)"}));
+    const dietText = el("div",{class:"note", id:"dietGuidance"}, [""]);
+    dietInfo.appendChild(dietText);
+    root.appendChild(dietInfo);
+
+    const plannerArea = el("div",{id:"plannerArea"});
+    root.appendChild(plannerArea);
+
+    function renderForDate(){
+      const dstr = dateInput.value || todayStr();
+      const plan = getDayPlan(dstr);
+
+      dietSel.value = plan.dietStyle;
+      waterInput.value = String(plan.waterGoal);
+
+      const d = DIET_LIBRARY.find(x => x.id === plan.dietStyle) || DIET_LIBRARY[0];
+      dietText.innerHTML =
+        `<strong>${escapeHtml(d.name)}</strong><br>` +
+        `${escapeHtml(d.premise)}<br>` +
+        `<span class="muted">Try:</span> ${escapeHtml(d.tryThis.join(" • "))}`;
+
+      plannerArea.innerHTML = "";
+
+      // Meal cards
+      plannerArea.appendChild(renderMeal("Breakfast", "breakfast", plan, dstr));
+      plannerArea.appendChild(renderMeal("Lunch", "lunch", plan, dstr));
+      plannerArea.appendChild(renderMeal("Dinner", "dinner", plan, dstr));
+      plannerArea.appendChild(renderMeal("Snacks", "snacks", plan, dstr));
+
+      // Totals
+      const totals = computeDayTotals(plan);
+      const totalBox = el("div",{class:"scoreBox"});
+      totalBox.appendChild(el("div",{class:"kicker", html:"Daily totals"}));
+      totalBox.appendChild(el("p",{class:"note", html:`Estimated calories: <strong>${Math.round(totals.cals)}</strong> • Items: <strong>${totals.items}</strong> • Water goal: <strong>${plan.waterGoal}</strong> glasses`} ));
+      totalBox.appendChild(el("p",{class:"small muted", html:"Note: These are estimates. Labels and serving sizes vary. Use this tool for awareness, not anxiety."}));
+      plannerArea.appendChild(totalBox);
+
+      // Notes
+      const notes = el("div",{class:"mealCard"});
+      notes.appendChild(el("h4",{},["Notes (habits, rules, reflections)"]));
+      const ta = el("textarea",{placeholder:"Write your plan, your 3 rules, your grocery notes, your reflections…"});
+      ta.value = plan.notes || "";
+      ta.addEventListener("input", () => {
+        plan.notes = ta.value;
+        saveState();
+      });
+      notes.appendChild(ta);
+      plannerArea.appendChild(notes);
+    }
+
+    function renderMeal(label, key, plan, dstr){
+      const card = el("div",{class:"mealCard"});
+      card.appendChild(el("h4",{},[label]));
+
+      // quick add row
+      const quickRow = el("div",{class:"formRow"});
+      const foodSelField = el("div",{class:"field", style:"min-width:260px"});
+      foodSelField.appendChild(el("label",{html:"Quick add (common foods)"}));
+      const foodSel = el("select",{});
+      foodSel.appendChild(el("option",{value:""},["Select…"]));
+      DEFAULT_FOODS.forEach(f => foodSel.appendChild(el("option",{value:f.name, "data-cals": String(f.cals)}, [`${f.name} — ${f.cals} cal`])));
+      foodSelField.appendChild(foodSel);
+
+      const addBtn = el("button",{class:"btn good", type:"button"},["Add"]);
+      addBtn.addEventListener("click", () => {
+        const name = foodSel.value;
+        if(!name) return;
+        const opt = foodSel.options[foodSel.selectedIndex];
+        const cals = Number(opt.getAttribute("data-cals") || "0");
+        plan.meals[key].push({name, servings:1, calsPerServing:cals});
+        saveState();
+        renderForDate();
+      });
+
+      const customBtn = el("button",{class:"btn", type:"button"},["Add Custom Item"]);
+      customBtn.addEventListener("click", () => {
+        plan.meals[key].push({name:"", servings:1, calsPerServing:0});
+        saveState();
+        renderForDate();
+      });
+
+      quickRow.appendChild(foodSelField);
+      quickRow.appendChild(addBtn);
+      quickRow.appendChild(customBtn);
+      card.appendChild(quickRow);
+
+      const itemsWrap = el("div",{class:"mealItems"});
+      plan.meals[key].forEach((it, idx) => {
+        const row = el("div",{class:"itemRow"});
+        const n = el("input",{type:"text", placeholder:"Food item", value: it.name || ""});
+        const s = el("input",{type:"number", min:"0", step:"0.25", placeholder:"Servings", value: String(it.servings ?? 1)});
+        const c = el("input",{type:"number", min:"0", step:"1", placeholder:"Cal/serv", value: String(it.calsPerServing ?? 0)});
+        const x = el("button",{class:"btn danger x", type:"button"},["Remove"]);
+
+        function sync(){
+          it.name = n.value;
+          it.servings = Number(s.value || 0);
+          it.calsPerServing = Number(c.value || 0);
+          saveState();
+          // update totals without rerender spam:
+          const totals = computeDayTotals(plan);
+          const box = $("#dayTotalsInline");
+          if(box) box.textContent = `${Math.round(totals.cals)} cal`;
+        }
+        n.addEventListener("input", sync);
+        s.addEventListener("input", sync);
+        c.addEventListener("input", sync);
+        x.addEventListener("click", () => {
+          plan.meals[key].splice(idx, 1);
+          saveState();
+          renderForDate();
+        });
+
+        row.appendChild(n);
+        row.appendChild(s);
+        row.appendChild(c);
+        row.appendChild(x);
+        itemsWrap.appendChild(row);
+      });
+      card.appendChild(itemsWrap);
+
+      const totals = computeMealCalories(plan.meals[key]);
+      card.appendChild(el("p",{class:"small muted", html:`Meal calories (estimate): <strong>${Math.round(totals)}</strong>`}));
+
+      return card;
+    }
+
+    // event bindings
+    dateInput.addEventListener("change", () => { renderForDate(); });
+    dietSel.addEventListener("change", () => {
+      const dstr = dateInput.value || todayStr();
+      const plan = getDayPlan(dstr);
+      plan.dietStyle = dietSel.value;
+      saveState();
+      renderForDate();
+    });
+    waterInput.addEventListener("input", () => {
+      const dstr = dateInput.value || todayStr();
+      const plan = getDayPlan(dstr);
+      plan.waterGoal = Number(waterInput.value || 0);
+      saveState();
+    });
+
+    // initial
+    renderForDate();
+
+    // Inline totals chip
+    const inline = el("div",{class:"box"});
+    inline.appendChild(el("div",{class:"kicker", html:"Quick view"}));
+    const totals = computeDayTotals(getDayPlan(dateInput.value || todayStr()));
+    inline.appendChild(el("p",{class:"note", html:`Today’s planned calories (estimate): <strong id="dayTotalsInline">${Math.round(totals.cals)} cal</strong>`}));
+    root.appendChild(inline);
+
+    return root;
+  }
+
+  function computeMealCalories(items){
+    return (items||[]).reduce((sum,it)=> sum + (Number(it.servings||0) * Number(it.calsPerServing||0)), 0);
+  }
+  function computeDayTotals(plan){
+    let cals = 0, items = 0;
+    ["breakfast","lunch","dinner","snacks"].forEach(k => {
+      (plan.meals[k]||[]).forEach(it => { items++; });
+      cals += computeMealCalories(plan.meals[k]||[]);
+    });
+    return {cals, items};
+  }
+
+  // --------- Calories / TDEE ----------
+  function renderCaloriesTab(){
+    const root = el("div");
+    root.appendChild(el("p",{class:"note"},[
+      "Use this tool if it helps you. If tracking becomes stressful, skip it — you can still succeed with plate method + habits."
+    ]));
+
+    const tool = state.calorieTool;
+
+    const row = el("div",{class:"formRow"});
+
+    const sexF = fieldSelect("Sex", [
+      {v:"female", t:"Female"},
+      {v:"male", t:"Male"}
+    ], tool.sex);
+
+    const ageF = fieldNumber("Age", tool.age, 10, 110, 1);
+    const htF  = fieldNumber("Height (inches)", tool.heightIn, 40, 90, 1);
+    const wtF  = fieldNumber("Weight (lbs)", tool.weightLb, 50, 700, 1);
+
+    const actF = fieldSelect("Activity level", [
+      {v:"sedentary", t:"Sedentary (little exercise)"},
+      {v:"light", t:"Light (1–3 days/wk)"},
+      {v:"moderate", t:"Moderate (3–5 days/wk)"},
+      {v:"active", t:"Active (6–7 days/wk)"},
+      {v:"very", t:"Very active (hard training/job)"}
+    ], tool.activity);
+
+    row.appendChild(sexF.wrap);
+    row.appendChild(ageF.wrap);
+    row.appendChild(htF.wrap);
+    row.appendChild(wtF.wrap);
+    row.appendChild(actF.wrap);
+    root.appendChild(row);
+
+    const out = el("div",{class:"scoreBox", id:"calOut"});
+    root.appendChild(out);
+
+    const hint = el("div",{class:"box"});
+    hint.appendChild(el("div",{class:"kicker", html:"Safe framing"}));
+    hint.appendChild(el("p",{class:"small"},[
+      "General public-health guidance often favors gradual change over rapid loss. If weight loss is a goal, consider a modest daily deficit (e.g., 250–500 calories) and prioritize nutrition quality, sleep, and strength training."
+    ]));
+    root.appendChild(hint);
+
+    function recalc(){
+      tool.sex = sexF.sel.value;
+      tool.age = Number(ageF.inp.value || 0);
+      tool.heightIn = Number(htF.inp.value || 0);
+      tool.weightLb = Number(wtF.inp.value || 0);
+      tool.activity = actF.sel.value;
+
+      const kg = tool.weightLb * 0.45359237;
+      const cm = tool.heightIn * 2.54;
+
+      // Mifflin-St Jeor BMR
+      let bmr = 10*kg + 6.25*cm - 5*tool.age + (tool.sex==="male" ? 5 : -161);
+      if(!isFinite(bmr) || bmr <= 0) bmr = 0;
+
+      const factor = ({
+        sedentary:1.2,
+        light:1.375,
+        moderate:1.55,
+        active:1.725,
+        very:1.9
+      })[tool.activity] || 1.55;
+
+      const tdee = bmr * factor;
+
+      const mildDef = Math.max(1200, tdee - 300);
+      const modDef  = Math.max(1200, tdee - 500);
+
+      out.innerHTML = `
+        <div class="kicker">Estimated results (not medical advice)</div>
+        <p class="note">Estimated BMR: <strong>${Math.round(bmr)}</strong> cal/day</p>
+        <p class="note">Estimated maintenance (TDEE): <strong>${Math.round(tdee)}</strong> cal/day</p>
+        <div class="hr"></div>
+        <p class="note">Optional gentle targets (if appropriate):</p>
+        <ul>
+          <li class="note">Mild deficit: <strong>${Math.round(mildDef)}</strong> cal/day</li>
+          <li class="note">Moderate deficit: <strong>${Math.round(modDef)}</strong> cal/day</li>
+        </ul>
+        <p class="small muted">If you’re pregnant, growing, have medical conditions, or have a history of disordered eating, consult a licensed clinician before using calorie targets.</p>
+      `;
+
+      saveState();
+    }
+
+    [sexF.sel, ageF.inp, htF.inp, wtF.inp, actF.sel].forEach(n => n.addEventListener("input", recalc));
+    recalc();
+
+    return root;
+  }
+
+  function fieldNumber(label, value, min, max, step){
+    const wrap = el("div",{class:"field"});
+    wrap.appendChild(el("label",{html:escapeHtml(label)}));
+    const inp = el("input",{type:"number", value: String(value ?? ""), min:String(min), max:String(max), step:String(step)});
+    wrap.appendChild(inp);
+    return {wrap, inp};
+  }
+  function fieldSelect(label, options, value){
+    const wrap = el("div",{class:"field"});
+    wrap.appendChild(el("label",{html:escapeHtml(label)}));
+    const sel = el("select",{});
+    options.forEach(o => sel.appendChild(el("option",{value:o.v},[o.t])));
+    sel.value = value;
+    wrap.appendChild(sel);
+    return {wrap, sel};
+  }
+
+  // --------- Diet Library ----------
+  function renderDietsTab(){
+    const root = el("div");
+    root.appendChild(el("p",{class:"note"},[
+      "A diet pattern is a tool — not an identity. Choose what fits your health needs, culture, budget, and peace."
+    ]));
+
+    DIET_LIBRARY.forEach(d => {
+      const det = el("details", {open: d.id === "balanced"});
+      det.appendChild(el("summary",{},[d.name]));
+      det.appendChild(el("p",{class:"note"},[d.premise]));
+      det.appendChild(el("p",{class:"small", html:`<strong>Good fit for:</strong> ${escapeHtml(d.goodFor.join(" • "))}`}));
+      det.appendChild(el("p",{class:"small", html:`<strong>Watch-outs:</strong> ${escapeHtml(d.watch.join(" • "))}`}));
+      det.appendChild(el("p",{class:"small", html:`<strong>Try this:</strong> ${escapeHtml(d.tryThis.join(" • "))}`}));
+
+      const choose = el("button",{class:"btn good", type:"button"},["Use this style in Planner"]);
+      choose.addEventListener("click", () => {
+        // set today's plan
+        const dstr = todayStr();
+        const plan = getDayPlan(dstr);
+        plan.dietStyle = d.id;
+        saveState();
+        state.selectedTab = "planner";
+        saveState();
+        renderAll();
+      });
+      det.appendChild(choose);
+
+      root.appendChild(det);
+    });
+
+    const box = el("div",{class:"box"});
+    box.appendChild(el("div",{class:"kicker", html:"Custom Diet Builder (simple)"}));
+    box.appendChild(el("p",{class:"small"},[
+      "Pick a base style, then choose 2–3 personal rules. Example: “Protein at breakfast, veggies at lunch/dinner, sweets 2 days/week.” Add your rules to Planner notes."
+    ]));
+    root.appendChild(box);
+    return root;
+  }
+
+  // --------- Quiz ----------
+  function renderQuizTab(weekIndex){
+    const w = WEEKS[weekIndex];
+    const root = el("div");
+    root.appendChild(el("p",{class:"note"},[
+      "Homework Quiz (5 questions). Objective items can be auto-scored. Essay answers are saved for reflection."
+    ]));
+
+    if(!state.quizAnswers[weekIndex]) state.quizAnswers[weekIndex] = {answers:{}};
+    const qa = state.quizAnswers[weekIndex].answers;
+
+    const form = el("div",{});
+    w.quiz.forEach((q, idx) => {
+      const qid = `q${idx}`;
+      const box = el("div",{class:"box"});
+      box.appendChild(el("div",{class:"kicker", html:`Question ${idx+1} • ${q.type.toUpperCase()}`}));
+      box.appendChild(el("p",{class:"note"},[q.q]));
+
+      if(q.type === "tf"){
+        const sel = el("select",{});
+        sel.appendChild(el("option",{value:""},["Select…"]));
+        sel.appendChild(el("option",{value:"true"},["True"]));
+        sel.appendChild(el("option",{value:"false"},["False"]));
+        sel.value = qa[qid] ?? "";
+        sel.addEventListener("change", () => { qa[qid] = sel.value; saveState(); renderQuizScore(root, weekIndex); });
+        box.appendChild(sel);
+      }
+
+      if(q.type === "mc"){
+        const sel = el("select",{});
+        sel.appendChild(el("option",{value:""},["Select…"]));
+        q.options.forEach((opt, i) => sel.appendChild(el("option",{value:String(i)},[opt])));
+        sel.value = qa[qid] ?? "";
+        sel.addEventListener("change", () => { qa[qid] = sel.value; saveState(); renderQuizScore(root, weekIndex); });
+        box.appendChild(sel);
+      }
+
+      if(q.type === "essay"){
+        const ta = el("textarea",{placeholder: q.guidance || "Write your answer…"});
+        ta.value = qa[qid] ?? "";
+        ta.addEventListener("input", () => { qa[qid] = ta.value; saveState(); });
+        box.appendChild(ta);
+        if(q.guidance) box.appendChild(el("p",{class:"hint"},[q.guidance]));
+      }
+
+      form.appendChild(box);
+    });
+
+    root.appendChild(form);
+
+    const score = el("div",{class:"scoreBox", id:"quizScore"});
+    root.appendChild(score);
+    renderQuizScore(root, weekIndex);
+
+    const completeRow = el("div",{class:"checkRow"});
+    const cb = el("input",{type:"checkbox"});
+    cb.checked = !!state.weekDone[weekIndex];
+    cb.addEventListener("change", () => {
+      state.weekDone[weekIndex] = cb.checked;
+      saveState();
+      renderWeekList();
+      updateProgressChip();
+    });
+    completeRow.appendChild(cb);
+    completeRow.appendChild(el("div",{class:"note"},["Mark week as completed (manual)"]));
+    root.appendChild(completeRow);
+
+    return root;
+  }
+
+  function renderQuizScore(root, weekIndex){
+    const w = WEEKS[weekIndex];
+    const qa = (state.quizAnswers[weekIndex] && state.quizAnswers[weekIndex].answers) ? state.quizAnswers[weekIndex].answers : {};
+    let correct = 0, total = 0;
+
+    w.quiz.forEach((q, idx) => {
+      const qid = `q${idx}`;
+      if(q.type === "tf"){
+        total++;
+        const val = qa[qid];
+        if(val !== "" && val != null){
+          const ans = (val === "true");
+          if(ans === q.a) correct++;
+        }
+      }
+      if(q.type === "mc"){
+        total++;
+        const val = qa[qid];
+        if(val !== "" && val != null){
+          const ans = Number(val);
+          if(ans === q.answerIndex) correct++;
+        }
+      }
+    });
+
+    const score = $("#quizScore");
+    if(score){
+      score.innerHTML = `
+        <div class="kicker">Auto-score (objective only)</div>
+        <p class="note">Score: <strong>${correct}</strong> / <strong>${total}</strong></p>
+        <p class="small muted">Essay items are for reflection and are not auto-graded.</p>
+      `;
+    }
+  }
+
+  // --------- Resources ----------
+  function renderResourcesTab(){
+    const root = el("div");
+    root.appendChild(el("p",{class:"note"},[
+      "These are reputable starting points for nutrition, activity, sleep, and diet pattern context."
+    ]));
+
+    const b = el("div",{class:"box"});
+    const ul = el("ul");
+    RESOURCES.forEach(r => {
+      const li = el("li");
+      const a = el("a",{href:r.url, target:"_blank", rel:"noopener"},[r.label]);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    b.appendChild(ul);
+    root.appendChild(b);
+
+    const extra = el("div",{class:"box"});
+    extra.appendChild(el("div",{class:"kicker", html:"Optional: Upgrade your calorie counter later"}));
+    extra.appendChild(el("p",{class:"small"},[
+      "If you ever want a searchable nutrition database inside your app, USDA FoodData Central has an API. Wix embeds may have cross-origin limits, so offline presets + manual entries are often simplest."
+    ]));
+    root.appendChild(extra);
+
+    return root;
+  }
+
+  // --------- Progress ----------
+  function renderProgressTab(){
+    const root = el("div");
+    const totalWeeks = WEEKS.length;
+    const doneWeeks = state.weekDone.filter(Boolean).length;
+
+    root.appendChild(el("p",{class:"note", html:`Weeks completed: <strong>${doneWeeks}</strong> / <strong>${totalWeeks}</strong>`}));
+
+    const p = el("div",{class:"box"});
+    p.appendChild(el("div",{class:"kicker", html:"Week checklist overview"}));
+
+    const ul = el("ul");
+    WEEKS.forEach((w, i) => {
+      ensureWeekCheckmarks(i);
+      const cm = state.checkmarks[i];
+      const exDone = cm.exercises.filter(Boolean).length;
+      const exTotal = cm.exercises.length;
+      const li = el("li",{class:"note"},[
+        `Week ${i+1}: `,
+        state.weekDone[i] ? "Completed ✓" : "In progress",
+        ` • Flow: ${cm.flowDone ? "✓" : "—"} • Exercises: ${exDone}/${exTotal}`
+      ]);
+      ul.appendChild(li);
+    });
+    p.appendChild(ul);
+
+    root.appendChild(p);
+
+    const box = el("div",{class:"box"});
+    box.appendChild(el("div",{class:"kicker", html:"Encouragement"}));
+    box.appendChild(el("p",{class:"note"},[
+      "If you can do a little consistently, you’re winning. Your future self will thank you."
+    ]));
+    root.appendChild(box);
+
+    return root;
+  }
+
+  // --------- Week completion logic ----------
+  function autoComputeWeekDone(){
+    const i = state.selectedWeek;
+    ensureWeekCheckmarks(i);
+    const cm = state.checkmarks[i];
+    const allEx = cm.exercises.every(Boolean);
+    const flow = !!cm.flowDone;
+    // Auto-suggest completion if flow + at least half exercises
+    const half = Math.ceil(cm.exercises.length/2);
+    const exDone = cm.exercises.filter(Boolean).length;
+    if(flow && exDone >= half){
+      // do not force; just nudge:
+      // user can still mark completed via quiz tab, but we can auto-mark if they'd like
+      state.weekDone[i] = true;
+    }else{
+      // keep user's manual state if already true
+      if(!state.weekDone[i]) state.weekDone[i] = false;
+    }
+  }
+
+  // --------- Progress chip ----------
+  function updateProgressChip(){
+    const total = WEEKS.length;
+    const done = state.weekDone.filter(Boolean).length;
+    const pct = Math.round((done/total)*100);
+    const chip = $("#progressPct");
+    if(chip) chip.textContent = `${pct}%`;
+  }
+
+  // --------- Top actions ----------
+  function wireTopButtons(){
+    $("#printBtn").addEventListener("click", () => window.print());
+
+    $("#resetBtn").addEventListener("click", () => {
+      const ok = confirm("Reset all saved data for this portal? This cannot be undone.");
+      if(!ok) return;
+      localStorage.removeItem(APP_KEY);
+      location.reload();
+    });
+
+    $("#exportBtn").addEventListener("click", () => {
+      const data = localStorage.getItem(APP_KEY) || JSON.stringify(state);
+      const blob = new Blob([data], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "health-is-wealth-data.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=> URL.revokeObjectURL(url), 500);
+    });
+
+    $("#importBtn").addEventListener("click", () => $("#importFile").click());
+    $("#importFile").addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      try{
+        const text = await file.text();
+        const parsed = normalizeState(JSON.parse(text));
+        localStorage.setItem(APP_KEY, JSON.stringify(parsed));
+        location.reload();
+      }catch(err){
+        alert("Import failed. Please choose a valid JSON export from this portal.");
+      }finally{
+        e.target.value = "";
+      }
+    });
+  }
+
+  function renderAll(){
+    renderWeekList();
+    renderTabs();
+    renderMain();
+    updateProgressChip();
+
+    // re-highlight active week button
+    [...document.querySelectorAll(".weekBtn")].forEach((b, idx) => {
+      b.classList.toggle("active", idx === state.selectedWeek);
+    });
+  }
+
+  // init
+  ensureWeekCheckmarks(state.selectedWeek);
+  wireTopButtons();
+  renderAll();
+  saveState();
+})();
+</script>
+</body>
+</html>
