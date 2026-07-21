@@ -1,0 +1,1651 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Khaemenes Academy — Ongoing Wellness Workshop (12 Weeks)</title>
+  <style>
+    :root{
+      --bgA:#0b1220;
+      --bgB:#0f1b33;
+      --card:#0f172a;
+      --card2:#0b1326;
+      --ink:#eef2ff;
+      --muted:#a7b0c2;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --ring: rgba(125,211,252,0.32);
+      --radius: 7px;
+      --radius2: 7px;
+      --shadow: 0 14px 55px rgba(0,0,0,0.45);
+      --max: 999px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:99%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 10% 0%, #1b2b55 0%, var(--bgA) 55%, #070b14 100%);color:var(--ink)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .app{max-width:var(--max);margin:24px auto;padding:14px}
+    .shell{
+      background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:14px 14px 11px;
+      background:linear-gradient(180deg, rgba(125,211,252,0.16), rgba(167,139,250,0.10));
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .top{
+      display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
+    }
+    h1{margin:0;font-size:1.55rem;letter-spacing:0.01em}
+    .sub{margin:6px 0 0;color:rgba(238,242,255,0.84);font-size:1.02rem;line-height:1.4}
+    .pillrow{display:flex;gap:11px;align-items:center;flex-wrap:wrap}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 11px;border-radius:999px;
+      background:rgba(15,23,42,0.5);
+      border:1px solid rgba(255,255,255,0.10);
+      color:rgba(238,242,255,0.9);
+      font-size:0.92rem;
+    }
+    .pill strong{color:var(--ink)}
+    .btn{
+      border:0;cursor:pointer;
+      border-radius:7px;
+      padding:10px 14px;
+      font-weight:666;
+      color:#06101a;
+      background:var(--accent);
+      box-shadow:0 11px 24px rgba(0,0,0,0.35);
+      display:inline-flex;align-items:center;gap:11px;
+    }
+    .btn:hover{filter:brightness(1.04)}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{
+      background:transparent;color:var(--ink);
+      border:1px solid rgba(125,211,252,0.55);
+      box-shadow:none;
+    }
+    .btn.ghost{
+      background:transparent;color:rgba(238,242,255,0.92);
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:none;
+    }
+
+    /* Course posture statement (sticky) */
+    .posture{
+      position:sticky;top:0;z-index:10;
+      padding:11px 14px;
+      background:linear-gradient(180deg, rgba(7,11,20,0.92), rgba(7,11,20,0.72));
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,255,255,0.10);
+    }
+    .posture .title{font-weight:850;letter-spacing:0.02em}
+    .posture .text{margin-top:6px;color:rgba(238,242,255,0.82);line-height:1.45;font-size:0.98rem}
+    .posture .tiny{margin-top:8px;color:rgba(167,176,194,0.92);font-size:0.92rem;line-height:1.35}
+
+    /* Layout */
+    .body{
+      display:grid;
+      grid-template-columns: 333px minmax(0,1fr);
+      gap:0;
+      min-height: 55vh;
+    }
+    @media(max-width:555px){
+      .body{grid-template-columns:1fr}
+    }
+
+    /* Sidebar */
+    .side{
+      padding:14px;
+      background:linear-gradient(180deg, rgba(15,23,42,0.74), rgba(11,19,38,0.74));
+      border-right:1px solid rgba(255,255,255,0.08);
+    }
+    @media(max-width:777px){
+      .side{border-right:0;border-bottom:1px solid rgba(255,255,255,0.08)}
+    }
+    .navgroup{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .navtab{
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(2,6,23,0.35);
+      color:rgba(238,242,255,0.9);
+      cursor:pointer;
+      font-weight:750;
+    }
+    .navtab.active{border-color:rgba(125,211,252,0.8);box-shadow:0 0 0 4px var(--ring)}
+    .weeklist{
+      margin-top:10px;display:grid;gap:8px;
+    }
+    .weekbtn{
+      text-align:left;
+      width:99%;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.10);
+      background:rgba(2,6,23,0.30);
+      color:rgba(238,242,255,0.92);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .weekbtn:hover{border-color:rgba(125,211,252,0.45)}
+    .weekbtn.active{border-color:rgba(125,211,252,0.9);box-shadow:0 0 0 4px var(--ring)}
+    .weekbtn .left{display:flex;flex-direction:column;gap:2px}
+    .weekbtn .wtitle{font-weight:850}
+    .weekbtn .wsub{color:rgba(167,176,194,0.95);font-size:0.92rem}
+    .badge{
+      font-size:0.82rem;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(15,23,42,0.42);
+      color:rgba(238,242,255,0.88);
+      white-space:nowrap;
+    }
+    .badge.good{border-color:rgba(52,211,153,0.55);background:rgba(52,211,153,0.12)}
+    .badge.lock{border-color:rgba(251,191,36,0.55);background:rgba(251,191,36,0.10)}
+    .badge.free{border-color:rgba(125,211,252,0.65);background:rgba(125,211,252,0.10)}
+    .badge.pro{border-color:rgba(167,139,250,0.55);background:rgba(167,139,250,0.12)}
+
+    .sidecard{
+      margin-top:12px;
+      border-radius:16px;
+      background:rgba(2,6,23,0.35);
+      border:1px solid rgba(255,255,255,0.10);
+      padding:12px;
+    }
+    .sidecard h3{margin:0 0 8px;font-size:1.03rem}
+    .meta{color:rgba(167,176,194,0.95);font-size:0.95rem;line-height:1.4}
+    .tinyrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .kv{
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(2,6,23,0.28);
+      border-radius:14px;
+      padding:10px 12px;
+      min-width: 135px;
+    }
+    .kv .k{color:rgba(167,176,194,0.95);font-size:0.9rem}
+    .kv .v{font-weight:900;font-size:1.1rem;margin-top:2px}
+
+    /* Main content */
+    .main{
+      padding:16px 16px 26px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    }
+    .card{
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.10);
+      background:rgba(2,6,23,0.35);
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .card h2{margin:0 0 8px;font-size:1.25rem}
+    .card h3{margin:0 0 6px;font-size:1.06rem;color:rgba(238,242,255,0.95)}
+    .muted{color:rgba(167,176,194,0.98)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:777px){.grid2{grid-template-columns:1fr}}
+    .list{margin:8px 0 0 18px;color:rgba(238,242,255,0.90);line-height:1.55}
+    .hr{height:1px;background:rgba(255,255,255,0.10);margin:12px 0}
+
+    /* Inputs */
+    input, select, textarea{
+      width:99%;
+      font:inherit;
+      color:rgba(238,242,255,0.94);
+      background:rgba(2,6,23,0.40);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:12px;
+      padding:10px 12px;
+      outline:none;
+    }
+    input:focus, select:focus, textarea:focus{border-color:rgba(125,211,252,0.85);box-shadow:0 0 0 4px var(--ring)}
+    textarea{min-height:110px;resize:vertical}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .row > *{flex:1}
+    .row .tight{flex:0 0 auto}
+    .label{font-weight:850;margin-bottom:6px}
+    .help{font-size:0.92rem;color:rgba(167,176,194,0.95);margin-top:6px;line-height:1.35}
+
+    /* Quiz */
+    .q{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.10);background:rgba(2,6,23,0.30);margin-top:10px}
+    .q .qt{font-weight:900}
+    .choices{display:grid;gap:8px;margin-top:10px}
+    .choice{
+      padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);
+      background:rgba(2,6,23,0.32);cursor:pointer;color:rgba(238,242,255,0.92);text-align:left;
+    }
+    .choice:hover{border-color:rgba(125,211,252,0.45)}
+    .choice.selected{border-color:rgba(125,211,252,0.9);box-shadow:0 0 0 4px var(--ring)}
+    .result{
+      margin-top:10px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(2,6,23,0.28);
+      color:rgba(238,242,255,0.92);
+    }
+    .result.good{border-color:rgba(52,211,153,0.55);background:rgba(52,211,153,0.10)}
+    .result.warn{border-color:rgba(251,191,36,0.55);background:rgba(251,191,36,0.10)}
+    .result.bad{border-color:rgba(251,113,133,0.55);background:rgba(251,113,133,0.10)}
+
+    /* Table */
+    table{width:99%;border-collapse:separate;border-spacing:0 8px}
+    th{color:rgba(167,176,194,0.95);font-size:0.92rem;text-align:left;padding:0 8px}
+    td{padding:10px 8px;background:rgba(2,6,23,0.32);border:1px solid rgba(255,255,255,0.10)}
+    td:first-child{border-radius:12px 0 0 12px}
+    td:last-child{border-radius:0 12px 12px 0}
+    .right{text-align:right}
+
+    footer{
+      padding:14px 16px;
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:rgba(2,6,23,0.40);
+      color:rgba(167,176,194,0.95);
+      font-size:0.95rem;
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.92rem}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="shell">
+      <header>
+        <div class="top">
+          <div>
+            <h1>Health is Wealth — Ongoing Wellness Workshop</h1>
+            <div class="sub">A calm, evidence-guided, self-paced wellness program with weekly lessons, tools, and progress tracking (saved locally on your device).</div>
+          </div>
+          <div class="pillrow">
+            <div class="pill"><strong>12 Weeks</strong> Free</div>
+            <div class="pill"><strong>Progressive</strong> Unlock each week by completing the prior quiz</div>
+            <button class="btn ghost" id="resetBtn" title="Reset progress on this device">Reset</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="posture">
+        <div class="title">Course Posture Statement</div>
+        <div class="text">
+          We choose humility, honesty, and steady growth. We reject shame and “all-or-nothing” thinking.
+          This workshop is about building sustainable habits—small steps done consistently.
+        </div>
+        <div class="tiny">
+          Educational only (not medical advice). If you’re pregnant, under 18, managing a health condition, recovering from injury, or changing medications:
+          consult a licensed clinician before major diet/exercise changes.
+        </div>
+      </div>
+
+      <div class="body">
+        <aside class="side">
+          <div class="navgroup" id="topTabs"></div>
+
+          <div class="weeklist" id="weekList"></div>
+
+          <div class="sidecard">
+            <h3>Your Progress</h3>
+            <div class="meta" id="progressMeta"></div>
+            <div class="tinyrow">
+              <div class="kv">
+                <div class="k">Weeks done</div>
+                <div class="v" id="weeksDone">0/12</div>
+              </div>
+              <div class="kv">
+                <div class="k">Study streak</div>
+                <div class="v" id="streakVal">0</div>
+              </div>
+              <div class="kv">
+                <div class="k">Mode</div>
+                <div class="v" id="planVal">Progressive</div>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+            <div class="meta">
+              This is a free 12-week workshop. Complete each week's quiz to mark it done and unlock the next week.
+              Everything is saved locally on this device (localStorage) and never uploaded.
+            </div>
+          </div>
+        </aside>
+
+        <main class="main">
+          <div id="view"></div>
+        </main>
+      </div>
+
+      <footer>
+        <div>© Khaemenes Academy • All data saved locally (localStorage) • No uploads</div>
+        <div class="mono" id="lsKey"></div>
+      </footer>
+    </div>
+  </div>
+
+<script>
+/* =========================
+   Local-first storage helpers
+   ========================= */
+const LS = "kha_wellness_ongoing_v1";
+const $ = (id)=>document.getElementById(id);
+
+function lsGet(key, fallback){
+  try{
+    const raw = localStorage.getItem(LS + ":" + key);
+    if(raw === null || raw === undefined) return fallback;
+    return JSON.parse(raw);
+  }catch(e){ return fallback; }
+}
+function lsSet(key, value){
+  localStorage.setItem(LS + ":" + key, JSON.stringify(value));
+}
+function todayISO(){
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  const dd = String(d.getDate()).padStart(2,"0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
+
+/* =========================
+   Course data (12 weeks)
+   ========================= */
+const WEEKS = [
+  {
+    title:"Foundations & Baseline",
+    aim:"Set your starting point and pick 2–3 tiny habits you can keep.",
+    flow:[
+      "Grounding (2 min): breathe slowly, relax shoulders, name one thing you’re grateful for.",
+      "Welcome + Goal (5 min): define why this matters and what success looks like in 30 days.",
+      "Teach (10 min): what habits are, why consistency beats intensity.",
+      "Practice (8 min): choose 2 micro-habits + define when/where you’ll do them.",
+      "Plan (3 min): schedule 3 walk blocks or stretch blocks this week.",
+      "Close (2 min): commit out loud: “Small steps, done daily.”"
+    ],
+    actions:[
+      "Daily: 10-minute walk (or gentle movement).",
+      "Daily: drink 2 extra cups of water OR eat 1 extra serving of vegetables.",
+      "Daily: 1-minute evening reflection."
+    ],
+    resources:[
+      {t:"CDC: Adult physical activity basics (150 min/week + strength 2 days)", u:"https://www.cdc.gov/physical-activity-basics/adding-adults/index.html"},
+      {t:"USDA MyPlate overview", u:"https://www.myplate.gov/eat-healthy/what-is-myplate"},
+      {t:"Dietary Guidelines for Americans (2020–2025) PDF", u:"https://www.dietaryguidelines.gov/sites/default/files/2020-12/Dietary_Guidelines_for_Americans_2020-2025.pdf"}
+    ],
+    quiz:[
+      {type:"tf", q:"A tiny habit done daily is often more effective long-term than an intense plan done rarely.", a:true},
+      {type:"mc", q:"Which is the best first goal for most people?", opts:["Change everything at once","Pick 2–3 micro-habits you can keep","Only focus on the scale"], a:1},
+      {type:"mc", q:"A good habit plan should include:", opts:["A clear time and place","Only motivation","A complicated spreadsheet"], a:0},
+      {type:"tf", q:"If you miss a day, the best response is to quit for the week.", a:false},
+      {type:"short", q:"Write 2 micro-habits you will practice this week (example: 10-min walk after lunch).", min:40}
+    ],
+    upsell:true
+  },
+  {
+    title:"Sleep & Recovery",
+    aim:"Improve sleep consistency and learn recovery habits that make everything easier.",
+    flow:[
+      "Grounding (2 min): inhale 4, exhale 6, repeat.",
+      "Welcome (3 min): quick check-in—how rested do you feel today?",
+      "Teach (10 min): sleep consistency, light exposure, caffeine timing, and wind-down routines.",
+      "Practice (10 min): build a 20-minute wind-down checklist.",
+      "Plan (3 min): pick a bedtime window and wake window.",
+      "Close (2 min): gentle affirmation."
+    ],
+    actions:[
+      "Set a consistent sleep/wake window (even weekends if possible).",
+      "Reduce screens 30 minutes before sleep.",
+      "Try a 5-minute stretch or breath routine before bed."
+    ],
+    resources:[
+      {t:"CDC: About sleep (habits that improve sleep)", u:"https://www.cdc.gov/sleep/about/index.html"},
+      {t:"AHA: Physical activity recommendations (includes reducing sedentary time)", u:"https://www.heart.org/en/healthy-living/fitness/fitness-basics/aha-recs-for-physical-activity-in-adults"}
+    ],
+    quiz:[
+      {type:"tf", q:"Keeping a consistent sleep schedule can help improve sleep quality.", a:true},
+      {type:"mc", q:"A helpful wind-down choice is:", opts:["Scrolling social media in bed","Turning off electronics 30+ minutes before bed","Drinking a large caffeinated beverage"], a:1},
+      {type:"mc", q:"Caffeine is generally best avoided:", opts:["In the afternoon/evening","Only in the morning","Never"], a:0},
+      {type:"tf", q:"Alcohol near bedtime can disturb sleep quality.", a:true},
+      {type:"short", q:"Write your 3-step wind-down routine (simple is best).", min:40}
+    ]
+  },
+  {
+    title:"Nutrition Basics & Plate Building",
+    aim:"Build meals that support energy, satiety, and consistency—without perfectionism.",
+    flow:[
+      "Grounding (2 min): slow breath + posture reset.",
+      "Welcome (3 min): what meals felt best last week?",
+      "Teach (10 min): balanced plate, protein/fiber, hydration, planning snacks.",
+      "Practice (10 min): design 2 go-to breakfasts + 2 go-to lunches.",
+      "Plan (3 min): decide grocery adds for the week.",
+      "Close (2 min): gratitude for nourishment."
+    ],
+    actions:[
+      "Aim for a balanced plate (protein + fiber + color).",
+      "Add one protein-forward snack option.",
+      "Track water for 3 days."
+    ],
+    resources:[
+      {t:"USDA MyPlate", u:"https://www.myplate.gov/eat-healthy/what-is-myplate"},
+      {t:"Dietary Guidelines resources page", u:"https://www.dietaryguidelines.gov/resources/2020-2025-dietary-guidelines-online-materials"}
+    ],
+    quiz:[
+      {type:"tf", q:"Meals with protein and fiber can help with fullness and stable energy.", a:true},
+      {type:"mc", q:"MyPlate encourages you to:", opts:["Make half your plate fruits and vegetables","Avoid all carbs","Eat only smoothies"], a:0},
+      {type:"mc", q:"A balanced snack is most like:", opts:["Candy only","Fruit + nuts or yogurt","Soda"], a:1},
+      {type:"tf", q:"Planning two go-to meals can reduce decision fatigue.", a:true},
+      {type:"short", q:"List one balanced breakfast and one balanced lunch you can repeat.", min:40}
+    ]
+  },
+  {
+    title:"Movement: Cardio, NEAT, and Daily Steps",
+    aim:"Make movement normal—walks, stairs, short sessions, and realistic consistency.",
+    flow:[
+      "Grounding (2 min): shake out tension.",
+      "Welcome (3 min): name one way you moved last week.",
+      "Teach (10 min): NEAT, zone 2 effort, daily step habits.",
+      "Practice (10 min): design a 20-minute walk plan (route + time).",
+      "Plan (3 min): choose 3 movement days + 2 mini days.",
+      "Close (2 min): small-step commitment."
+    ],
+    actions:[
+      "Add 10–20 minutes of walking 3x this week.",
+      "Add 1 “movement snack” per day (2–5 min).",
+      "Reduce sitting time with a timer reminder."
+    ],
+    resources:[
+      {t:"CDC: Adult activity overview", u:"https://www.cdc.gov/physical-activity-basics/guidelines/adults.html"},
+      {t:"WHO: Physical activity initiative", u:"https://www.who.int/initiatives/behealthy/physical-activity"}
+    ],
+    quiz:[
+      {type:"tf", q:"Some physical activity is better than none.", a:true},
+      {type:"mc", q:"A simple way to add NEAT is:", opts:["Never stand up","Take stairs or short walks","Only do intense workouts"], a:1},
+      {type:"mc", q:"CDC adult guidelines include:", opts:["150 minutes moderate + 2 days strengthening","Only stretching","Only yoga"], a:0},
+      {type:"tf", q:"Breaking activity into smaller chunks can still count.", a:true},
+      {type:"short", q:"Write your 3-day walking plan (days + time + route).", min:40}
+    ]
+  },
+  {
+    title:"Strength Basics (Safe & Sustainable)",
+    aim:"Build strength habits that support joints, metabolism, and confidence.",
+    flow:[
+      "Grounding (2 min): breathe + gentle shoulder circles.",
+      "Welcome (3 min): what movement feels doable?",
+      "Teach (10 min): basic strength patterns + progressive overload (light).",
+      "Practice (10 min): plan a 15-minute full-body routine.",
+      "Plan (3 min): choose 2 strength days this week.",
+      "Close (2 min): recovery reminder."
+    ],
+    actions:[
+      "Two 15-minute strength sessions this week (bodyweight OK).",
+      "Warm up for 3 minutes before sessions.",
+      "Log how you felt after."
+    ],
+    resources:[
+      {t:"AHA activity recs (strength at least 2 days/week)", u:"https://www.heart.org/en/healthy-living/fitness/fitness-basics/aha-recs-for-physical-activity-in-adults"},
+      {t:"CDC activity basics (adding activity as an adult)", u:"https://www.cdc.gov/physical-activity-basics/adding-adults/index.html"}
+    ],
+    quiz:[
+      {type:"tf", q:"Strength training can be done with bodyweight exercises.", a:true},
+      {type:"mc", q:"A safe beginner approach is:", opts:["Max effort daily","2 days/week with rest","Never rest"], a:1},
+      {type:"mc", q:"A full-body routine often includes:", opts:["Push, pull, squat/hinge, core","Only arms","Only cardio"], a:0},
+      {type:"tf", q:"Rest helps your body adapt and get stronger.", a:true},
+      {type:"short", q:"Write your 15-minute routine (3–5 exercises, 2–3 sets).", min:40}
+    ]
+  },
+  {
+    title:"Stress, Mindset, and Emotional Eating",
+    aim:"Learn practical tools for stress and cues for hunger vs. emotion.",
+    flow:[
+      "Grounding (3 min): long exhales + hand on heart/belly.",
+      "Welcome (3 min): stress level 1–10 check-in.",
+      "Teach (10 min): stress cycles + pause tools + self-talk.",
+      "Practice (10 min): build a 2-minute reset + a 10-minute reset.",
+      "Plan (2 min): pick your “pause phrase.”",
+      "Close (2 min): compassion statement."
+    ],
+    actions:[
+      "Use the 2-minute reset once per day.",
+      "Try HALT (Hungry/Angry/Lonely/Tired) once per day.",
+      "Write one compassionate sentence when you slip."
+    ],
+    resources:[
+      {t:"CDC sleep habits (sleep affects stress and health)", u:"https://www.cdc.gov/sleep/about/index.html"},
+      {t:"Dietary Guidelines (healthy patterns + limiting excess)", u:"https://www.dietaryguidelines.gov/sites/default/files/2020-12/DGA_2020-2025_ExecutiveSummary_English.pdf"}
+    ],
+    quiz:[
+      {type:"tf", q:"Stress can affect hunger cues and cravings.", a:true},
+      {type:"mc", q:"HALT stands for:", opts:["Hurry, Act, Laugh, Try","Hungry, Angry, Lonely, Tired","Healthy, Active, Lean, Tough"], a:1},
+      {type:"mc", q:"A helpful reset tool is:", opts:["5 slow breaths","Self-criticism","Skipping water all day"], a:0},
+      {type:"tf", q:"Compassion after a slip can help you return to the plan.", a:true},
+      {type:"short", q:"Write your pause phrase (example: “I can choose the next right step.”).", min:25}
+    ]
+  },
+  {
+    title:"Meal Planning, Budget, and Environment Design",
+    aim:"Make the healthy choice easier through planning and environment setup.",
+    flow:[
+      "Grounding (2 min): eyes closed, slow breath.",
+      "Welcome (3 min): what’s one obstacle you want to solve?",
+      "Teach (10 min): meal templates, shopping lists, convenience strategy.",
+      "Practice (10 min): build a 5-meal rotation + snack list.",
+      "Plan (3 min): set 1 kitchen rule + 1 default snack.",
+      "Close (2 min): confidence cue."
+    ],
+    actions:[
+      "Write your 5-meal rotation list.",
+      "Prep 1 ingredient (protein or chopped veg).",
+      "Set a default snack."
+    ],
+    resources:[
+      {t:"USDA MyPlate (food groups)", u:"https://www.myplate.gov/"},
+      {t:"MyPlate Food Group Gallery (portion visuals)", u:"https://www.myplate.gov/eat-healthy/food-group-gallery"}
+    ],
+    quiz:[
+      {type:"tf", q:"Planning a few repeat meals can reduce decision fatigue.", a:true},
+      {type:"mc", q:"An environment design win is:", opts:["Keep nourishing foods visible","Hide water","Buy only snacks"], a:0},
+      {type:"mc", q:"A rotation meal list should be:", opts:["Complicated and strict","Simple and repeatable","Different every day forever"], a:1},
+      {type:"tf", q:"Prepping one ingredient can make healthy meals easier.", a:true},
+      {type:"short", q:"List 3 rotation meals you can repeat without stress.", min:30}
+    ]
+  },
+  {
+    title:"Protein, Fiber, and Satiety",
+    aim:"Understand how protein + fiber can support fullness and stable energy.",
+    flow:[
+      "Grounding (2 min)",
+      "Welcome (3 min): what meals kept you satisfied?",
+      "Teach (10 min): protein targets (general), fiber sources, timing.",
+      "Practice (10 min): upgrade 2 meals with protein + fiber.",
+      "Plan (3 min): choose 3 protein staples + 3 fiber staples.",
+      "Close (2 min)"
+    ],
+    actions:[
+      "Add one protein staple and one fiber staple this week.",
+      "Try a protein-forward breakfast twice.",
+      "Add vegetables to one meal/day."
+    ],
+    resources:[
+      {t:"Dietary Guidelines (healthy patterns + limits)", u:"https://www.dietaryguidelines.gov/resources/2020-2025-dietary-guidelines-online-materials"},
+      {t:"USDA MyPlate", u:"https://www.myplate.gov/eat-healthy/what-is-myplate"}
+    ],
+    quiz:[
+      {type:"tf", q:"Fiber can support fullness and digestive health.", a:true},
+      {type:"mc", q:"A fiber-forward food is:", opts:["Beans or lentils","Soda","Candy"], a:0},
+      {type:"mc", q:"A protein-forward breakfast could be:", opts:["Eggs/yogurt/tofu","Only coffee","Candy bar"], a:0},
+      {type:"tf", q:"Small upgrades repeated weekly can produce big changes.", a:true},
+      {type:"short", q:"Name one protein staple + one fiber staple you’ll keep on hand.", min:25}
+    ]
+  },
+  {
+    title:"Heart Health: Sodium, Saturated Fat, and Added Sugar",
+    aim:"Learn neutral, evidence-guided ways to reduce excess without fear.",
+    flow:[
+      "Grounding (2 min)",
+      "Welcome (3 min): which drinks/snacks are frequent for you?",
+      "Teach (10 min): label basics, ultra-processed cues, swaps.",
+      "Practice (10 min): pick 2 easy swaps (drink + snack).",
+      "Plan (3 min): decide your default beverage.",
+      "Close (2 min)"
+    ],
+    actions:[
+      "Choose one default beverage (water, tea, etc.).",
+      "Swap one snack for a whole-food snack 3x.",
+      "Read 2 nutrition labels."
+    ],
+    resources:[
+      {t:"Dietary Guidelines PDF (full)", u:"https://www.dietaryguidelines.gov/sites/default/files/2020-12/Dietary_Guidelines_for_Americans_2020-2025.pdf"},
+      {t:"Dietary Guidelines Executive Summary", u:"https://www.dietaryguidelines.gov/sites/default/files/2020-12/DGA_2020-2025_ExecutiveSummary_English.pdf"}
+    ],
+    quiz:[
+      {type:"tf", q:"A healthy eating pattern has limited room for lots of added sugar and saturated fat.", a:true},
+      {type:"mc", q:"A simple swap is:", opts:["Soda → sparkling water","Candy → candy","Sleep less"], a:0},
+      {type:"mc", q:"Reading labels can help you notice:", opts:["Sodium and added sugar","Nothing","Only the brand name"], a:0},
+      {type:"tf", q:"Small reductions repeated over time can matter.", a:true},
+      {type:"short", q:"Write 2 swaps you’ll try this week (be specific).", min:25}
+    ]
+  },
+  {
+    title:"Flexibility, Mobility, and Pain-Smart Movement",
+    aim:"Move in ways that respect your body and reduce injury risk.",
+    flow:[
+      "Grounding (2 min)",
+      "Welcome (3 min): any tight spots today?",
+      "Teach (10 min): mobility vs stretching, warm-ups, pain signals.",
+      "Practice (10 min): create a 6-minute mobility sequence.",
+      "Plan (3 min): schedule mobility after walks or before bed.",
+      "Close (2 min)"
+    ],
+    actions:[
+      "Do the 6-minute mobility sequence 3x.",
+      "Warm up 3 minutes before movement.",
+      "Stop/modify if sharp pain."
+    ],
+    resources:[
+      {t:"CDC: physical activity basics", u:"https://www.cdc.gov/physical-activity-basics/adding-adults/index.html"},
+      {t:"WHO physical activity guidance", u:"https://www.who.int/initiatives/behealthy/physical-activity"}
+    ],
+    quiz:[
+      {type:"tf", q:"A warm-up can help prepare your body for activity.", a:true},
+      {type:"mc", q:"If you feel sharp pain, a wise step is:", opts:["Push harder","Stop/modify and consider guidance","Ignore it forever"], a:1},
+      {type:"mc", q:"Mobility work often feels like:", opts:["Controlled movement through range","Only sitting still","Only max stretching"], a:0},
+      {type:"tf", q:"Consistency matters more than intensity for most people.", a:true},
+      {type:"short", q:"Write your 6-minute mobility sequence (3–5 moves).", min:30}
+    ]
+  },
+  {
+    title:"Building a Sustainable Routine",
+    aim:"Turn tools into an identity: the kind of person who returns to the plan.",
+    flow:[
+      "Grounding (2 min)",
+      "Welcome (3 min): what’s working now?",
+      "Teach (10 min): identity-based habits, minimum viable plan.",
+      "Practice (10 min): design your “2-day fallback plan.”",
+      "Plan (3 min): pick your weekly review time.",
+      "Close (2 min)"
+    ],
+    actions:[
+      "Create a fallback plan for busy weeks.",
+      "Schedule a 10-minute weekly review.",
+      "Celebrate one small win daily."
+    ],
+    resources:[
+      {t:"CDC: adult activity overview", u:"https://www.cdc.gov/physical-activity-basics/guidelines/adults.html"},
+      {t:"USDA MyPlate", u:"https://www.myplate.gov/"}
+    ],
+    quiz:[
+      {type:"tf", q:"A fallback plan helps you stay consistent during busy weeks.", a:true},
+      {type:"mc", q:"A minimum viable plan should be:", opts:["So hard you avoid it","Small enough to do on bad days","Perfect"], a:1},
+      {type:"mc", q:"A weekly review can help you:", opts:["Notice what’s working","Feel shame","Never change anything"], a:0},
+      {type:"tf", q:"Celebrating small wins can reinforce behavior.", a:true},
+      {type:"short", q:"Write your 2-day fallback plan in one paragraph.", min:45}
+    ]
+  },
+  {
+    title:"12-Week Review & Next 90 Days",
+    aim:"Consolidate gains, set next goals, and build a long-term wellness map.",
+    flow:[
+      "Grounding (2 min)",
+      "Welcome (3 min): reflect on changes you’ve noticed.",
+      "Teach (10 min): review metrics that matter (energy, sleep, strength).",
+      "Practice (10 min): write your “Next 90 Days” plan (3 goals).",
+      "Plan (3 min): select your maintenance routines.",
+      "Close (2 min): gratitude + commitment."
+    ],
+    actions:[
+      "Write your Next 90 Days plan.",
+      "Pick 3 habits to maintain.",
+      "Set a monthly check-in date."
+    ],
+    resources:[
+      {t:"CDC sleep habits", u:"https://www.cdc.gov/sleep/about/index.html"},
+      {t:"Dietary Guidelines resources", u:"https://www.dietaryguidelines.gov/resources/2020-2025-dietary-guidelines-online-materials"}
+    ],
+    quiz:[
+      {type:"tf", q:"Wellness is a long-term practice, not a one-time event.", a:true},
+      {type:"mc", q:"A strong 90-day plan is:", opts:["Extremely strict","Realistic and repeatable","Based on shame"], a:1},
+      {type:"mc", q:"Better progress markers include:", opts:["Energy and consistency","Only the scale","Nothing"], a:0},
+      {type:"tf", q:"Maintenance habits help protect your progress.", a:true},
+      {type:"short", q:"Write your Next 90 Days plan: 3 goals + 3 habits + one support strategy.", min:70}
+    ]
+  }
+];
+
+/* =========================
+   State
+   ========================= */
+let state = {
+  tab: lsGet("tab","course"),          // course | tools | journal | about
+  week: lsGet("week",1),
+  done: Array.from({length:12}, (_,i)=> !!lsGet("done_"+(i+1), false)),
+  quizAttempts: lsGet("quizAttempts", {}),  // { "w1": {...} }
+  checkins: lsGet("checkins", []),          // array of entries
+  habits: lsGet("habits", {}),              // { "2025-12-15": {water:true,...} }
+  dietPlans: lsGet("dietPlans", []),        // array of plans
+  calorieLog: lsGet("calorieLog", [])       // array of items
+};
+
+/* =========================
+   UI: Tabs + Week list
+   ========================= */
+const TABS = [
+  {id:"course", label:"Course"},
+  {id:"tools", label:"Tools"},
+  {id:"journal", label:"Journal"},
+  {id:"about", label:"Resources"}
+];
+
+// Progressive access: Week 1 open, Week N unlocks when Week N-1 is done
+function canAccessWeek(w){
+  if(w === 1) return true;
+  return state.done[w-2] === true;
+}
+function weekBadge(w){
+  if(w === 1) return "Start";
+  return state.done[w-2] ? "Open" : "Locked";
+}
+function renderTabs(){
+  const host = $("topTabs");
+  host.innerHTML = "";
+  TABS.forEach(t=>{
+    const b = document.createElement("button");
+    b.className = "navtab" + (state.tab===t.id ? " active":"");
+    b.textContent = t.label;
+    b.onclick = ()=>{
+      state.tab = t.id;
+      lsSet("tab", state.tab);
+      render();
+    };
+    host.appendChild(b);
+  });
+}
+function renderWeeks(){
+  const host = $("weekList");
+  host.innerHTML = "";
+  for(let i=1;i<=12;i++){
+    const wk = WEEKS[i-1];
+    const btn = document.createElement("button");
+    const access = canAccessWeek(i);
+    btn.className = "weekbtn" + ((state.week===i && state.tab==="course") ? " active":"");
+    btn.onclick = ()=>{
+      state.tab = "course";
+      lsSet("tab", state.tab);
+      if(!access){
+        const needed = i-1;
+        state.week = clamp(state.week,1,needed);
+        lsSet("week", state.week);
+        render();
+        toast(`Week ${i} unlocks after you complete Week ${needed}. Finish that quiz first.`);
+        return;
+      }
+      state.week = i;
+      lsSet("week", state.week);
+      render();
+    };
+
+    const left = document.createElement("div");
+    left.className = "left";
+    left.innerHTML = `<div class="wtitle">Week ${i}: ${escapeHtml(wk.title)}</div>
+                      <div class="wsub">${escapeHtml(wk.aim)}</div>`;
+
+    const isDone = state.done[i-1];
+    const badge = document.createElement("div");
+    let badgeClass = "badge ";
+    if(isDone){
+      badgeClass += "good";
+    }else if(i === 1 || canAccessWeek(i)){
+      badgeClass += "free";
+    }else{
+      badgeClass += "lock";
+    }
+    badge.className = badgeClass;
+    badge.textContent = isDone ? "Done ✓" : weekBadge(i);
+
+    btn.appendChild(left);
+    btn.appendChild(badge);
+    host.appendChild(btn);
+  }
+}
+
+function computeWeeksDone(){
+  return state.done.filter(Boolean).length;
+}
+function computeStreak(){
+  // streak based on checkins (unique dates)
+  const dates = new Set(state.checkins.map(x=>x.date));
+  const arr = Array.from(dates).sort(); // YYYY-MM-DD
+  if(arr.length===0) return 0;
+  // walk backward from today
+  let streak = 0;
+  let d = new Date(todayISO()+"T00:00:00");
+  while(true){
+    const iso = d.toISOString().slice(0,10);
+    if(dates.has(iso)){
+      streak++;
+      d.setDate(d.getDate()-1);
+    }else{
+      break;
+    }
+  }
+  return streak;
+}
+
+function renderSideStats(){
+  $("weeksDone").textContent = `${computeWeeksDone()}/12`;
+  $("streakVal").textContent = String(computeStreak());
+  $("planVal").textContent = "Progressive";
+  $("progressMeta").innerHTML = "All 12 weeks are free. Complete each week's quiz to unlock the next week on this device.";
+  $("lsKey").textContent = `Storage key: ${LS}`;
+}
+
+/* =========================
+   View rendering
+   ========================= */
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[s]));
+}
+
+function toast(msg){
+  const v = $("view");
+  const el = document.createElement("div");
+  el.className = "card";
+  el.style.borderColor = "rgba(251,191,36,0.55)";
+  el.style.background = "rgba(251,191,36,0.10)";
+  el.innerHTML = `<b>Note:</b> ${escapeHtml(msg)}`;
+  v.prepend(el);
+  setTimeout(()=>{ try{ el.remove(); }catch(e){} }, 4200);
+}
+
+function render(){
+  renderTabs();
+  renderWeeks();
+  renderSideStats();
+
+  const view = $("view");
+  view.innerHTML = "";
+
+  if(state.tab === "course") renderCourse(view);
+  else if(state.tab === "tools") renderTools(view);
+  else if(state.tab === "journal") renderJournal(view);
+  else renderAbout(view);
+}
+
+function renderCourse(view){
+  const w = clamp(state.week,1,12);
+  const wk = WEEKS[w-1];
+  if(!canAccessWeek(w)){
+    const needed = w - 1;
+    view.innerHTML = `<div class="card"><h2>Locked</h2><div class="muted">Week ${w} unlocks after you complete Week ${needed}. Start with Week ${needed} in the Course tab.</div></div>`;
+    return;
+  }
+
+  // Header card
+  const head = document.createElement("div");
+  head.className = "card";
+  head.innerHTML = `
+    <h2>Week ${w}: ${escapeHtml(wk.title)}</h2>
+    <div class="muted">${escapeHtml(wk.aim)}</div>
+  `;
+  view.appendChild(head);
+
+  // At a glance + flow
+  const g = document.createElement("div");
+  g.className = "grid2";
+
+  const c1 = document.createElement("div");
+  c1.className = "card";
+  c1.innerHTML = `
+    <h3>At a Glance</h3>
+    <ul class="list">
+      ${wk.actions.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+    </ul>
+    <div class="help">Tip: choose “minimums” you can do even on hard days.</div>
+  `;
+
+  const c2 = document.createElement("div");
+  c2.className = "card";
+  c2.innerHTML = `
+    <h3>30-Minute Weekly Session Flow</h3>
+    <ol class="list">
+      ${wk.flow.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+    </ol>
+  `;
+
+  g.appendChild(c1);
+  g.appendChild(c2);
+  view.appendChild(g);
+
+  // Resources
+  const res = document.createElement("div");
+  res.className = "card";
+  res.innerHTML = `
+    <h3>Outside Resources (Free)</h3>
+    <ul class="list">
+      ${wk.resources.map(r=>`<li><a href="${escapeHtml(r.u)}" target="_blank" rel="noopener">${escapeHtml(r.t)}</a></li>`).join("")}
+    </ul>
+  `;
+  view.appendChild(res);
+
+  // Quiz
+  renderWeekQuiz(view, w, wk);
+
+  // Navigation row
+  const nav = document.createElement("div");
+  nav.className = "card";
+  const prev = Math.max(1, w-1);
+  const next = Math.min(12, w+1);
+  const nextLocked = (w < 12 && !canAccessWeek(next));
+  nav.innerHTML = `
+    <div class="row">
+      <button class="btn secondary tight" ${w===1?"disabled":""} onclick="goWeek(${prev})">← Previous</button>
+      <div class="muted" style="flex:1">
+        ${state.done[w-1] ? "✅ This week is marked complete on this device." : "Complete the quiz to mark this week done and unlock the next one."}
+      </div>
+      <button class="btn tight" onclick="goWeek(${next})" ${w===12 || nextLocked ? "disabled":""}>
+        Next →
+      </button>
+    </div>
+  `;
+  view.appendChild(nav);
+}
+
+function goWeek(w){
+  if(!canAccessWeek(w)){
+    const needed = w - 1;
+    toast(`Week ${w} unlocks after you complete Week ${needed}.`);
+    return;
+  }
+  state.tab = "course";
+  state.week = w;
+  lsSet("tab", state.tab);
+  lsSet("week", state.week);
+  render();
+}
+
+/* =========================
+   Quiz engine
+   ========================= */
+function renderWeekQuiz(view, weekNum, wk){
+  const attemptsKey = "w" + weekNum;
+  const attempt = (state.quizAttempts && state.quizAttempts[attemptsKey]) ? state.quizAttempts[attemptsKey] : null;
+
+  const quiz = document.createElement("div");
+  quiz.className = "card";
+  quiz.innerHTML = `<h3>Homework Quiz (5 questions)</h3>
+                    <div class="muted">Answers are saved locally on your device.</div>`;
+
+  const answers = attempt ? (attempt.answers || {}) : {};
+  const ui = document.createElement("div");
+
+  wk.quiz.forEach((q, idx)=>{
+    const qid = "q" + idx;
+    const wrap = document.createElement("div");
+    wrap.className = "q";
+
+    if(q.type === "tf"){
+      wrap.innerHTML = `
+        <div class="qt">${idx+1}. ${escapeHtml(q.q)}</div>
+        <div class="choices">
+          <button class="choice" data-q="${qid}" data-val="true">True</button>
+          <button class="choice" data-q="${qid}" data-val="false">False</button>
+        </div>
+      `;
+    } else if(q.type === "mc"){
+      wrap.innerHTML = `
+        <div class="qt">${idx+1}. ${escapeHtml(q.q)}</div>
+        <div class="choices">
+          ${q.opts.map((o,i)=>`<button class="choice" data-q="${qid}" data-val="${i}">${escapeHtml(o)}</button>`).join("")}
+        </div>
+      `;
+    } else if(q.type === "short"){
+      wrap.innerHTML = `
+        <div class="qt">${idx+1}. ${escapeHtml(q.q)}</div>
+        <div style="margin-top:10px">
+          <textarea id="ta_${weekNum}_${qid}" placeholder="Write your answer here...">${answers[qid] ? escapeHtml(answers[qid]) : ""}</textarea>
+          <div class="help">Minimum length: ${q.min} characters</div>
+        </div>
+      `;
+    }
+
+    ui.appendChild(wrap);
+  });
+
+  quiz.appendChild(ui);
+
+  // Bind choice selections
+  quiz.querySelectorAll(".choice").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const qk = btn.dataset.q;
+      const val = btn.dataset.val;
+      // unselect siblings in same question
+      quiz.querySelectorAll(`.choice[data-q="${qk}"]`).forEach(b=>b.classList.remove("selected"));
+      btn.classList.add("selected");
+      answers[qk] = val;
+      // save partial
+      saveAttempt(weekNum, answers, null);
+    });
+  });
+
+  // restore selected
+  Object.keys(answers).forEach(qk=>{
+    quiz.querySelectorAll(`.choice[data-q="${qk}"]`).forEach(b=>{
+      if(String(b.dataset.val) === String(answers[qk])) b.classList.add("selected");
+    });
+  });
+
+  const actionRow = document.createElement("div");
+  actionRow.className = "row";
+  actionRow.style.marginTop = "12px";
+  actionRow.innerHTML = `
+    <button class="btn tight" id="submit_${weekNum}">Submit Quiz</button>
+    <button class="btn secondary tight" id="save_${weekNum}">Save Only</button>
+    <button class="btn ghost tight" id="clear_${weekNum}">Clear Answers</button>
+    <div class="muted" style="flex:1">Goal: answer honestly. This is for growth, not shame.</div>
+  `;
+  quiz.appendChild(actionRow);
+
+  const out = document.createElement("div");
+  quiz.appendChild(out);
+
+  // show previous score if exists
+  if(attempt && typeof attempt.score === "number"){
+    out.appendChild(resultBox(attempt));
+  }
+
+  // handlers
+  $("submit_"+weekNum).onclick = ()=>{
+    // collect short answers
+    wk.quiz.forEach((q,idx)=>{
+      if(q.type === "short"){
+        const qid = "q"+idx;
+        const ta = $("ta_"+weekNum+"_"+qid);
+        answers[qid] = (ta ? ta.value : "").trim();
+      }
+    });
+
+    const res = gradeQuiz(wk.quiz, answers);
+    saveAttempt(weekNum, answers, res);
+    out.innerHTML = "";
+    out.appendChild(resultBox(res));
+
+    // mark complete if passing
+    if(res.passed){
+      state.done[weekNum-1] = true;
+      lsSet("done_"+weekNum, true);
+      toast("Week marked complete ✓");
+      renderWeeks();
+      renderSideStats();
+    }else{
+      toast("Not quite passing yet — review and try again. You’ve got this.");
+    }
+  };
+
+  $("save_"+weekNum).onclick = ()=>{
+    wk.quiz.forEach((q,idx)=>{
+      if(q.type === "short"){
+        const qid = "q"+idx;
+        const ta = $("ta_"+weekNum+"_"+qid);
+        answers[qid] = (ta ? ta.value : "").trim();
+      }
+    });
+    saveAttempt(weekNum, answers, null);
+    toast("Saved.");
+  };
+
+  $("clear_"+weekNum).onclick = ()=>{
+    if(!confirm("Clear your answers for this week on this device?")) return;
+    delete state.quizAttempts["w"+weekNum];
+    lsSet("quizAttempts", state.quizAttempts);
+    render();
+  };
+
+  view.appendChild(quiz);
+}
+
+function gradeQuiz(quiz, answers){
+  let autoTotal = 0;
+  let autoCorrect = 0;
+  let shortOk = true;
+
+  quiz.forEach((q, idx)=>{
+    const qid = "q"+idx;
+    if(q.type === "tf"){
+      autoTotal++;
+      const val = answers[qid];
+      const parsed = (val === "true");
+      if(parsed === q.a) autoCorrect++;
+    } else if(q.type === "mc"){
+      autoTotal++;
+      const val = parseInt(answers[qid],10);
+      if(val === q.a) autoCorrect++;
+    } else if(q.type === "short"){
+      const txt = (answers[qid] || "").trim();
+      if(txt.length < (q.min || 0)) shortOk = false;
+    }
+  });
+
+  const pct = autoTotal ? (autoCorrect/autoTotal) : 0;
+  // pass rule: >= 75% on auto-scored + short answers meet minimum
+  const passed = (pct >= 0.75) && shortOk;
+
+  return {
+    score:autoCorrect,
+    total:autoTotal,
+    pct:Math.round(pct*100),
+    shortOk,
+    passed,
+    answers
+  };
+}
+
+function resultBox(res){
+  const el = document.createElement("div");
+  const cls = res.passed ? "good" : (res.pct >= 50 ? "warn" : "bad");
+  el.className = "result " + cls;
+  el.innerHTML = `
+    <div><b>Auto score:</b> ${res.score}/${res.total} (${res.pct}%)</div>
+    <div><b>Short answers:</b> ${res.shortOk ? "OK ✓" : "Needs a bit more detail"}</div>
+    <div style="margin-top:6px"><b>Status:</b> ${res.passed ? "PASS ✓ Week completed" : "NOT YET (you can retry anytime)"} </div>
+  `;
+  return el;
+}
+
+function saveAttempt(weekNum, answers, graded){
+  const key = "w"+weekNum;
+  if(!state.quizAttempts) state.quizAttempts = {};
+  const prev = state.quizAttempts[key] || {};
+  const payload = graded ? graded : {answers};
+  state.quizAttempts[key] = {
+    ...prev,
+    ...payload,
+    answers,
+    savedAt: new Date().toISOString()
+  };
+  lsSet("quizAttempts", state.quizAttempts);
+}
+
+/* =========================
+   Tools view
+   ========================= */
+function renderTools(view){
+  // Tabs inside tools
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h2>Tools</h2>
+    <div class="muted">These tools save on your device. Use “Export” if you want a backup file.</div>
+  `;
+  view.appendChild(card);
+
+  // Daily check-in
+  const c1 = document.createElement("div");
+  c1.className = "card";
+  c1.innerHTML = `
+    <h3>Daily Check-In</h3>
+    <div class="grid2">
+      <div>
+        <div class="label">Date</div>
+        <input id="ci_date" value="${todayISO()}" />
+        <div class="label" style="margin-top:10px">Sleep (hours)</div>
+        <input id="ci_sleep" type="number" min="0" max="16" step="0.5" placeholder="e.g. 7.5" />
+        <div class="label" style="margin-top:10px">Water (cups)</div>
+        <input id="ci_water" type="number" min="0" max="40" step="1" placeholder="e.g. 8" />
+      </div>
+      <div>
+        <div class="label">Steps (optional)</div>
+        <input id="ci_steps" type="number" min="0" max="99999" step="1" placeholder="e.g. 6500" />
+        <div class="label" style="margin-top:10px">Mood (1–5)</div>
+        <select id="ci_mood">
+          <option value="3" selected>3 — okay</option>
+          <option value="1">1 — low</option>
+          <option value="2">2 — meh</option>
+          <option value="4">4 — good</option>
+          <option value="5">5 — great</option>
+        </select>
+        <div class="label" style="margin-top:10px">Notes</div>
+        <textarea id="ci_notes" placeholder="What went well? What was hard? One next step..."></textarea>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn tight" id="ci_save">Save Check-In</button>
+      <button class="btn secondary tight" id="ci_clear">Clear</button>
+      <div class="muted" style="flex:1">Streak updates when you save a check-in for today.</div>
+    </div>
+    <div id="ci_list" style="margin-top:12px"></div>
+  `;
+  view.appendChild(c1);
+
+  $("ci_save").onclick = ()=>{
+    const entry = {
+      date: ($("ci_date").value || todayISO()).trim(),
+      sleep: parseFloat($("ci_sleep").value || "0") || 0,
+      water: parseInt($("ci_water").value || "0",10) || 0,
+      steps: parseInt($("ci_steps").value || "0",10) || 0,
+      mood: parseInt($("ci_mood").value || "3",10) || 3,
+      notes: ($("ci_notes").value || "").trim()
+    };
+    state.checkins.unshift(entry);
+    state.checkins = state.checkins.slice(0, 120);
+    lsSet("checkins", state.checkins);
+    toast("Check-in saved.");
+    renderSideStats();
+    renderTools(view.parentElement); // refresh whole tools view
+  };
+  $("ci_clear").onclick = ()=>{
+    $("ci_sleep").value = "";
+    $("ci_water").value = "";
+    $("ci_steps").value = "";
+    $("ci_notes").value = "";
+    toast("Cleared.");
+  };
+
+  // Habit tracker
+  const c2 = document.createElement("div");
+  c2.className = "card";
+  c2.innerHTML = `
+    <h3>Habit Tracker</h3>
+    <div class="muted">Pick a date and check what you completed.</div>
+    <div class="row" style="margin-top:10px">
+      <div>
+        <div class="label">Date</div>
+        <input id="hb_date" value="${todayISO()}"/>
+      </div>
+      <div class="tight" style="align-self:end">
+        <button class="btn tight" id="hb_load">Load</button>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:10px">
+      <div>
+        <label class="label"><input type="checkbox" id="hb_water" /> Water goal</label><br/>
+        <label class="label"><input type="checkbox" id="hb_move" /> Movement (walk/stretch)</label><br/>
+        <label class="label"><input type="checkbox" id="hb_strength" /> Strength or mobility</label><br/>
+      </div>
+      <div>
+        <label class="label"><input type="checkbox" id="hb_veg" /> Veg/fruit goal</label><br/>
+        <label class="label"><input type="checkbox" id="hb_sleep" /> Wind-down + bedtime window</label><br/>
+        <label class="label"><input type="checkbox" id="hb_mind" /> 2-minute reset / mindfulness</label><br/>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn tight" id="hb_save">Save Habits</button>
+      <button class="btn secondary tight" id="hb_clear">Clear</button>
+      <div class="muted" style="flex:1">Aim for “more days than not,” not perfection.</div>
+    </div>
+    <div id="hb_preview" style="margin-top:12px"></div>
+  `;
+  view.appendChild(c2);
+
+  function loadHabits(){
+    const d = ($("hb_date").value || todayISO()).trim();
+    const h = state.habits[d] || {};
+    $("hb_water").checked = !!h.water;
+    $("hb_move").checked = !!h.move;
+    $("hb_strength").checked = !!h.strength;
+    $("hb_veg").checked = !!h.veg;
+    $("hb_sleep").checked = !!h.sleep;
+    $("hb_mind").checked = !!h.mind;
+    $("hb_preview").innerHTML = renderHabitSummary(d, h);
+  }
+  function renderHabitSummary(d,h){
+    const completed = Object.values(h).filter(Boolean).length;
+    return `<div class="result ${completed>=4?"good":(completed>=2?"warn":"bad")}">
+      <b>${escapeHtml(d)}</b> • habits completed: <b>${completed}/6</b>
+    </div>`;
+  }
+  $("hb_load").onclick = loadHabits;
+  $("hb_save").onclick = ()=>{
+    const d = ($("hb_date").value || todayISO()).trim();
+    state.habits[d] = {
+      water: $("hb_water").checked,
+      move: $("hb_move").checked,
+      strength: $("hb_strength").checked,
+      veg: $("hb_veg").checked,
+      sleep: $("hb_sleep").checked,
+      mind: $("hb_mind").checked
+    };
+    lsSet("habits", state.habits);
+    toast("Habits saved.");
+    $("hb_preview").innerHTML = renderHabitSummary(d, state.habits[d]);
+  };
+  $("hb_clear").onclick = ()=>{
+    ["hb_water","hb_move","hb_strength","hb_veg","hb_sleep","hb_mind"].forEach(id=>$(id).checked=false);
+    toast("Cleared.");
+  };
+  loadHabits();
+
+  // Diet planner + calorie tally + export
+  const c3 = document.createElement("div");
+  c3.className = "card";
+  c3.innerHTML = `
+    <h3>Diet Planner (simple & flexible)</h3>
+    <div class="muted">Not a prescription—just a practical template you can customize.</div>
+    <div class="grid2" style="margin-top:10px">
+      <div>
+        <div class="label">Style</div>
+        <select id="dp_style">
+          <option value="balanced" selected>Balanced (MyPlate-inspired)</option>
+          <option value="med">Mediterranean-leaning</option>
+          <option value="veg">Vegetarian</option>
+          <option value="lowcarb">Lower-carb (moderate)</option>
+          <option value="highprotein">Higher-protein (balanced)</option>
+        </select>
+        <div class="label" style="margin-top:10px">Calories target (optional)</div>
+        <input id="dp_cal" type="number" min="0" step="50" placeholder="Leave blank if unsure" />
+        <div class="label" style="margin-top:10px">Notes / Preferences</div>
+        <textarea id="dp_notes" placeholder="Allergies, dislikes, schedule constraints..."></textarea>
+      </div>
+      <div>
+        <div class="label">Plan (editable)</div>
+        <textarea id="dp_plan" placeholder="Click Generate to prefill a template..."></textarea>
+        <div class="row" style="margin-top:10px">
+          <button class="btn tight" id="dp_gen">Generate</button>
+          <button class="btn secondary tight" id="dp_save">Save Plan</button>
+        </div>
+        <div class="help">Use the plan as a template; adjust portions and foods to fit your life.</div>
+      </div>
+    </div>
+    <div id="dp_list" style="margin-top:12px"></div>
+  `;
+  view.appendChild(c3);
+
+  function generateDietTemplate(style){
+    const common = [
+      "Breakfast: protein + fiber (e.g., eggs/yogurt/tofu + fruit/oats).",
+      "Lunch: balanced plate (protein + veggies + whole grain or starchy veg).",
+      "Snack: fruit + nuts / yogurt / hummus + veg.",
+      "Dinner: protein + vegetables + optional whole grain.",
+      "Hydration: water as default beverage."
+    ];
+    const variants = {
+      balanced: ["Aim for half plate fruits/veg most meals.", "Use whole grains often."],
+      med: ["Emphasize olive oil, legumes, fish, vegetables.", "Limit ultra-processed foods."],
+      veg: ["Use beans/lentils/tofu/tempeh for protein.", "Add nuts/seeds for healthy fats."],
+      lowcarb: ["Keep carbs mostly from vegetables/berries/beans.", "Choose protein + veggies first."],
+      highprotein: ["Include protein at each meal/snack.", "Add Greek yogurt, lean meats, beans, tofu."]
+    };
+    return [...common, ...(variants[style]||[])].join("\n");
+  }
+
+  $("dp_gen").onclick = ()=>{
+    const style = $("dp_style").value;
+    $("dp_plan").value = generateDietTemplate(style);
+    toast("Template generated.");
+  };
+  $("dp_save").onclick = ()=>{
+    const item = {
+      date: new Date().toISOString(),
+      style: $("dp_style").value,
+      calories: parseInt($("dp_cal").value||"0",10)||0,
+      notes: ($("dp_notes").value||"").trim(),
+      plan: ($("dp_plan").value||"").trim()
+    };
+    state.dietPlans.unshift(item);
+    state.dietPlans = state.dietPlans.slice(0, 40);
+    lsSet("dietPlans", state.dietPlans);
+    toast("Diet plan saved.");
+    render();
+  };
+
+  // Calorie tally (manual)
+  const c4 = document.createElement("div");
+  c4.className = "card";
+  c4.innerHTML = `
+    <h3>Calorie Tally (manual)</h3>
+    <div class="muted">Enter items and estimated calories. This is optional and approximate.</div>
+    <div class="row" style="margin-top:10px">
+      <div>
+        <div class="label">Item</div>
+        <input id="ct_item" placeholder="e.g., chicken wrap" />
+      </div>
+      <div>
+        <div class="label">Calories</div>
+        <input id="ct_cal" type="number" min="0" step="1" placeholder="e.g., 450" />
+      </div>
+      <div class="tight" style="align-self:end">
+        <button class="btn tight" id="ct_add">Add</button>
+      </div>
+    </div>
+    <div id="ct_table" style="margin-top:12px"></div>
+  `;
+  view.appendChild(c4);
+
+  function renderCalorieTable(){
+    const list = state.calorieLog || [];
+    const total = list.reduce((s,x)=> s + (parseInt(x.cal,10)||0), 0);
+    $("ct_table").innerHTML = `
+      <div class="result ${total<=0?"warn":"good"}"><b>Running total:</b> ${total} calories</div>
+      <table>
+        <thead><tr><th>Item</th><th class="right">Calories</th><th class="right">Action</th></tr></thead>
+        <tbody>
+          ${list.slice(0,40).map((x,i)=>`
+            <tr>
+              <td>${escapeHtml(x.item)}</td>
+              <td class="right">${escapeHtml(x.cal)}</td>
+              <td class="right"><button class="btn ghost tight" onclick="delCal(${i})">Delete</button></td>
+            </tr>
+          `).join("") || `<tr><td colspan="3" class="muted">No entries yet.</td></tr>`}
+        </tbody>
+      </table>
+    `;
+  }
+
+  window.delCal = (idx)=>{
+    state.calorieLog.splice(idx,1);
+    lsSet("calorieLog", state.calorieLog);
+    render();
+  };
+
+  $("ct_add").onclick = ()=>{
+    const item = ($("ct_item").value||"").trim();
+    const cal = parseInt($("ct_cal").value||"0",10)||0;
+    if(!item || cal<=0){ toast("Enter an item and calories."); return; }
+    state.calorieLog.unshift({item, cal, at:new Date().toISOString()});
+    state.calorieLog = state.calorieLog.slice(0, 120);
+    lsSet("calorieLog", state.calorieLog);
+    $("ct_item").value = "";
+    $("ct_cal").value = "";
+    toast("Added.");
+    render();
+  };
+
+  // Export / Backup
+  const c5 = document.createElement("div");
+  c5.className = "card";
+  c5.innerHTML = `
+    <h3>Export / Backup</h3>
+    <div class="muted">Download your progress as a JSON file you can keep.</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn tight" id="ex_btn">Download Backup</button>
+      <button class="btn secondary tight" id="ex_copy">Copy Backup JSON</button>
+    </div>
+    <div class="help">Tip: If you switch devices, you can paste this data into a developer (or ask me to add an Import button).</div>
+    <textarea id="ex_area" style="margin-top:10px" readonly></textarea>
+  `;
+  view.appendChild(c5);
+
+  $("ex_btn").onclick = ()=>{
+    const blob = new Blob([makeBackupJSON()], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `khaemenes_wellness_backup_${todayISO()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    toast("Backup downloaded.");
+  };
+  $("ex_copy").onclick = async ()=>{
+    const txt = makeBackupJSON();
+    $("ex_area").value = txt;
+    try{
+      await navigator.clipboard.writeText(txt);
+      toast("Copied to clipboard.");
+    }catch(e){
+      toast("Copied into the box (clipboard permission may be blocked).");
+    }
+  };
+  $("ex_area").value = makeBackupJSON();
+
+  // recent checkins list
+  renderCheckinList();
+  renderDietList();
+  renderCalorieTable();
+
+  function renderCheckinList(){
+    const list = (state.checkins||[]).slice(0,8);
+    $("ci_list").innerHTML = `
+      <div class="hr"></div>
+      <h3 style="margin:0 0 6px">Recent Check-Ins</h3>
+      ${list.length? list.map(x=>`
+        <div class="result">
+          <b>${escapeHtml(x.date)}</b> • sleep ${escapeHtml(x.sleep)}h • water ${escapeHtml(x.water)} • mood ${escapeHtml(x.mood)}
+          ${x.steps? ` • steps ${escapeHtml(x.steps)}`:""}
+          ${x.notes? `<div class="muted" style="margin-top:6px">${escapeHtml(x.notes)}</div>`:""}
+        </div>
+      `).join("") : `<div class="muted">No check-ins yet. Save one above to start your streak.</div>`}
+    `;
+  }
+
+  function renderDietList(){
+    const list = (state.dietPlans||[]).slice(0,6);
+    $("dp_list").innerHTML = `
+      <div class="hr"></div>
+      <h3 style="margin:0 0 6px">Saved Plans</h3>
+      ${list.length? list.map(x=>`
+        <div class="result">
+          <b>${escapeHtml(new Date(x.date).toLocaleString())}</b> • style <b>${escapeHtml(x.style)}</b>${x.calories?` • ${escapeHtml(x.calories)} cal`:""}
+          ${x.notes? `<div class="muted" style="margin-top:6px">${escapeHtml(x.notes)}</div>`:""}
+          ${x.plan? `<pre style="white-space:pre-wrap;margin:8px 0 0;color:rgba(238,242,255,0.90)">${escapeHtml(x.plan)}</pre>`:""}
+        </div>
+      `).join("") : `<div class="muted">No saved plans yet.</div>`}
+    `;
+  }
+}
+
+function makeBackupJSON(){
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    week: state.week,
+    done: state.done,
+    quizAttempts: state.quizAttempts,
+    checkins: state.checkins,
+    habits: state.habits,
+    dietPlans: state.dietPlans,
+    calorieLog: state.calorieLog
+  };
+  return JSON.stringify(data, null, 2);
+}
+
+/* =========================
+   Journal view
+   ========================= */
+function renderJournal(view){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h2>Journal</h2>
+    <div class="muted">A professional snapshot of what you’ve completed + your reflections.</div>
+  `;
+  view.appendChild(card);
+
+  const doneWeeks = state.done.map((d,i)=>({d,i:i+1})).filter(x=>x.d);
+  const c = document.createElement("div");
+  c.className = "card";
+  c.innerHTML = `
+    <h3>Completed Weeks</h3>
+    ${doneWeeks.length ? `
+      <ul class="list">
+        ${doneWeeks.map(x=>`<li><b>Week ${x.i}:</b> ${escapeHtml(WEEKS[x.i-1].title)}</li>`).join("")}
+      </ul>
+    ` : `<div class="muted">No weeks completed yet. Start with Week 1 in the Course tab.</div>`}
+    <div class="hr"></div>
+    <h3>Reflection Prompt</h3>
+    <div class="muted">Write what you learned, what changed, and one next step.</div>
+    <textarea id="jr_text" placeholder="Today I noticed... Next week I will..."></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="btn tight" id="jr_save">Save Reflection</button>
+      <button class="btn secondary tight" id="jr_clear">Clear</button>
+    </div>
+    <div id="jr_list" style="margin-top:12px"></div>
+  `;
+  view.appendChild(c);
+
+  const reflections = lsGet("reflections", []);
+  function renderRef(){
+    const list = lsGet("reflections", []).slice(0,12);
+    $("jr_list").innerHTML = list.length ? list.map(r=>`
+      <div class="result">
+        <b>${escapeHtml(new Date(r.at).toLocaleString())}</b>
+        <div style="margin-top:6px;white-space:pre-wrap">${escapeHtml(r.text)}</div>
+      </div>
+    `).join("") : `<div class="muted">No reflections saved yet.</div>`;
+  }
+  $("jr_save").onclick = ()=>{
+    const txt = ($("jr_text").value||"").trim();
+    if(txt.length < 20){ toast("Write a little more (20+ chars)."); return; }
+    const list = lsGet("reflections", []);
+    list.unshift({at:new Date().toISOString(), text: txt});
+    lsSet("reflections", list.slice(0,60));
+    $("jr_text").value = "";
+    toast("Reflection saved.");
+    renderRef();
+  };
+  $("jr_clear").onclick = ()=>{ $("jr_text").value=""; toast("Cleared."); };
+  renderRef();
+}
+
+/* =========================
+   About / resources view
+   ========================= */
+function renderAbout(view){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h2>Reference Links (Free)</h2>
+    <div class="muted">These are reputable starting points for general wellness education.</div>
+    <div class="hr"></div>
+    <h3>Physical Activity</h3>
+    <ul class="list">
+      <li><a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener">CDC: Adult activity overview</a></li>
+      <li><a href="https://www.cdc.gov/physical-activity-basics/adding-adults/index.html" target="_blank" rel="noopener">CDC: Adding activity as an adult</a></li>
+      <li><a href="https://www.who.int/initiatives/behealthy/physical-activity" target="_blank" rel="noopener">WHO: Physical activity initiative</a></li>
+      <li><a href="https://www.heart.org/en/healthy-living/fitness/fitness-basics/aha-recs-for-physical-activity-in-adults" target="_blank" rel="noopener">AHA: Activity recommendations</a></li>
+    </ul>
+    <h3>Nutrition</h3>
+    <ul class="list">
+      <li><a href="https://www.myplate.gov/eat-healthy/what-is-myplate" target="_blank" rel="noopener">USDA MyPlate: What is MyPlate?</a></li>
+      <li><a href="https://www.dietaryguidelines.gov/resources/2020-2025-dietary-guidelines-online-materials" target="_blank" rel="noopener">Dietary Guidelines (materials)</a></li>
+      <li><a href="https://www.dietaryguidelines.gov/sites/default/files/2020-12/Dietary_Guidelines_for_Americans_2020-2025.pdf" target="_blank" rel="noopener">Dietary Guidelines PDF (2020–2025)</a></li>
+    </ul>
+    <h3>Sleep</h3>
+    <ul class="list">
+      <li><a href="https://www.cdc.gov/sleep/about/index.html" target="_blank" rel="noopener">CDC: About Sleep</a></li>
+    </ul>
+    <div class="hr"></div>
+    <div class="muted">
+      This workshop is for education and reflection only and does not diagnose, treat, or replace medical care.
+      Always follow the guidance of your own health-care team.
+    </div>
+  `;
+  view.appendChild(card);
+}
+
+/* =========================
+   Reset
+   ========================= */
+$("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("Reset all Wellness Workshop progress on this device?")) return;
+  // wipe keys by scanning localStorage
+  const keys = [];
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith(LS+":")) keys.push(k);
+  }
+  keys.forEach(k=>localStorage.removeItem(k));
+  location.reload();
+});
+
+/* =========================
+   Boot
+   ========================= */
+(function init(){
+  // clamp week
+  state.week = clamp(state.week,1,12);
+  if(!canAccessWeek(state.week)) state.week = 1;
+  lsSet("week", state.week);
+  $("lsKey").textContent = `Storage key: ${LS}`;
+  render();
+})();
+</script>
+</body>
+</html>
