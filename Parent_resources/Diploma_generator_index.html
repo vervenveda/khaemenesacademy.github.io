@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Khaemenes Academy | Homeschool Portal v3.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- HTML2PDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+:root{
+  --brand:"Khaemenes Academy";
+  --bg:#0e1117;
+  --panel:#161b22;
+  --accent:#4cc9f0;
+  --text:#e6edf3;
+  --muted:#9da7b3;
+  --gold:#ffd966;
+}
+
+body{margin:0;font-family:system-ui;background:#494A4D;color:#ffffff;}
+header{padding:2rem;text-align:center;background:linear-gradient(135deg,#1f2937,#0e1117);}
+nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;padding:1rem;}
+nav button{background:var(--panel);border:1px solid #222;color:#000000;padding:.6rem 1rem;border-radius:7px;cursor:pointer;}
+section{display:none;max-width:999px;margin:auto;padding:2rem;}
+section.active{display:block;}
+.card{background:#687DBA;border:1px solid #222;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+input,select{width:100%;padding:.6rem;background:#ffffff;border:1px solid #222;color:#000000;border-radius:4px;margin-top:.4rem;}
+button.primary{background:var(--accent);color:#000;border:none;padding:.7rem 1.2rem;margin-top:1rem;font-weight:bold;border-radius:6px;cursor:pointer;}
+.printable{background:white;color:black;padding:2rem;margin-top:2rem;position:relative;font-family:serif;}
+.printable a{color:var(--gold);text-decoration:underline;}
+.printable a:hover{color:#000;text-decoration:none;}
+#law a{color:var(--gold);text-decoration:underline;}
+#law a:hover{color:#fff;text-decoration:none;}
+@media print{body *{visibility:hidden}.printable,.printable *{visibility:visible}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Khaemenes Academy Homeschool Portal v3.1</h1>
+  <p>Private · Parent-Issued · State-Aware · International · Offline-First</p>
+</header>
+
+<nav>
+  <button onclick="show('diploma')">Diploma</button>
+  <button onclick="show('affidavit')">Affidavit</button>
+  <button onclick="show('transcript')">Transcript</button>
+  <button onclick="show('law')">Resources</button>
+  <button onclick="show('widgets')">Widgets</button>
+</nav>
+
+<!-- DIPLOMA SECTION -->
+<section id="diploma" class="active">
+<div class="card">
+<h2>Diploma Generator</h2>
+<label>Student Name</label><input id="dStudent">
+<label>Issuing School</label><input id="dSchool" value="Khaemenes Academy Home Education Program">
+<label>Completion Date</label><input type="date" id="dDate">
+<label>Style</label>
+<select id="dTheme">
+  <option value="classic">Classic Serif</option>
+  <option value="modern">Modern Minimal</option>
+  <option value="formal">Formal Certificate</option>
+</select>
+<button class="primary" onclick="renderDiploma()">Generate Diploma</button>
+<button class="primary" onclick="exportPDF('dOut','Homeschool_Diploma.pdf')">Export PDF</button>
+</div>
+<div id="dOut" class="printable"></div>
+</section>
+
+<!-- AFFIDAVIT SECTION -->
+<section id="affidavit">
+<div class="card">
+<h2>Affidavit of Completion</h2>
+<label>Jurisdiction</label>
+<select id="jurisdiction" onchange="updateAffidavitText()">
+  <option value="FL">Florida</option>
+  <option value="CA">California</option>
+  <option value="TX">Texas</option>
+  <option value="NY">New York</option>
+  <option value="US">United States (General)</option>
+  <option value="INTL">International</option>
+</select>
+<label>Student Name</label><input id="aStudent">
+<label>Parent / Guardian</label><input id="aParent">
+<button class="primary" onclick="renderAffidavit()">Generate Affidavit</button>
+<button class="primary" onclick="exportPDF('aOut','Affidavit_of_Completion.pdf')">Export PDF</button>
+</div>
+<div id="aOut" class="printable"></div>
+</section>
+
+<!-- TRANSCRIPT SECTION -->
+<section id="transcript">
+<div class="card">
+<h2>Transcript Builder</h2>
+<label>Student Name</label><input id="tStudent">
+<label>Course Name</label><input id="tCourse">
+<label>Credits</label><input type="number" step="0.5" id="tCredits">
+<label>Grade</label>
+<select id="tGrade"><option>A</option><option>B</option><option>C</option><option>D</option><option>F</option></select>
+<button class="primary" onclick="
+const s=tStudent.value,c=tCourse.value,cr=tCredits.value,g=tGrade.value; addCourse(s,c,cr,g); renderTranscript(s);">Add Course</button>
+<button class="primary" onclick="exportPDF('tOut',tStudent.value+'_Transcript.pdf')">Export PDF</button>
+<button class="primary" onclick="const name=prompt('Enter student name to load:'); if(name) renderTranscript(name);">Load Student Record</button>
+<button class="primary" onclick="const name=prompt('Enter student name to delete:'); if(name){studentRecords=studentRecords.filter(s=>s.name!==name);saveRecords();alert('Student deleted.');}">Delete Student</button>
+<div id="tOut" class="printable"></div>
+</div>
+</section>
+
+<!-- RESOURCES SECTION -->
+<section id="law">
+<div class="card">
+<h2>Resources</h2>
+<h3>United States</h3>
+<ul>
+<li><a href="https://hslda.org/legal" target="_blank">HSLDA State Law Map</a></li>
+<li><a href="https://www.ed.gov" target="_blank">U.S. Department of Education</a></li>
+</ul>
+<h3>International</h3>
+<ul>
+<li><a href="https://www.homeeducation.org" target="_blank">International Home Education Network</a></li>
+<li><a href="https://www.expatica.com/education" target="_blank">Expat Education Guides</a></li>
+</ul>
+<p style="color:var(--muted)">This platform provides educational tools only and does not constitute legal advice.</p>
+</div>
+</section>
+
+<!-- WIDGET SECTION -->
+<section id="widgets">
+<div class="card">
+<h2>Embeddable Widgets</h2>
+<h3>Diploma Widget</h3>
+<pre>&lt;iframe src="khaemenes-homeschool-portal.html?widget=true#diploma" style="width:100%;height:850px;border:none"&gt;&lt;/iframe&gt;</pre>
+<h3>Affidavit Widget</h3>
+<pre>&lt;iframe src="khaemenes-homeschool-portal.html?widget=true#affidavit" style="width:100%;height:850px;border:none"&gt;&lt;/iframe&gt;</pre>
+</div>
+</section>
+
+<script>
+// NAVIGATION
+function show(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+if(location.hash) show(location.hash.replace("#",""));
+
+// GOLD SEAL & WATERMARK
+function generateSeal(text="Home Education", color="gold"){
+  return `<svg width="140" height="140" viewBox="0 0 140 140" style="opacity:0.15;position:absolute;right:40px;top:120px;">
+    <circle cx="70" cy="70" r="62" stroke="${color}" stroke-width="4" fill="none"/>
+    <circle cx="70" cy="70" r="52" stroke="${color}" stroke-width="1" fill="none"/>
+    <text x="70" y="65" text-anchor="middle" font-size="12" font-family="serif" fill="${color}">${text}</text>
+    <text x="70" y="82" text-anchor="middle" font-size="10" font-family="serif" fill="${color}">Issued by Parent</text>
+  </svg>`;
+}
+
+// DATE & DOC ID
+function generateFooter() {
+  const issueDate = new Date().toLocaleDateString();
+  const docID = Math.random().toString(36).substr(2, 8).toUpperCase();
+  return `<p style="margin-top:20px;font-size:12px;color:gray;text-align:center;">Issued on: ${issueDate} | Document ID: ${docID}</p>`;
+}
+
+// DIPLOMA
+function renderDiploma(){
+  const themes={classic:"font-family:serif;text-align:center;",modern:"font-family:sans-serif;text-align:center;letter-spacing:.05em;",formal:"font-family:Georgia,serif;text-align:center;text-transform:uppercase;"};
+  dOut.innerHTML=`
+  <div style="position:relative;max-width:900px;margin:auto;padding:80px;border:4px solid var(--gold);${themes[dTheme.value]}">
+    ${generateSeal("Home Education")}
+    <h1 style="font-size:48px;">${dSchool.value}</h1>
+    <p style="font-size:18px;margin-top:40px;">This certifies that</p>
+    <h2 style="font-size:42px;margin:30px 0;">${dStudent.value}</h2>
+    <p style="font-size:18px;">has successfully completed a secondary home education program</p>
+    <p style="margin-top:50px;">Date of Completion: ${dDate.value}</p>
+    <p style="margin-top:80px;">_____________________________<br>Administrator Signature</p>
+    ${generateFooter()}
+  </div>`;
+}
+
+// AFFIDAVIT
+const affidavitMap={FL:{title:"Homeschool Affidavit of Completion",authority:"Florida Statute §1002.41",body:`I, the undersigned parent or legal guardian, being duly sworn, hereby certify under penalty of perjury that the student named herein was enrolled in and has satisfactorily completed a home education secondary program in accordance with Florida law. The home education program was conducted under my supervision.`},CA:{title:"Private Home Education Affidavit",authority:"California Education Code",body:`I certify that the student named below has completed a private, parent-directed home-based education program pursuant to California law. The instruction was provided in the subjects required by law.`},TX:{title:"Home Education Completion Affidavit",authority:"Texas Education Law",body:`I hereby affirm that the student named below has completed a private home education program recognized under Texas law. The program included instruction in reading, spelling, grammar, mathematics, and secondary-level curriculum.`},NY:{title:"Home Instruction Completion Affidavit",authority:"New York Education Regulations",body:`I certify that the student named herein has completed a home instruction program in compliance with New York State regulations. Instruction covered required secondary-level subjects.`},US:{title:"Homeschool Affidavit of Completion",authority:"United States – General",body:`I hereby certify that the student named below has completed a parent-directed home education secondary program in accordance with applicable U.S. law. The course of study was administered by the parent or guardian.`},INTL:{title:"Affidavit of Educational Completion",authority:"International / Local Law",body:`I hereby certify that the student named below has completed a parent-directed home education program in accordance with applicable local laws. This affidavit is executed for the purpose of confirming completion of secondary-level education.`}};
+let currentAff = affidavitMap.FL;
+function updateAffidavitText(){currentAff = affidavitMap[jurisdiction.value];}
+function renderAffidavit(){
+  aOut.innerHTML=`
+  <div style="max-width:850px;margin:auto;font-family:serif;line-height:1.6;position:relative;">
+    ${generateSeal("Khaemenes Academy")}
+    <h1 style="text-align:center;font-size:34px;margin-bottom:10px;">${currentAff.title}</h1>
+    <p style="text-align:center;font-size:14px;color:gray;margin-top:0;">Authority: ${currentAff.authority}</p>
+    <p style="margin-top:30px;white-space:pre-line;">${currentAff.body.trim()}</p>
+    <hr style="margin:30px 0;">
+    <p><strong>Student Name:</strong><br>${aStudent.value || "__________________"}</p>
+    <p><strong>Parent / Guardian:</strong><br>${aParent.value || "__________________"}</p>
+    <p><strong>Jurisdiction:</strong><br>${jurisdiction.options[jurisdiction.selectedIndex].text}</p>
+    <p style="margin-top:30px;">Executed on this _____ day of ____________________, 20_____.</p>
+    <div style="margin-top:50px;"><p>____________________________________<br>Parent / Guardian Signature</p></div>
+    <div style="margin-top:50px;border-top:1px solid #000;padding-top:20px;">
+      <p style="font-size:16px;"><strong>Notary Acknowledgment</strong></p>
+      <p>State / Country of ____________________<br>County / Province of ____________________</p>
+      <p>Subscribed and sworn before me on this _____ day of ____________, 20____, by ___________________________________, who is personally known to me or has produced __________________________________ as identification.</p>
+      <p style="margin-top:40px;">____________________________________<br>Notary Public Signature</p>
+      <p>My Commission Expires: ____________________</p>
+    </div>
+    ${generateFooter()}
+  </div>`;
+}
+
+// TRANSCRIPT ENGINE
+let studentRecords = JSON.parse(localStorage.getItem("students") || "[]");
+function saveRecords(){localStorage.setItem("students",JSON.stringify(studentRecords))}
+const gradePoints={A:4,B:3,C:2,D:1,F:0};
+function createStudent(name){let existing=studentRecords.find(s=>s.name===name);if(existing)return existing;const s={name:name,courses:[],totalCredits:0,gpa:0};studentRecords.push(s);saveRecords();return s;}
+function addCourse(studentName,courseName,credits,grade){
+  const s=createStudent(studentName); s.courses.push({courseName,credits:parseFloat(credits),grade});
+  let total=0,points=0; s.courses.forEach(c=>{total+=c.credits; points+=c.credits*gradePoints[c.grade]}); s.totalCredits=total; s.gpa=total? (points/total).toFixed(2):"0.00"; saveRecords(); return s;
+}
+function renderTranscript(studentName){
+  const s=createStudent(studentName);
+  const rows=s.courses.map(c=>`<tr><td>${c.courseName}</td><td style="text-align:center">${c.credits}</td><td style="text-align:center">${c.grade}</td></tr>`).join("");
+  tOut.innerHTML=`<div style="font-family:serif;max-width:900px;margin:auto;padding:40px;border:2px solid var(--gold);position:relative;">
+    ${generateSeal("Khaemenes Academy")}
+    <h1 style="text-align:center;margin-bottom:10px;">Transcript</h1>
+    <h2 style="text-align:center;margin-bottom:30px;">${s.name}</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+      <thead><tr><th style="border-bottom:1px solid #000;text-align:left">Course</th><th style="border-bottom:1px solid #000;text-align:center">Credits</th><th style="border-bottom:1px solid #000;text-align:center">Grade</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p><strong>Total Credits:</strong> ${s.totalCredits}</p>
+    <p><strong>GPA:</strong> ${s.gpa}</p>
+    <div style="margin-top:60px;"><p>__________________________</p><p>Parent / Guardian</p></div>
+    ${generateFooter()}
+  </div>`;
+}
+
+// PDF EXPORT
+function exportPDF(elementId,filename){const el=document.getElementById(elementId);html2pdf().set({margin:0.5,filename:filename,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'in',format:'letter',orientation:'portrait'}}).from(el).save();}
+</script>
+
+<footer style="text-align:center;color:var(--muted);padding:1rem 0;">
+<strong>Khaemenes Academy</strong><br>
+A sovereign homeschool resource — parent directed, student centered.
+</footer>
+
+</body>
+</html>
